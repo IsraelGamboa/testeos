@@ -90,15 +90,18 @@ if(isset($model->id_pat)){
             [
                 'class' => 'kartik\grid\ActionColumn',
                 'urlCreator' => function ($action, $model, $key, $index) {
+                    $id_pat = Yii::$app->request->get('id_pat');
                     if ($action === 'view') {
                         // Redireccionar a la acción 'view' en un controlador diferente
-                        return Url::to(['/semana/view', 'id_semana' => $model->id_semana]);
+                        return Url::to(['/semana/pat', 'id_semana' => $model->id_semana]);
                     } elseif ($action === 'update') {
+
                         // Redireccionar a la acción 'update' en un controlador diferente
-                        return Url::to(['/semana/update', 'id_semana' => $model->id_semana]);
+                        return Url::to(['/semana/update', 'id_semana' => $model->id_semana,  'id_pat' => $id_pat]);
                     } elseif ($action === 'delete') {
                         // Redireccionar a la acción 'delete' en un controlador diferente
-                        return Url::to(['/semana/delete', 'id_semana' => $model->id_semana]);
+
+                        return Url::to(['/semana/delete', 'id_semana' => $model->id_semana,  'id_pat' => $id_pat]);
                     }
                     // Otras acciones y redirecciones personalizadas según sea necesario
                     return '';

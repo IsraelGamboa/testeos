@@ -23,6 +23,7 @@ $this->params['breadcrumbs'][] = 'Actualizar';
 <div class="pat-update">
 
     <!-- <h1><?= Html::encode($this->title) ?></h1> -->
+    <?=Yii::$app->session->getFlash('success')?>
 
     <?= $this->render('_form', [
         'model' => $model,

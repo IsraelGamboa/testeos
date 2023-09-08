@@ -2,25 +2,19 @@
 
 namespace backend\controllers;
 
-use Yii;
-
-use app\models\Semana;
-use app\models\Pat;
-use app\models\search\SearchSemana;
+use app\models\SemanaReal;
+use app\models\search\SearchSemanaReal;
 use yii\web\Controller;
 use yii\web\NotFoundHttpException;
 use yii\filters\VerbFilter;
-
-
-use app\models\search\SearchSemanaReal;
-use app\models\SemanaReal;
+use Yii;
 
 
 
 /**
- * SemanaController implements the CRUD actions for Semana model.
+ * SemanaRealController implements the CRUD actions for SemanaReal model.
  */
-class SemanaController extends Controller
+class SemanaRealController extends Controller
 {
     /**
      * @inheritDoc
@@ -41,13 +35,13 @@ class SemanaController extends Controller
     }
 
     /**
-     * Lists all Semana models.
+     * Lists all SemanaReal models.
      *
      * @return string
      */
     public function actionIndex()
     {
-        $searchModel = new SearchSemana();
+        $searchModel = new SearchSemanaReal();
         $dataProvider = $searchModel->search($this->request->queryParams);
 
         return $this->render('index', [
@@ -57,81 +51,57 @@ class SemanaController extends Controller
     }
 
     /**
-     * Displays a single Semana model.
-     * @param int $id_semana Id Semana
+     * Displays a single SemanaReal model.
+     * @param int $idsemana_real Idsemana Real
      * @return string
      * @throws NotFoundHttpException if the model cannot be found
      */
-    public function actionView($id_semana)
+    public function actionView($idsemana_real)
     {
         return $this->render('view', [
-            'model' => $this->findModel($id_semana),
-        ]);
-    }
-
-    public function actionPat($id_semana)
-    {
-
-        $model = $this->findModel($id_semana);
-
-        $searchModel = new SearchSemanaReal();
-        $dataProvider = $searchModel->search(['SearchSemanaReal' => ['semana_id_semana' => $id_semana]]);
-
-        return $this->render('pat', [
-            'model' => $model,
-            'searchModel' => $searchModel,
-            'dataProvider' => $dataProvider,
+            'model' => $this->findModel($idsemana_real),
         ]);
     }
 
     /**
-     * Creates a new Semana model.
+     * Creates a new SemanaReal model.
      * If creation is successful, the browser will be redirected to the 'view' page.
      * @return string|\yii\web\Response
      */
-
-
     public function actionCreate()
     {
-        $model = new Semana();
+        $model = new SemanaReal();
+        $id_semana = Yii::$app->request->get('id_semana');
     
-        $id_pat = Yii::$app->request->get('id_pat');
-    
-        $model->pat_id_pat = $id_pat;
-    
+        $model->semana_id_semana = $id_semana;
+
         if ($this->request->isPost) {
             if ($model->load($this->request->post()) && $model->save()) {
-                // Redirige a la vista 'view' del modelo 'Pat' con el ID de pat pasado como parámetro
-                return $this->redirect(['/pat/update', 'id_pat' => $id_pat]);
+                return $this->redirect(['/semana/pat', 'id_semana' => $id_semana]);
+                /* return $this->redirect(['view', 'idsemana_real' => $model->idsemana_real]); */
             }
         } else {
             $model->loadDefaultValues();
         }
-    
+
         return $this->render('create', [
             'model' => $model,
         ]);
     }
-    
 
     /**
-     * Updates an existing Semana model.
+     * Updates an existing SemanaReal model.
      * If update is successful, the browser will be redirected to the 'view' page.
-     * @param int $id_semana Id Semana
+     * @param int $idsemana_real Idsemana Real
      * @return string|\yii\web\Response
      * @throws NotFoundHttpException if the model cannot be found
      */
-    public function actionUpdate($id_semana)
+    public function actionUpdate($idsemana_real)
     {
-        $model = $this->findModel($id_semana);
-
-        $id_pat = Yii::$app->request->get('id_pat');
-    
-        $model->pat_id_pat = $id_pat;
+        $model = $this->findModel($idsemana_real);
 
         if ($this->request->isPost && $model->load($this->request->post()) && $model->save()) {
-            Yii::$app->session->setFlash('success', '¡Cambios realizados con éxito!');
-            return $this->redirect(['/pat/update', 'id_pat' => $id_pat]);
+            return $this->redirect(['view', 'idsemana_real' => $model->idsemana_real]);
         }
 
         return $this->render('update', [
@@ -140,34 +110,29 @@ class SemanaController extends Controller
     }
 
     /**
-     * Deletes an existing Semana model.
+     * Deletes an existing SemanaReal model.
      * If deletion is successful, the browser will be redirected to the 'index' page.
-     * @param int $id_semana Id Semana
+     * @param int $idsemana_real Idsemana Real
      * @return \yii\web\Response
      * @throws NotFoundHttpException if the model cannot be found
      */
-    public function actionDelete($id_semana)
+    public function actionDelete($idsemana_real)
     {
-        $id_pat = Yii::$app->request->get('id_pat');
+        $this->findModel($idsemana_real)->delete();
 
-    
-        // Encuentra y elimina la semana
-        $this->findModel($id_semana)->delete();
-    
-        return $this->redirect(['/pat/update', 'id_pat' => $id_pat]);
+        return $this->redirect(['index']);
     }
-    
 
     /**
-     * Finds the Semana model based on its primary key value.
+     * Finds the SemanaReal model based on its primary key value.
      * If the model is not found, a 404 HTTP exception will be thrown.
-     * @param int $id_semana Id Semana
-     * @return Semana the loaded model
+     * @param int $idsemana_real Idsemana Real
+     * @return SemanaReal the loaded model
      * @throws NotFoundHttpException if the model cannot be found
      */
-    protected function findModel($id_semana)
+    protected function findModel($idsemana_real)
     {
-        if (($model = Semana::findOne(['id_semana' => $id_semana])) !== null) {
+        if (($model = SemanaReal::findOne(['idsemana_real' => $idsemana_real])) !== null) {
             return $model;
         }
 

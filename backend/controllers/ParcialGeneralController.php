@@ -2,25 +2,16 @@
 
 namespace backend\controllers;
 
-use Yii;
-
-use app\models\Semana;
-use app\models\Pat;
-use app\models\search\SearchSemana;
+use app\models\ParcialGeneral;
+use app\models\search\SearchParcialGeneral;
 use yii\web\Controller;
 use yii\web\NotFoundHttpException;
 use yii\filters\VerbFilter;
 
-
-use app\models\search\SearchSemanaReal;
-use app\models\SemanaReal;
-
-
-
 /**
- * SemanaController implements the CRUD actions for Semana model.
+ * ParcialGeneralController implements the CRUD actions for ParcialGeneral model.
  */
-class SemanaController extends Controller
+class ParcialGeneralController extends Controller
 {
     /**
      * @inheritDoc
@@ -41,13 +32,13 @@ class SemanaController extends Controller
     }
 
     /**
-     * Lists all Semana models.
+     * Lists all ParcialGeneral models.
      *
      * @return string
      */
     public function actionIndex()
     {
-        $searchModel = new SearchSemana();
+        $searchModel = new SearchParcialGeneral();
         $dataProvider = $searchModel->search($this->request->queryParams);
 
         return $this->render('index', [
@@ -57,81 +48,53 @@ class SemanaController extends Controller
     }
 
     /**
-     * Displays a single Semana model.
-     * @param int $id_semana Id Semana
+     * Displays a single ParcialGeneral model.
+     * @param int $id_parcial_general Id Parcial General
      * @return string
      * @throws NotFoundHttpException if the model cannot be found
      */
-    public function actionView($id_semana)
+    public function actionView($id_parcial_general)
     {
         return $this->render('view', [
-            'model' => $this->findModel($id_semana),
-        ]);
-    }
-
-    public function actionPat($id_semana)
-    {
-
-        $model = $this->findModel($id_semana);
-
-        $searchModel = new SearchSemanaReal();
-        $dataProvider = $searchModel->search(['SearchSemanaReal' => ['semana_id_semana' => $id_semana]]);
-
-        return $this->render('pat', [
-            'model' => $model,
-            'searchModel' => $searchModel,
-            'dataProvider' => $dataProvider,
+            'model' => $this->findModel($id_parcial_general),
         ]);
     }
 
     /**
-     * Creates a new Semana model.
+     * Creates a new ParcialGeneral model.
      * If creation is successful, the browser will be redirected to the 'view' page.
      * @return string|\yii\web\Response
      */
-
-
     public function actionCreate()
     {
-        $model = new Semana();
-    
-        $id_pat = Yii::$app->request->get('id_pat');
-    
-        $model->pat_id_pat = $id_pat;
-    
+        $model = new ParcialGeneral();
+
         if ($this->request->isPost) {
             if ($model->load($this->request->post()) && $model->save()) {
-                // Redirige a la vista 'view' del modelo 'Pat' con el ID de pat pasado como parámetro
-                return $this->redirect(['/pat/update', 'id_pat' => $id_pat]);
+                return $this->redirect(['view', 'id_parcial_general' => $model->id_parcial_general]);
             }
         } else {
             $model->loadDefaultValues();
         }
-    
+
         return $this->render('create', [
             'model' => $model,
         ]);
     }
-    
 
     /**
-     * Updates an existing Semana model.
+     * Updates an existing ParcialGeneral model.
      * If update is successful, the browser will be redirected to the 'view' page.
-     * @param int $id_semana Id Semana
+     * @param int $id_parcial_general Id Parcial General
      * @return string|\yii\web\Response
      * @throws NotFoundHttpException if the model cannot be found
      */
-    public function actionUpdate($id_semana)
+    public function actionUpdate($id_parcial_general)
     {
-        $model = $this->findModel($id_semana);
-
-        $id_pat = Yii::$app->request->get('id_pat');
-    
-        $model->pat_id_pat = $id_pat;
+        $model = $this->findModel($id_parcial_general);
 
         if ($this->request->isPost && $model->load($this->request->post()) && $model->save()) {
-            Yii::$app->session->setFlash('success', '¡Cambios realizados con éxito!');
-            return $this->redirect(['/pat/update', 'id_pat' => $id_pat]);
+            return $this->redirect(['view', 'id_parcial_general' => $model->id_parcial_general]);
         }
 
         return $this->render('update', [
@@ -140,34 +103,29 @@ class SemanaController extends Controller
     }
 
     /**
-     * Deletes an existing Semana model.
+     * Deletes an existing ParcialGeneral model.
      * If deletion is successful, the browser will be redirected to the 'index' page.
-     * @param int $id_semana Id Semana
+     * @param int $id_parcial_general Id Parcial General
      * @return \yii\web\Response
      * @throws NotFoundHttpException if the model cannot be found
      */
-    public function actionDelete($id_semana)
+    public function actionDelete($id_parcial_general)
     {
-        $id_pat = Yii::$app->request->get('id_pat');
+        $this->findModel($id_parcial_general)->delete();
 
-    
-        // Encuentra y elimina la semana
-        $this->findModel($id_semana)->delete();
-    
-        return $this->redirect(['/pat/update', 'id_pat' => $id_pat]);
+        return $this->redirect(['index']);
     }
-    
 
     /**
-     * Finds the Semana model based on its primary key value.
+     * Finds the ParcialGeneral model based on its primary key value.
      * If the model is not found, a 404 HTTP exception will be thrown.
-     * @param int $id_semana Id Semana
-     * @return Semana the loaded model
+     * @param int $id_parcial_general Id Parcial General
+     * @return ParcialGeneral the loaded model
      * @throws NotFoundHttpException if the model cannot be found
      */
-    protected function findModel($id_semana)
+    protected function findModel($id_parcial_general)
     {
-        if (($model = Semana::findOne(['id_semana' => $id_semana])) !== null) {
+        if (($model = ParcialGeneral::findOne(['id_parcial_general' => $id_parcial_general])) !== null) {
             return $model;
         }
 
