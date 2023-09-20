@@ -39,7 +39,7 @@ a.desc:after {
     border-top: solid 7px #212529;
     border-bottom-width: 0;
 }
-
+/* CAMBIO PARA QUE HAGA SALTO DE LINEA EN LA TABLA  */
 .grid-view th,
 .grid-view td:last-child {
     white-space: nowrap;
@@ -87,4 +87,54 @@ a.desc:after {
 
 .nav > li > form > button.logout:focus {
     outline: none;
+}
+
+
+.grid-view > table.table-detail-semana {
+    /* all: unset; */
+    /* min-width */
+    width: 100%;
+    max-width: 150%;
+    min-height: 10rem;
+    white-space: pre-wrap;
+    text-align: justify;
+    border-collapse: collapse !important;
+/*     border: black 1px solid !important; */
+}
+/* 
+.table-detail-semana>.table-body {
+    background-color: #fef2cb;
+}
+
+.table-detail-semana>.table-head {
+    background-color: #c5e0b3;
+    text-transform: uppercase;
+    text-align: center !important;
+}
+ */
+.table-detail-semana th {
+    background-color: #c5e0b3;
+    text-transform: uppercase;
+    text-align: center !important;
+    vertical-align: middle;
+    font-size: small;
+}
+.table-detail-semana td {
+    background-color: #fef2cb;
+    font-size: small;
+}
+
+.table-detail-semana th:hover {
+    background-color: #b7cea8;
+}
+.table-detail-semana td:hover {
+    background-color: #fdeebe;
+}
+.table-detail-semana th,
+.table-detail-semana td {
+    white-space: pre-wrap !important;
+    /* border: #808080 1px solid !important; */
+    border: #ffffff 1px solid !important;
+    border-radius: 5px;
+    /* border-spacing: 1rem; */
 }

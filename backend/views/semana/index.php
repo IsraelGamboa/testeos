@@ -53,6 +53,7 @@ $this->params['breadcrumbs'][] = $this->title;
         },
         
         'headerOptions' => ['class' => 'kartik-sheet-style'], 
+        'detailRowCssClass' => GridView::TYPE_LIGHT
     ],
     [
         'attribute' => 'semana',
@@ -157,6 +158,7 @@ $this->params['breadcrumbs'][] = $this->title;
                     // Contenido detallado que se mostrará cuando se expanda la fila.
                     return Yii::$app->controller->renderPartial('details', ['model' => $model]);
                 },
+                'detailRowCssClass' => GridView::TYPE_LIGHT
             ],
             // Otras columnas de datos aquí
             //'id_semana',

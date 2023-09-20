@@ -40,7 +40,7 @@ class Semana extends \yii\db\ActiveRecord
             [['semana', 'tipo_tutoria', 'tematica', 'objetivos', 'justificacion', 'estrategias_tutor', 'acciones', 'estrategias_tutorado', 'pat_id_pat'], 'required'],
             [['semana', 'pat_id_pat'], 'integer'],
             [['tipo_tutoria'], 'string', 'max' => 50],
-            [['tematica', 'objetivos', 'justificacion', 'estrategias_tutor', 'acciones', 'estrategias_tutorado'], 'string', 'max' => 300],
+            [['tematica', 'objetivos', 'justificacion', 'estrategias_tutor', 'acciones', 'estrategias_tutorado'], 'string', 'max' => 4000],
             [['pat_id_pat'], 'exist', 'skipOnError' => true, 'targetClass' => Pat::class, 'targetAttribute' => ['pat_id_pat' => 'id_pat']],
         ];
     }
@@ -53,7 +53,7 @@ class Semana extends \yii\db\ActiveRecord
         return [
             'id_semana' => 'Id Semana',
             'semana' => 'Semana',
-            'tipo_tutoria' => 'Tipo Tutoria',
+            'tipo_tutoria' => 'Tipo de Tutoria',
             'tematica' => 'Tematica',
             'objetivos' => 'Objetivos',
             'justificacion' => 'Justificacion',

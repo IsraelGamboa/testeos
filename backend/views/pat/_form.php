@@ -65,6 +65,7 @@ if(isset($model->id_pat)){
                     return Yii::$app->controller->renderPartial('/semana/details', ['model' => $model]);
                 },
                 'headerOptions' => ['class' => 'kartik-sheet-style'], 
+                'detailRowCssClass' => GridView::TYPE_LIGHT
             ],
             [
                 'attribute' => 'semana',
@@ -81,7 +82,7 @@ if(isset($model->id_pat)){
                     }
             
                     // Verifica si el valor de 'semana' existe en el array de nombresSemanas
-                    return isset($nombresSemanas[$model->semana]) ? $nombresSemanas[$model->semana] : $model->semana;
+                    return isset($nombresSemanas[$model->semana]) ? strtoupper($nombresSemanas[$model->semana]) : $model->semana;
                 },
                 'format' => 'raw', // Establece el formato a raw para que se interprete HTML
                 'contentOptions' => ['style' => 'font-weight:bold;'], 
