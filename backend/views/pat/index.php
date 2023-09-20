@@ -14,7 +14,7 @@ use app\models\Semestre;
 /** @var yii\data\ActiveDataProvider $dataProvider */
 /** @var app\models\search\SearchSemestre $searchModel */
 
-$this->title = 'PATS';
+$this->title = 'PlAN DE ACCION TUTORIAL';
 $this->params['breadcrumbs'][] = $this->title;
 ?>
 <div class="pat-index">
@@ -33,7 +33,7 @@ $this->params['breadcrumbs'][] = $this->title;
 
             //'id_pat',
             'nombre',
-            'semestre_id_semestre',
+            //'semestre_id_semestre',
             [
                 'class' => ActionColumn::className(),
                 'urlCreator' => function ($action, Pat $model, $key, $index, $column) {

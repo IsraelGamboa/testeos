@@ -6,9 +6,17 @@ use yii\widgets\DetailView;
 /** @var yii\web\View $this */
 /** @var app\models\SemanaReal $model */
 
-$this->title = $model->idsemana_real;
-$this->params['breadcrumbs'][] = ['label' => 'Semana Reals', 'url' => ['index']];
-$this->params['breadcrumbs'][] = $this->title;
+$id_pat = Yii::$app->request->get('id_pat');
+$id_semana = Yii::$app->request->get('id_semana');
+
+if(isset($id_pat) && isset($id_semana)){
+    $this->title = "Semana real";
+    $this->params['breadcrumbs'][] = ['label' => 'Plan de accion tutorial', 'url' => ['pat/index']];
+    $this->params['breadcrumbs'][] = ['label' => 'PAT '.$id_pat, 'url' => ['pat/update', 'id_pat' => $id_pat]];
+    $this->params['breadcrumbs'][] = ['label' => 'Semana '.$id_semana, 'url' => ['semana/pat', 'id_semana' => $id_semana, 'id_pat'=>$id_pat]];
+    $this->params['breadcrumbs'][] = $this->title;
+}
+
 \yii\web\YiiAsset::register($this);
 ?>
 <div class="semana-real-view">

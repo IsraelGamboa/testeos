@@ -19,9 +19,13 @@ use Yii;
  * @property string $evidencias
  * @property string $observaciones
  * @property int $semana_id_semana
+ * @property int $tutor_id_tutor
+ * @property int $pat_id_pat
  *
  * @property ParcialGeneral[] $parcialGenerals
  * @property Semana $semanaIdSemana
+ * @property Tutor $tutorIdTutor
+ * @property Pat $patIdPat
  */
 class SemanaReal extends \yii\db\ActiveRecord
 {
@@ -39,11 +43,13 @@ class SemanaReal extends \yii\db\ActiveRecord
     public function rules()
     {
         return [
-            [['sesion_grupal', 'sesion_no_grupal', 'tutorados_atendidos', 'faltas', 'total_grupo', 'hombres', 'mujeres', 'total_tutorados', 'evidencias', 'observaciones', 'semana_id_semana'], 'required'],
-            [['sesion_grupal', 'sesion_no_grupal', 'tutorados_atendidos', 'faltas', 'total_grupo', 'hombres', 'mujeres', 'total_tutorados', 'semana_id_semana'], 'integer'],
+            [['orden_semana', 'sesion_grupal', 'sesion_no_grupal', 'tutorados_atendidos', 'faltas', 'total_grupo', 'hombres', 'mujeres', 'total_tutorados', 'evidencias', 'observaciones', 'semana_id_semana'], 'required'],
+            [['orden_semana', 'sesion_grupal', 'sesion_no_grupal', 'tutorados_atendidos', 'faltas', 'total_grupo', 'hombres', 'mujeres', 'total_tutorados', 'semana_id_semana'], 'integer'],
             [['observaciones'], 'string'],
             [['evidencias'], 'string', 'max' => 120],
             [['semana_id_semana'], 'exist', 'skipOnError' => true, 'targetClass' => Semana::class, 'targetAttribute' => ['semana_id_semana' => 'id_semana']],
+            [['tutor_id_tutor'], 'exist', 'skipOnError' => true, 'targetClass' => Tutor::class, 'targetAttribute' => ['tutor_id_tutor' => 'id_tutor']],
+            [['tutor_id_tutor'], 'exist', 'skipOnError' => true, 'targetClass' => Pat::class, 'targetAttribute' => ['pat_id_pat' => 'id_pat']],
         ];
     }
 
@@ -54,9 +60,10 @@ class SemanaReal extends \yii\db\ActiveRecord
     {
         return [
             'idsemana_real' => 'Idsemana Real',
-            'sesion_grupal' => 'Sesion Grupal',
-            'sesion_no_grupal' => 'Sesion No Grupal',
-            'tutorados_atendidos' => 'Tutorados Atendidos',
+            'orden_semana' => 'Num. Semana',
+            'sesion_grupal' => 'Grupal',
+            'sesion_no_grupal' => 'No Grupal',
+            'tutorados_atendidos' => 'T. Atendidos',
             'faltas' => 'Faltas',
             'total_grupo' => 'Total Grupo',
             'hombres' => 'Hombres',
@@ -65,6 +72,8 @@ class SemanaReal extends \yii\db\ActiveRecord
             'evidencias' => 'Evidencias',
             'observaciones' => 'Observaciones',
             'semana_id_semana' => 'Semana Id Semana',
+            'tutor_id_tutor' => 'Tutor Id tutor',
+            'pat_id_pat' => 'Pat Id Pat',
         ];
     }
 

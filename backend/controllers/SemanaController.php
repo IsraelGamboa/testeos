@@ -40,6 +40,8 @@ class SemanaController extends Controller
         );
     }
 
+    
+
     /**
      * Lists all Semana models.
      *
@@ -73,6 +75,9 @@ class SemanaController extends Controller
     {
 
         $model = $this->findModel($id_semana);
+
+
+        // Realiza más operaciones con $resultado si es necesario
 
         $searchModel = new SearchSemanaReal();
         $dataProvider = $searchModel->search(['SearchSemanaReal' => ['semana_id_semana' => $id_semana]]);

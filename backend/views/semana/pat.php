@@ -16,11 +16,20 @@ use yii\grid\GridView;
 
 
 
+$id_pat = Yii::$app->request->get('id_pat');
+
+if(isset($id_pat)){
+
+    $this->title = 'Semana';
+    $this->params['breadcrumbs'][] = ['label' => 'Plan de accion tutorial', 'url' => ['pat/index']];
+    $this->params['breadcrumbs'][] = ['label' => 'PAT '.$id_pat, 'url' => ['pat/update', 'id_pat' => $id_pat]];
+    $this->params['breadcrumbs'][] = $this->title;
+}else{
+    echo "no existe";
+}
 
 
-$this->title = $model->id_semana;
-$this->params['breadcrumbs'][] = ['label' => 'Semanas', 'url' => ['index']];
-$this->params['breadcrumbs'][] = $this->title;
+
 \yii\web\YiiAsset::register($this);
 ?>
 <style>
@@ -30,19 +39,23 @@ $this->params['breadcrumbs'][] = $this->title;
 }
 .b{
     text-align: center;
+    border: solid;
 }
-.table-body{
-    background-color: #fef2cb;
+.p{
+    align-items: flex;
 }
-.table-head{
-    background-color: #c5e0b3;
+
+
+.table-semana, th, td{
+    border: solid;
 }
 </style>
 
 <div class="semana bg-white my-3 mx-2">
     <table class="table-semana table">
-        <thead class="table-head" >
-            <tr style='height: 50px; text-align: center; '>
+
+            <tr style='height: 50px; text-align: center; background-color: #c5e0b3;'>
+                <th rowspan="2" class="p">Programada</th>
                 <th>Tipo de tutoria</th>
                 <th>Tematica</th>
                 <th>Objetivos</th>
@@ -51,11 +64,10 @@ $this->params['breadcrumbs'][] = $this->title;
                 <th>Acciones</th>
                 <th>Estrategias del tutorado</th>
             </tr>
-        </thead>
-        <tbody class="table-body">            
+
             <?php
                 echo "<tr style='height: 200px;'>";
-                    echo '<td><p class="b">' . $model->tipo_tutoria . '</p></td>';
+                    echo '<td><p class="a">' . $model->tipo_tutoria . '</p></td>';
                     echo '<td><p class="a">' . $model->tematica. '</p></td>';
                     echo '<td><p class="a">' . $model->objetivos . '</p></td>';
                     echo '<td><p class="a">' . $model->justificacion . '</p></td>';
@@ -65,55 +77,65 @@ $this->params['breadcrumbs'][] = $this->title;
                 echo "<tr>";
 
             ?>
-
-        </tbody>
     </table>
 
     <?= GridView::widget([
         'dataProvider' => $dataProvider,
         'filterModel' => $searchModel,
         'columns' => [
-            ['class' => 'yii\grid\SerialColumn'],
+            /* ['class' => 'yii\grid\SerialColumn'], */
 
-            'idsemana_real',
+            //'idsemana_real',
+            'orden_semana',
             'sesion_grupal',
             'sesion_no_grupal',
             'tutorados_atendidos',
             'faltas',
             //'total_grupo',
-            //'hombres',
-            //'mujeres',
-            //'total_tutorados',
+            'hombres',
+            'mujeres',
+            'total_tutorados',
             //'evidencias',
-            //'observaciones:ntext',
+            'observaciones:ntext',
             //'semana_id_semana',
+            //'tutor_id_tutor',
+            //'pat_id_pat',
             [
                 'class' => ActionColumn::className(),
                 'urlCreator' => function ($action, $model, $key, $index) {
                     $id_semana = Yii::$app->request->get('id_semana');
+                    $id_pat = Yii::$app->request->get('id_pat');
                     if ($action === 'view') {
-                        // Redireccionar a la acción 'view' en un controlador diferente
-                        return Url::to(['/semana-real/view', 'idsemana_real' => $model->idsemana_real]);
+                        return Url::to(['/semana-real/view', 'idsemana_real' => $model->idsemana_real, 'id_semana'=>$id_semana, 'id_pat'=>$id_pat]);
                     } elseif ($action === 'update') {
-
-                        // Redireccionar a la acción 'update' en un controlador diferente
-                        return Url::to(['/semana-real/update', 'idsemana_real' => $model->idsemana_real,  'id_semana' => $id_semana]);
+                        return Url::to(['/semana-real/update', 'idsemana_real' => $model->idsemana_real, 'id_semana'=>$id_semana,  'id_pat' => $id_pat]);
                     } elseif ($action === 'delete') {
-                        // Redireccionar a la acción 'delete' en un controlador diferente
-
-                        return Url::to(['/semana-real/delete', 'idsemana_real' => $model->idsemana_real,  'id_semana' => $id_semana]);
+                        return Url::to(['/semana-real/delete', 'idsemana_real' => $model->idsemana_real, 'id_semana'=>$id_semana, 'id_pat' => $id_pat]);
                     }
-                    // Otras acciones y redirecciones personalizadas según sea necesario
                     return '';
                 }
             ],
         ],
-    ]); ?>
+    ]);?>
 
 
-    <p>
-        <?= Html::a('Create Semana Real',  ['/semana-real/create', 'id_semana' =>$model->id_semana], ['class' => 'btn btn-success']) ?>
-    </p>
+    <?php
+    $id_pat = Yii::$app->request->get('id_pat');
+
+    $models = $dataProvider->models;
+    if (empty($models)) {
+        /* echo "No existe ningún dato en el arreglo.";*/?> 
+            <p>
+                <?=Html::a('Añadir semana real',  ['/semana-real/create', 'id_semana' => $model->id_semana, 'id_pat'=>$id_pat], ['class' => 'btn btn-success'])?>
+            </p>
+            <?php
+    } else {
+        /* echo "El arreglo contiene datos."; */
+    }
+
+
+    ?>
+
 
 
     <!-- Tratar de colocar el formulario funcional en este apartado -->

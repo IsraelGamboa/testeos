@@ -31,7 +31,7 @@ $this->params['breadcrumbs'][] = $this->title;
 
             'id_semestre',
             'nombre',
-            //'periodo',
+            'periodo',
             [
                 'class' => ActionColumn::className(),
                 'urlCreator' => function ($action, Semestre $model, $key, $index, $column) {

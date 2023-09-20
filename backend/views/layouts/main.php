@@ -57,10 +57,11 @@ AppAsset::register($this);
                 'options' => ['class' => 'dropdown'],
                 'template' => '<a href="{url}" class="href_class">{label}</a>',
                 'items' => [
-                    //['label' => 'Semana', 'url' => ['semana/index']],
+                    //['label' => 'Reporte', 'url' => ['site/report']],
                     ['label' => 'PAT', 'url' => ['pat/index']],
-                    ['label' => 'Parcial general', 'url' => ['parcial-general/index']],
-                    ['label' => 'Semana real', 'url' => ['semana-real/index']],
+                    //['label' => 'Parcial general', 'url' => ['parcial-general/index']],
+                    //['label' => 'Semana real', 'url' => ['semana-real/index']],
+                    //['label' => 'Tutor', 'url' => ['tutor/index']],
                     //['label' => 'Semestres', 'url' => ['semestre/index']],
                 ],
             ];

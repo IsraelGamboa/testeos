@@ -72,12 +72,16 @@ class SemanaRealController extends Controller
     {
         $model = new SemanaReal();
         $id_semana = Yii::$app->request->get('id_semana');
+        $id_pat = Yii::$app->request->get('id_pat');
+        //$id_tutor = Yii::$app->request->get('id_tutor');
     
         $model->semana_id_semana = $id_semana;
+        //$model->tutor_id_tutor = $id_tutor;
+        $model->pat_id_pat = $id_pat;
 
         if ($this->request->isPost) {
             if ($model->load($this->request->post()) && $model->save()) {
-                return $this->redirect(['/semana/pat', 'id_semana' => $id_semana]);
+                return $this->redirect(['/semana/pat', 'id_semana' => $id_semana, 'id_pat'=>$id_pat]);
                 /* return $this->redirect(['view', 'idsemana_real' => $model->idsemana_real]); */
             }
         } else {
@@ -100,8 +104,18 @@ class SemanaRealController extends Controller
     {
         $model = $this->findModel($idsemana_real);
 
+        $id_semana = Yii::$app->request->get('id_semana');
+        $id_pat = Yii::$app->request->get('id_pat');
+        //$id_tutor = Yii::$app->request->get('id_tutor');
+    
+        $model->semana_id_semana = $id_semana;
+        //$model->tutor_id_tutor = $id_tutor;
+        $model->pat_id_pat = $id_pat;
+
+        //Redireccionar a la vista PAT de semanas programadas
+
         if ($this->request->isPost && $model->load($this->request->post()) && $model->save()) {
-            return $this->redirect(['view', 'idsemana_real' => $model->idsemana_real]);
+            return $this->redirect(['/semana/pat', 'id_semana' => $id_semana, 'id_pat'=>$id_pat]);
         }
 
         return $this->render('update', [
@@ -120,7 +134,14 @@ class SemanaRealController extends Controller
     {
         $this->findModel($idsemana_real)->delete();
 
-        return $this->redirect(['index']);
+        
+        $id_semana = Yii::$app->request->get('id_semana');
+        $id_pat = Yii::$app->request->get('id_pat');
+        //$id_tutor = Yii::$app->request->get('id_tutor');
+    
+
+
+        return $this->redirect(['/semana/pat', 'id_semana' => $id_semana, 'id_pat'=>$id_pat]);
     }
 
     /**

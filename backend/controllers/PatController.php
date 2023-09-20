@@ -12,7 +12,7 @@ use yii\filters\VerbFilter;
 
 use app\models\Semana;
 use app\models\Semestre;
-
+use yii\data\ActiveDataProvider;
 
 
 
@@ -127,10 +127,13 @@ class PatController extends Controller
         $model = $this->findModel($id_pat);
     
         // Cargar el modelo de búsqueda de semanas relacionadas
-        $searchModel = new SearchSemana();
+        $searchModel = new SearchSemana();        
     
         // Realizar la búsqueda de las semanas relacionadas con este Pat
         $dataProvider = $searchModel->search(['SearchSemana' => ['pat_id_pat' => $id_pat]]);
+
+        //Paginacion,  falta por mejorar
+        $dataProvider->pagination->pageSize = 10; 
     
         if ($this->request->isPost && $model->load($this->request->post()) && $model->save()) {
             return $this->redirect(['view', 'id_pat' => $model->id_pat]);

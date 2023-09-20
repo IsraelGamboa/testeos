@@ -29,7 +29,7 @@ $this->params['breadcrumbs'][] = $this->title;
         'columns' => [
             ['class' => 'yii\grid\SerialColumn'],
 
-            'idsemana_real',
+            //'idsemana_real',
             'sesion_grupal',
             'sesion_no_grupal',
             'tutorados_atendidos',
@@ -40,7 +40,8 @@ $this->params['breadcrumbs'][] = $this->title;
             //'total_tutorados',
             //'evidencias',
             //'observaciones:ntext',
-            //'semana_id_semana',
+            'semana_id_semana',
+            'tutor_id_tutor',
             [
                 'class' => ActionColumn::className(),
                 'urlCreator' => function ($action, SemanaReal $model, $key, $index, $column) {

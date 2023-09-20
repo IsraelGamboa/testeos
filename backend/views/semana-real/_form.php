@@ -10,7 +10,17 @@ use yii\widgets\ActiveForm;
 
 <div class="semana-real-form">
 
+    <?php
+        $id_pat = Yii::$app->request->get('id_pat');
+        $id_semana = Yii::$app->request->get('id_semana');
+
+        if(isset($id_pat) && isset($id_semana)){
+            echo "existen los dos, ID pat: " . $id_pat . " ID semana: " . $id_semana;
+        }
+    ?>
+
     <?php $form = ActiveForm::begin(); ?>
+    <?= $form->field($model, 'orden_semana')->textInput() ?>
 
     <?= $form->field($model, 'sesion_grupal')->textInput() ?>
 
@@ -31,6 +41,12 @@ use yii\widgets\ActiveForm;
     <?= $form->field($model, 'evidencias')->textInput(['maxlength' => true]) ?>
 
     <?= $form->field($model, 'observaciones')->textarea(['rows' => 6]) ?>
+
+    <?= $form->field($model, 'semana_id_semana')->textInput() ?>
+
+    <?= $form->field($model, 'tutor_id_tutor')->textInput() ?>
+
+    <?= $form->field($model, 'pat_id_pat')->textInput() ?>
 
 
 
