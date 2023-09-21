@@ -68,9 +68,6 @@ class SiteController extends Controller
     public function actionReport()
     {
         $pdf = Yii::$app->pdf;
-
-        $modelo = "Hola, es un testeo de reporte";
-
         $content = $this->renderPartial('_reportView');
         $pdf->content = $content;
         return $pdf->render();
@@ -79,9 +76,6 @@ class SiteController extends Controller
     public function actionPdf()
     {
         $pdf = Yii::$app->pdf;
-
-        $modelo = "Hola, es un testeo de reporte";
-
         $content = $this->renderPartial('_reportFinal');
         $pdf->content = $content;
         return $pdf->render();

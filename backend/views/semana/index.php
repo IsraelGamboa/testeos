@@ -55,7 +55,13 @@ $this->params['breadcrumbs'][] = $this->title;
         'headerOptions' => ['class' => 'kartik-sheet-style'], 
     ],
     [
-        'attribute' => 'semana',
+        'attribute' => 'nombre',
+        'vAlign' => 'middle',
+        'hAlign' => 'center',
+
+    ],
+    [
+        'attribute' => 'orden_semana',
         'vAlign' => 'middle',
         'hAlign' => 'center',
 
@@ -160,7 +166,8 @@ $this->params['breadcrumbs'][] = $this->title;
             ],
             // Otras columnas de datos aquí
             //'id_semana',
-            'semana',
+            'nombre',
+            'orden_semana',
             'tipo_tutoria',
             'tematica',
             'objetivos',

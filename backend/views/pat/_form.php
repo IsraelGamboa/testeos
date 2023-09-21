@@ -206,84 +206,42 @@ if(isset($model->id_pat)){
                                 $id_tutor = 1;
                                 $id_pat = Yii::$app->request->get('id_pat');
                                     $db = Yii::$app->db;
-                                        $query = (new Query())
-                                        ->select(['SUM(sesion_grupal) AS suma_grupal'])
-                                        ->from('semana_real')
-                                        ->where([
-                                            'between', 'orden_semana', 1, 6
-                                        ])
-                                        ->andWhere(['tutor_id_tutor' => $id_tutor])
-                                        ->andWhere(['pat_id_pat'=> $id_pat])
-                                        ->one();
+                                    $query = (new Query())
+                                    
+                                    ->select([
+                                        'SUM(semana_real.sesion_grupal) AS suma_grupal',
+                                        'SUM(semana_real.sesion_no_grupal) AS suma_no_grupal',
+                                        'SUM(semana_real.tutorados_atendidos) AS suma_tutorados',
+                                        'SUM(semana_real.mujeres) AS suma_mujeres',
+                                        'SUM(semana_real.hombres) AS suma_hombres',
+                                        'SUM(semana_real.faltas) AS suma_faltas',
+                                    ])
+                                    ->from('semana')
+                                    ->innerJoin('semana_real', 'semana.id_semana = semana_real.semana_id_semana')
+                                    ->where([
+                                        'and',
+                                        ['between', 'semana_real.orden_semana', 1, 6],
+                                        ['semana_real.pat_id_pat' => $id_pat],
+                                        ['semana_real.tutor_id_tutor' => $id_tutor],
+                                    ])
+                                    ->one();
 
                                         echo '<td><input type="number" class="form-group form-group-sm col-8"  placeholder="0" value="'.$query["suma_grupal"].'" disabled></td>';
-                                        
 
-                                        $query = (new Query())
-                                        ->select(['SUM(sesion_no_grupal) AS suma_no_grupal'])
-                                        ->from('semana_real')
-                                        ->where([
-                                            'between', 'orden_semana', 1, 6
-                                        ])
-                                        ->andWhere(['tutor_id_tutor' => $id_tutor])
-                                        ->andWhere(['pat_id_pat'=> $id_pat])
-                                        ->one();
-    
                                         echo '<td><input type="number" class="form-group form-group-sm col-8" placeholder="0" value="'.$query["suma_no_grupal"].'" disabled></td>';
-
-                                        $query = (new Query())
-                                        ->select(['SUM(tutorados_atendidos) AS suma_tutorados'])
-                                        ->from('semana_real')
-                                        ->where([
-                                            'between', 'orden_semana', 1, 6
-                                        ])
-                                        ->andWhere(['tutor_id_tutor' => $id_tutor])
-                                        ->andWhere(['pat_id_pat'=> $id_pat])
-                                        ->one();
     
                                         echo '<td><input type="number" class="form-group form-group-sm col-8" placeholder="0" value="'.$query["suma_tutorados"].'" disabled></td>';
-
-                                        $query = (new Query())
-                                        ->select(['SUM(mujeres) AS suma_mujeres'])
-                                        ->from('semana_real')
-                                        ->where([
-                                            'between', 'orden_semana', 1, 6
-                                        ])
-                                        ->andWhere(['tutor_id_tutor' => $id_tutor])
-                                        ->andWhere(['pat_id_pat'=> $id_pat])
-                                        ->one();
     
                                         echo '<td><input type="number" class="form-group form-group-sm col-8" placeholder="0" value="'.$query["suma_mujeres"].'" disabled></td>';
-
-                                        $query = (new Query())
-                                        ->select(['SUM(hombres) AS suma_hombres'])
-                                        ->from('semana_real')
-                                        ->where([
-                                            'between', 'orden_semana', 1, 6
-                                        ])
-                                        ->andWhere(['tutor_id_tutor' => $id_tutor])
-                                        ->andWhere(['pat_id_pat'=> $id_pat])
-                                        ->one();
     
                                         echo '<td><input type="number" class="form-group form-group-sm col-8" placeholder="0" value="'.$query["suma_hombres"].'" disabled></td>';
 
-                                        $query = (new Query())
-                                        ->select(['SUM(faltas) AS suma_faltas'])
-                                        ->from('semana_real')
-                                        ->where([
-                                            'between', 'orden_semana', 1, 6
-                                        ])
-                                        ->andWhere(['tutor_id_tutor' => $id_tutor])
-                                        ->andWhere(['pat_id_pat'=> $id_pat])
-                                        ->one();
-    
-                                        echo '<td><input type="number" class="form-group form-group-sm col-6" placeholder="0" value="'.$query["suma_faltas"].'" disabled></td>';
-
+                                        echo '<td><input type="number" class="form-group form-group-sm col-8" placeholder="0" value="'.$query["suma_faltas"].'" disabled></td>';
 
                                         $nombresParcial = "Primera";
                                         $inicio = 1;
                                         $final = 6;
-                                        echo '<td>'.Html::a('PDF', ['site/report', 'id_pat'=>$id_pat, 'id_tutor'=>$id_tutor, 'parcial'=>$nombresParcial, 'inicio'=>$inicio, 'final'=>$final], ['class' => 'btn btn-info']).'</td>';
+                                        echo '<td>'.Html::a('PDF', ['site/report', 'id_pat'=>$id_pat, 'id_tutor'=>$id_tutor, 'parcial'=>$nombresParcial, 'inicio'=>$inicio, 'final'=>$final], ['class' => 'btn btn-info', 'target' => '_blank']).'</td>';
 
 
                                 ?>
@@ -304,82 +262,41 @@ if(isset($model->id_pat)){
                                 <tr>
                                     <?php
                                     $query = (new Query())
-                                    ->select(['SUM(sesion_grupal) AS suma_grupal'])
-                                    ->from('semana_real')
-                                    ->where([
-                                        'between', 'orden_semana', 7, 11
+                                    ->select([
+                                        'SUM(semana_real.sesion_grupal) AS suma_grupal',
+                                        'SUM(semana_real.sesion_no_grupal) AS suma_no_grupal',
+                                        'SUM(semana_real.tutorados_atendidos) AS suma_tutorados',
+                                        'SUM(semana_real.mujeres) AS suma_mujeres',
+                                        'SUM(semana_real.hombres) AS suma_hombres',
+                                        'SUM(semana_real.faltas) AS suma_faltas',
                                     ])
-                                    ->andWhere(['tutor_id_tutor' => $id_tutor])
-                                    ->andWhere(['pat_id_pat'=> $id_pat])
+                                    ->from('semana')
+                                    ->innerJoin('semana_real', 'semana.id_semana = semana_real.semana_id_semana')
+                                    ->where([
+                                        'and',
+                                        ['between', 'semana_real.orden_semana', 7, 11],
+                                        ['semana_real.pat_id_pat' => $id_pat],
+                                        ['semana_real.tutor_id_tutor' => $id_tutor],
+                                    ])
                                     ->one();
 
                                     echo '<td><input type="number" class="form-group form-group-sm col-8" placeholder="0" value="'.$query["suma_grupal"].'" disabled></td>';
 
-
-                                    $query = (new Query())
-                                    ->select(['SUM(sesion_no_grupal) AS suma_no_grupal'])
-                                    ->from('semana_real')
-                                    ->where([
-                                        'between', 'orden_semana', 7, 11
-                                    ])
-                                    ->andWhere(['tutor_id_tutor' => $id_tutor])
-                                    ->andWhere(['pat_id_pat'=> $id_pat])
-                                    ->one();
-
                                     echo '<td><input type="number" class="form-group form-group-sm col-8" placeholder="0" value="'.$query["suma_no_grupal"].'" disabled></td>';
-
-                                    $query = (new Query())
-                                    ->select(['SUM(tutorados_atendidos) AS suma_tutorados'])
-                                    ->from('semana_real')
-                                    ->where([
-                                        'between', 'orden_semana', 7, 11
-                                    ])
-                                    ->andWhere(['tutor_id_tutor' => $id_tutor])
-                                    ->andWhere(['pat_id_pat'=> $id_pat])
-                                    ->one();
 
                                     echo '<td><input type="number" class="form-group form-group-sm col-8" placeholder="0" value="'.$query["suma_tutorados"].'" disabled></td>';
 
-                                    $query = (new Query())
-                                    ->select(['SUM(mujeres) AS suma_mujeres'])
-                                    ->from('semana_real')
-                                    ->where([
-                                        'between', 'orden_semana', 7, 11
-                                    ])
-                                    ->andWhere(['tutor_id_tutor' => $id_tutor])
-                                    ->andWhere(['pat_id_pat'=> $id_pat])
-                                    ->one();
-
                                     echo '<td><input type="number" class="form-group form-group-sm col-8" placeholder="0" value="'.$query["suma_mujeres"].'" disabled></td>';
-
-                                    $query = (new Query())
-                                    ->select(['SUM(hombres) AS suma_hombres'])
-                                    ->from('semana_real')
-                                    ->where([
-                                        'between', 'orden_semana', 7, 11
-                                    ])
-                                    ->andWhere(['tutor_id_tutor' => $id_tutor])
-                                    ->andWhere(['pat_id_pat'=> $id_pat])
-                                    ->one();
 
                                     echo '<td><input type="number" class="form-group form-group-sm col-8" placeholder="0" value="'.$query["suma_hombres"].'" disabled></td>';
 
-                                    $query = (new Query())
-                                    ->select(['SUM(faltas) AS suma_faltas'])
-                                    ->from('semana_real')
-                                    ->where([
-                                        'between', 'orden_semana', 7, 11
-                                    ])
-                                    ->andWhere(['tutor_id_tutor' => $id_tutor])
-                                    ->andWhere(['pat_id_pat'=> $id_pat])
-                                    ->one();
-
                                     echo '<td><input type="number" class="form-group form-group-sm col-6" placeholder="0" value="'.$query["suma_faltas"].'" disabled></td>';
+
 
                                     $nombresParcial = "Segunda";
                                     $inicio = 7;
                                     $final = 11;
-                                    echo '<td>'.Html::a('PDF', ['site/report', 'id_pat'=>$id_pat, 'id_tutor'=>$id_tutor, 'parcial'=>$nombresParcial, 'inicio'=>$inicio, 'final'=>$final], ['class' => 'btn btn-info']).'</td>';
+                                    echo '<td>'.Html::a('PDF', ['site/report', 'id_pat'=>$id_pat, 'id_tutor'=>$id_tutor, 'parcial'=>$nombresParcial, 'inicio'=>$inicio, 'final'=>$final], ['class' => 'btn btn-info', 'target' => '_blank']).'</td>';
 
                                     ?>
 
@@ -399,82 +316,41 @@ if(isset($model->id_pat)){
                                 <tr>
                                 <?php
                                     $query = (new Query())
-                                    ->select(['SUM(sesion_grupal) AS suma_grupal'])
-                                    ->from('semana_real')
-                                    ->where([
-                                        'between', 'orden_semana', 12, 17
+                                    ->select([
+                                        'SUM(semana_real.sesion_grupal) AS suma_grupal',
+                                        'SUM(semana_real.sesion_no_grupal) AS suma_no_grupal',
+                                        'SUM(semana_real.tutorados_atendidos) AS suma_tutorados',
+                                        'SUM(semana_real.mujeres) AS suma_mujeres',
+                                        'SUM(semana_real.hombres) AS suma_hombres',
+                                        'SUM(semana_real.faltas) AS suma_faltas',
                                     ])
-                                    ->andWhere(['tutor_id_tutor' => $id_tutor])
-                                    ->andWhere(['pat_id_pat'=> $id_pat])
+                                    ->from('semana')
+                                    ->innerJoin('semana_real', 'semana.id_semana = semana_real.semana_id_semana')
+                                    ->where([
+                                        'and',
+                                        ['between', 'semana_real.orden_semana', 12, 17],
+                                        ['semana_real.pat_id_pat' => $id_pat],
+                                        ['semana_real.tutor_id_tutor' => $id_tutor],
+                                    ])
                                     ->one();
+
 
                                     echo '<td><input type="number" class="form-group form-group-sm col-8" placeholder="0" value="'.$query["suma_grupal"].'" disabled></td>';
 
-
-                                    $query = (new Query())
-                                    ->select(['SUM(sesion_no_grupal) AS suma_no_grupal'])
-                                    ->from('semana_real')
-                                    ->where([
-                                        'between', 'orden_semana', 12, 17
-                                    ])
-                                    ->andWhere(['tutor_id_tutor' => $id_tutor])
-                                    ->andWhere(['pat_id_pat'=> $id_pat])
-                                    ->one();
-
                                     echo '<td><input type="number" class="form-group form-group-sm col-8" placeholder="0" value="'.$query["suma_no_grupal"].'" disabled></td>';
-
-                                    $query = (new Query())
-                                    ->select(['SUM(tutorados_atendidos) AS suma_tutorados'])
-                                    ->from('semana_real')
-                                    ->where([
-                                        'between', 'orden_semana', 12, 17
-                                    ])
-                                    ->andWhere(['tutor_id_tutor' => $id_tutor])
-                                    ->andWhere(['pat_id_pat'=> $id_pat])
-                                    ->one();
 
                                     echo '<td><input type="number" class="form-group form-group-sm col-8" placeholder="0" value="'.$query["suma_tutorados"].'" disabled></td>';
 
-                                    $query = (new Query())
-                                    ->select(['SUM(mujeres) AS suma_mujeres'])
-                                    ->from('semana_real')
-                                    ->where([
-                                        'between', 'orden_semana', 12, 17
-                                    ])
-                                    ->andWhere(['tutor_id_tutor' => $id_tutor])
-                                    ->andWhere(['pat_id_pat'=> $id_pat])
-                                    ->one();
-
                                     echo '<td><input type="number" class="form-group form-group-sm col-8" placeholder="0" value="'.$query["suma_mujeres"].'" disabled></td>';
-
-                                    $query = (new Query())
-                                    ->select(['SUM(hombres) AS suma_hombres'])
-                                    ->from('semana_real')
-                                    ->where([
-                                        'between', 'orden_semana', 12, 17
-                                    ])
-                                    ->andWhere(['tutor_id_tutor' => $id_tutor])
-                                    ->andWhere(['pat_id_pat'=> $id_pat])
-                                    ->one();
 
                                     echo '<td><input type="number" class="form-group form-group-sm col-8" placeholder="0" value="'.$query["suma_hombres"].'" disabled></td>';
 
-                                    $query = (new Query())
-                                    ->select(['SUM(faltas) AS suma_faltas'])
-                                    ->from('semana_real')
-                                    ->where([
-                                        'between', 'orden_semana', 12, 17
-                                    ])
-                                    ->andWhere(['tutor_id_tutor' => $id_tutor])
-                                    ->andWhere(['pat_id_pat'=> $id_pat])
-                                    ->one();
-
                                     echo '<td><input type="number" class="form-group form-group-sm col-6" placeholder="0" value="'.$query["suma_faltas"].'" disabled></td>';
 
-                                    $nombresParcial = "Segunda";
+                                    $nombresParcial = "Tercera";
                                     $inicio = 12;
                                     $final = 17;
-                                    echo '<td>'.Html::a('PDF', ['site/report', 'id_pat'=>$id_pat, 'id_tutor'=>$id_tutor, 'parcial'=>$nombresParcial, 'inicio'=>$inicio, 'final'=>$final], ['class' => 'btn btn-info']).'</td>';
+                                    echo '<td>'.Html::a('PDF', ['site/report', 'id_pat'=>$id_pat, 'id_tutor'=>$id_tutor, 'parcial'=>$nombresParcial, 'inicio'=>$inicio, 'final'=>$final], ['class'=> 'btn btn-info', 'target' => '_blank']).'</td>';
 
                                     ?>
                                 </tr>
@@ -484,77 +360,37 @@ if(isset($model->id_pat)){
                                     <th>Total</th>
                                     <?php
                                     $query = (new Query())
-                                    ->select(['SUM(sesion_grupal) AS suma_grupal'])
-                                    ->from('semana_real')
-                                    ->where([
-                                        'between', 'orden_semana', 1, 17
+                                    ->select([
+                                        'SUM(semana_real.sesion_grupal) AS suma_grupal',
+                                        'SUM(semana_real.sesion_no_grupal) AS suma_no_grupal',
+                                        'SUM(semana_real.tutorados_atendidos) AS suma_tutorados',
+                                        'SUM(semana_real.mujeres) AS suma_mujeres',
+                                        'SUM(semana_real.hombres) AS suma_hombres',
+                                        'SUM(semana_real.faltas) AS suma_faltas',
                                     ])
-                                    ->andWhere(['tutor_id_tutor' => $id_tutor])
-                                    ->andWhere(['pat_id_pat'=> $id_pat])
+                                    ->from('semana')
+                                    ->innerJoin('semana_real', 'semana.id_semana = semana_real.semana_id_semana')
+                                    ->where([
+                                        'and',
+                                        ['between', 'semana_real.orden_semana', 1, 17],
+                                        ['semana_real.pat_id_pat' => $id_pat],
+                                        ['semana_real.tutor_id_tutor' => $id_tutor],
+                                    ])
                                     ->one();
+                                    '<tr>';
 
                                     echo '<td><input type="number" class="form-group form-group-sm col-8" placeholder="0" value="'.$query["suma_grupal"].'" disabled></td>';
 
-
-                                    $query = (new Query())
-                                    ->select(['SUM(sesion_no_grupal) AS suma_no_grupal'])
-                                    ->from('semana_real')
-                                    ->where([
-                                        'between', 'orden_semana', 1, 17
-                                    ])
-                                    ->andWhere(['tutor_id_tutor' => $id_tutor])
-                                    ->andWhere(['pat_id_pat'=> $id_pat])
-                                    ->one();
-
                                     echo '<td><input type="number" class="form-group form-group-sm col-8" placeholder="0" value="'.$query["suma_no_grupal"].'" disabled></td>';
-
-                                    $query = (new Query())
-                                    ->select(['SUM(tutorados_atendidos) AS suma_tutorados'])
-                                    ->from('semana_real')
-                                    ->where([
-                                        'between', 'orden_semana', 1, 17
-                                    ])
-                                    ->andWhere(['tutor_id_tutor' => $id_tutor])
-                                    ->andWhere(['pat_id_pat'=> $id_pat])
-                                    ->one();
 
                                     echo '<td><input type="number" class="form-group form-group-sm col-8" placeholder="0" value="'.$query["suma_tutorados"].'" disabled></td>';
 
-                                    $query = (new Query())
-                                    ->select(['SUM(mujeres) AS suma_mujeres'])
-                                    ->from('semana_real')
-                                    ->where([
-                                        'between', 'orden_semana', 1, 17
-                                    ])
-                                    ->andWhere(['tutor_id_tutor' => $id_tutor])
-                                    ->andWhere(['pat_id_pat'=> $id_pat])
-                                    ->one();
-
                                     echo '<td><input type="number" class="form-group form-group-sm col-9" placeholder="0" value="'.$query["suma_mujeres"].'" disabled></td>';
-
-                                    $query = (new Query())
-                                    ->select(['SUM(hombres) AS suma_hombres'])
-                                    ->from('semana_real')
-                                    ->where([
-                                        'between', 'orden_semana', 1, 17
-                                    ])
-                                    ->andWhere(['tutor_id_tutor' => $id_tutor])
-                                    ->andWhere(['pat_id_pat'=> $id_pat])
-                                    ->one();
 
                                     echo '<td><input type="number" class="form-group form-group-sm col-9" placeholder="0" value="'.$query["suma_hombres"].'" disabled></td>';
 
-                                    $query = (new Query())
-                                    ->select(['SUM(faltas) AS suma_faltas'])
-                                    ->from('semana_real')
-                                    ->where([
-                                        'between', 'orden_semana', 1, 17
-                                    ])
-                                    ->andWhere(['tutor_id_tutor' => $id_tutor])
-                                    ->andWhere(['pat_id_pat'=> $id_pat])
-                                    ->one();
-
                                     echo '<td><input type="number" class="form-group form-group-sm col-9" placeholder="0" value="'.$query["suma_faltas"].'" disabled></td>';
+                                    '</tr>';
 
  /*                                    $nombresParcial = "Segunda";
                                     $inicio = 1;
@@ -570,7 +406,7 @@ if(isset($model->id_pat)){
 
 
     <div class="text-center ">
-        <?= Html::a('Generar reporte final', ['site/pdf', 'id_pat'=>$id_pat, 'id_tutor'=>$id_tutor, 'parcial'=>$nombresParcial, 'inicio'=>1, 'final'=>17], ['class' => 'btn btn-info']) ?>
+        <?= Html::a('Generar reporte final', ['site/pdf', 'id_pat'=>$id_pat, 'id_tutor'=>$id_tutor, 'parcial'=>$nombresParcial, 'inicio'=>1, 'final'=>17], ['class' => 'btn btn-info', 'target' => '_blank']) ?>
     </div>
         <?php } ?>
 </div>
