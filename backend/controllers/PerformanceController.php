@@ -2,17 +2,16 @@
 
 namespace backend\controllers;
 
-use app\models\Diagnostico;
-use app\models\search\DiagnosticoSearch;
+use app\models\Performance;
 use app\models\search\PerformanceSearch;
 use yii\web\Controller;
 use yii\web\NotFoundHttpException;
 use yii\filters\VerbFilter;
 
 /**
- * DiagnosticoController implements the CRUD actions for Diagnostico model.
+ * PerformanceController implements the CRUD actions for Performance model.
  */
-class DiagnosticoController extends Controller
+class PerformanceController extends Controller
 {
     /**
      * @inheritDoc
@@ -33,51 +32,46 @@ class DiagnosticoController extends Controller
     }
 
     /**
-     * Lists all Diagnostico models.
+     * Lists all Performance models.
      *
      * @return string
      */
     public function actionIndex()
     {
-        $searchModel = new DiagnosticoSearch();
+        $searchModel = new PerformanceSearch();
         $dataProvider = $searchModel->search($this->request->queryParams);
-
-        $searchPerformance = new PerformanceSearch();
-        $dataPerformance = $searchPerformance->search($this->request->queryParams);
 
         return $this->render('index', [
             'searchModel' => $searchModel,
             'dataProvider' => $dataProvider,
-            'searchPerformance' => $searchPerformance,
-            'dataPerformance' => $dataPerformance,
         ]);
     }
 
     /**
-     * Displays a single Diagnostico model.
-     * @param int $id_diagnostico Id Diagnostico
+     * Displays a single Performance model.
+     * @param int $iddesempeño Iddesempeño
      * @return string
      * @throws NotFoundHttpException if the model cannot be found
      */
-    public function actionView($id_diagnostico)
+    public function actionView($iddesempeño)
     {
         return $this->render('view', [
-            'model' => $this->findModel($id_diagnostico),
+            'model' => $this->findModel($iddesempeño),
         ]);
     }
 
     /**
-     * Creates a new Diagnostico model.
+     * Creates a new Performance model.
      * If creation is successful, the browser will be redirected to the 'view' page.
      * @return string|\yii\web\Response
      */
     public function actionCreate()
     {
-        $model = new Diagnostico();
+        $model = new Performance();
 
         if ($this->request->isPost) {
             if ($model->load($this->request->post()) && $model->save()) {
-                return $this->redirect(['view', 'id_diagnostico' => $model->id_diagnostico]);
+                return $this->redirect(['view', 'iddesempeño' => $model->iddesempeño]);
             }
         } else {
             $model->loadDefaultValues();
@@ -89,18 +83,18 @@ class DiagnosticoController extends Controller
     }
 
     /**
-     * Updates an existing Diagnostico model.
+     * Updates an existing Performance model.
      * If update is successful, the browser will be redirected to the 'view' page.
-     * @param int $id_diagnostico Id Diagnostico
+     * @param int $iddesempeño Iddesempeño
      * @return string|\yii\web\Response
      * @throws NotFoundHttpException if the model cannot be found
      */
-    public function actionUpdate($id_diagnostico)
+    public function actionUpdate($iddesempeño)
     {
-        $model = $this->findModel($id_diagnostico);
+        $model = $this->findModel($iddesempeño);
 
         if ($this->request->isPost && $model->load($this->request->post()) && $model->save()) {
-            return $this->redirect(['view', 'id_diagnostico' => $model->id_diagnostico]);
+            return $this->redirect(['view', 'iddesempeño' => $model->iddesempeño]);
         }
 
         return $this->render('update', [
@@ -109,38 +103,32 @@ class DiagnosticoController extends Controller
     }
 
     /**
-     * Deletes an existing Diagnostico model.
+     * Deletes an existing Performance model.
      * If deletion is successful, the browser will be redirected to the 'index' page.
-     * @param int $id_diagnostico Id Diagnostico
+     * @param int $iddesempeño Iddesempeño
      * @return \yii\web\Response
      * @throws NotFoundHttpException if the model cannot be found
      */
-    public function actionDelete($id_diagnostico)
+    public function actionDelete($iddesempeño)
     {
-        $this->findModel($id_diagnostico)->delete();
+        $this->findModel($iddesempeño)->delete();
 
         return $this->redirect(['index']);
     }
 
     /**
-     * Finds the Diagnostico model based on its primary key value.
+     * Finds the Performance model based on its primary key value.
      * If the model is not found, a 404 HTTP exception will be thrown.
-     * @param int $id_diagnostico Id Diagnostico
-     * @return Diagnostico the loaded model
+     * @param int $iddesempeño Iddesempeño
+     * @return Performance the loaded model
      * @throws NotFoundHttpException if the model cannot be found
      */
-    protected function findModel($id_diagnostico)
+    protected function findModel($iddesempeño)
     {
-        if (($model = Diagnostico::findOne(['id_diagnostico' => $id_diagnostico])) !== null) {
+        if (($model = Performance::findOne(['iddesempeño' => $iddesempeño])) !== null) {
             return $model;
         }
 
         throw new NotFoundHttpException('The requested page does not exist.');
-    }
-
-    public function getMotivo($id_diagnostico){
-        $diagnostico = Diagnostico::findIdentity($id_diagnostico);
-
-        return $diagnostico->motivo;
     }
 }

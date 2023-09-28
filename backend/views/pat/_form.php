@@ -182,8 +182,8 @@ if(isset($model->id_pat)){
 
 
                     <!-- Cambiar los td por th -->
-                    <div class="container py-3">
-                        <div class="table-responsive text-center">
+
+                        <div class="table-responsive text-center py-3">
                         <!--<h1>hola</h1> -->
                         <table class="table mi-tabla">
                             <thead class="border">
@@ -402,7 +402,7 @@ if(isset($model->id_pat)){
                             </tbody>
                         </table>
                     </div>
-                </div>
+
 
 
     <div class="text-center ">

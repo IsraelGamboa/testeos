@@ -4,7 +4,7 @@ use yii\helpers\Html;
 use yii\widgets\ActiveForm;
 
 /** @var yii\web\View $this */
-/** @var app\models\search\SearchDiagnostico $model */
+/** @var app\models\search\DiagnosticoSearch $model */
 /** @var yii\widgets\ActiveForm $form */
 ?>
 
@@ -24,6 +24,14 @@ use yii\widgets\ActiveForm;
     <?= $form->field($model, 'especifique') ?>
 
     <?= $form->field($model, 'motivo_id_motivo') ?>
+
+    <?php // echo $form->field($model, 'grupo_id_grupo') ?>
+
+    <?php // echo $form->field($model, 'excelente') ?>
+
+    <?php // echo $form->field($model, 'bueno') ?>
+
+    <?php // echo $form->field($model, 'riesgo') ?>
 
     <div class="form-group">
         <?= Html::submitButton('Search', ['class' => 'btn btn-primary']) ?>

@@ -12,9 +12,13 @@ use Yii;
  * @property string $otro
  * @property string $especifique
  * @property int $motivo_id_motivo
+ * @property int $grupo_id_grupo
+ * @property int $excelente
+ * @property int $bueno
+ * @property int $riesgo
  *
+ * @property Grupo $grupoIdGrupo
  * @property Motivo $motivoIdMotivo
- * @property Perfil[] $perfils
  */
 class Diagnostico extends \yii\db\ActiveRecord
 {
@@ -32,9 +36,10 @@ class Diagnostico extends \yii\db\ActiveRecord
     public function rules()
     {
         return [
-            [['asignatura', 'otro', 'especifique', 'motivo_id_motivo'], 'required'],
-            [['motivo_id_motivo'], 'integer'],
-            [['asignatura', 'otro', 'especifique'], 'string', 'max' => 45],
+            [['matricula', 'nombre', 'asignatura', 'otro', 'especifique', 'motivo_id_motivo', 'grupo_id_grupo'], 'required'],
+            [['matricula', 'motivo_id_motivo', 'grupo_id_grupo'], 'integer'],
+            [['nombre', 'asignatura', 'otro', 'especifique'], 'string', 'max' => 150],
+            [['grupo_id_grupo'], 'exist', 'skipOnError' => true, 'targetClass' => Grupo::class, 'targetAttribute' => ['grupo_id_grupo' => 'id_grupo']],
             [['motivo_id_motivo'], 'exist', 'skipOnError' => true, 'targetClass' => Motivo::class, 'targetAttribute' => ['motivo_id_motivo' => 'id_motivo']],
         ];
     }
@@ -46,11 +51,24 @@ class Diagnostico extends \yii\db\ActiveRecord
     {
         return [
             'id_diagnostico' => 'Id Diagnostico',
+            'matricula' => 'Matricula',
+            'nombre' => 'Alumno en alto riesgo',
             'asignatura' => 'Asignatura',
             'otro' => 'Otro',
             'especifique' => 'Especifique',
-            'motivo_id_motivo' => 'Motivo Id Motivo',
+            'motivo_id_motivo' => 'Motivo',
+            'grupo_id_grupo' => 'Grupo Id Grupo',
         ];
+    }
+
+    /**
+     * Gets query for [[GrupoIdGrupo]].
+     *
+     * @return \yii\db\ActiveQuery
+     */
+    public function getGrupoIdGrupo()
+    {
+        return $this->hasOne(Grupo::class, ['id_grupo' => 'grupo_id_grupo']);
     }
 
     /**
@@ -61,15 +79,5 @@ class Diagnostico extends \yii\db\ActiveRecord
     public function getMotivoIdMotivo()
     {
         return $this->hasOne(Motivo::class, ['id_motivo' => 'motivo_id_motivo']);
-    }
-
-    /**
-     * Gets query for [[Perfils]].
-     *
-     * @return \yii\db\ActiveQuery
-     */
-    public function getPerfils()
-    {
-        return $this->hasMany(Perfil::class, ['diagnostico_id_diagnostico' => 'id_diagnostico']);
     }
 }

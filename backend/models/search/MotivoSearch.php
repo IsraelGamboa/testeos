@@ -4,12 +4,12 @@ namespace app\models\search;
 
 use yii\base\Model;
 use yii\data\ActiveDataProvider;
-use app\models\Diagnostico;
+use app\models\Motivo;
 
 /**
- * SearchDiagnostico represents the model behind the search form of `app\models\Diagnostico`.
+ * MotivoSearch represents the model behind the search form of `app\models\Motivo`.
  */
-class SearchDiagnostico extends Diagnostico
+class MotivoSearch extends Motivo
 {
     /**
      * {@inheritdoc}
@@ -17,8 +17,8 @@ class SearchDiagnostico extends Diagnostico
     public function rules()
     {
         return [
-            [['id_diagnostico', 'motivo_id_motivo'], 'integer'],
-            [['asignatura', 'otro', 'especifique'], 'safe'],
+            [['id_motivo'], 'integer'],
+            [['nombre'], 'safe'],
         ];
     }
 
@@ -40,7 +40,7 @@ class SearchDiagnostico extends Diagnostico
      */
     public function search($params)
     {
-        $query = Diagnostico::find();
+        $query = Motivo::find();
 
         // add conditions that should always apply here
 
@@ -58,13 +58,10 @@ class SearchDiagnostico extends Diagnostico
 
         // grid filtering conditions
         $query->andFilterWhere([
-            'id_diagnostico' => $this->id_diagnostico,
-            'motivo_id_motivo' => $this->motivo_id_motivo,
+            'id_motivo' => $this->id_motivo,
         ]);
 
-        $query->andFilterWhere(['like', 'asignatura', $this->asignatura])
-            ->andFilterWhere(['like', 'otro', $this->otro])
-            ->andFilterWhere(['like', 'especifique', $this->especifique]);
+        $query->andFilterWhere(['like', 'nombre', $this->nombre]);
 
         return $dataProvider;
     }
