@@ -1,7 +1,7 @@
 <?php
 
 namespace app\models;
-
+use app\models\Motivo;
 use Yii;
 
 /**
@@ -80,4 +80,5 @@ class Diagnostico extends \yii\db\ActiveRecord
     {
         return $this->hasOne(Motivo::class, ['id_motivo' => 'motivo_id_motivo']);
     }
+
 }

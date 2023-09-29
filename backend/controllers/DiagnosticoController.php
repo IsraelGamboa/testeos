@@ -3,6 +3,7 @@
 namespace backend\controllers;
 
 use app\models\Diagnostico;
+use app\models\Motivo;
 use app\models\search\DiagnosticoSearch;
 use app\models\search\PerformanceSearch;
 use yii\web\Controller;
@@ -45,7 +46,10 @@ class DiagnosticoController extends Controller
         $searchPerformance = new PerformanceSearch();
         $dataPerformance = $searchPerformance->search($this->request->queryParams);
 
+        $model = new Motivo();
+
         return $this->render('index', [
+            'model' => $model,
             'searchModel' => $searchModel,
             'dataProvider' => $dataProvider,
             'searchPerformance' => $searchPerformance,
@@ -138,9 +142,4 @@ class DiagnosticoController extends Controller
         throw new NotFoundHttpException('The requested page does not exist.');
     }
 
-    public function getMotivo($id_diagnostico){
-        $diagnostico = Diagnostico::findIdentity($id_diagnostico);
-
-        return $diagnostico->motivo;
-    }
 }

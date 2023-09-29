@@ -6,7 +6,8 @@ use app\models\Diagnostico;
 use yii\helpers\Html;
 use yii\helpers\Url;
 use yii\grid\ActionColumn;
-use kartik\grid\GridView;
+use yii\grid\GridView;
+
 
 /** @var yii\web\View $this */
 /** @var app\models\search\DiagnosticoSearch $searchModel */
@@ -31,7 +32,16 @@ $this->params['breadcrumbs'][] = $this->title;
             'matricula',
             'nombre',
             'asignatura',
-            'motivo_id_motivo',
+            //'motivo_id_motivo',
+            [
+                'attribute' => 'motivo_id_motivo', // Nombre de la columna en tu modelo Diagnostico
+                'label' => 'Motivo', // Etiqueta para mostrar en la columna
+                'value' => function ($model) {
+                    // Aquí obtienes el nombre del motivo relacionado
+                    return $model->motivoIdMotivo->nombre; // Asumiendo que la relación se llama "motivo"
+                },
+            ],
+            
             'otro',
             'especifique',
             //'grupo_id_grupo',
@@ -39,7 +49,7 @@ $this->params['breadcrumbs'][] = $this->title;
             //'bueno',
             //'riesgo',
             [
-                'class' => 'kartik\grid\ActionColumn',
+                'class' => ActionColumn::className(),
                 'urlCreator' => function ($action, $model, $key, $index) {
                     $id_pat = Yii::$app->request->get('id_pat');
                     if ($action === 'view') {
@@ -60,6 +70,8 @@ $this->params['breadcrumbs'][] = $this->title;
             ],
         ],
     ]); ?>
+
+
     <p>
         <?= Html::a('Añadir alumno', ['create'], ['class' => 'btn btn-warning']) ?>
     </p>
@@ -76,7 +88,7 @@ $this->params['breadcrumbs'][] = $this->title;
             'riesgo',
             //'grupo_id_grupo',
             [
-                'class' => 'kartik\grid\ActionColumn',
+                'class' => ActionColumn::className(),
                 'urlCreator' => function ($action, $model, $key, $index) {
 
                     if ($action === 'view') {
@@ -117,9 +129,9 @@ $this->params['breadcrumbs'][] = $this->title;
         <div class="table-responsive text-center">
         <!--<h1>hola</h1> -->
         <table class="table mi-tabla">
-            <thead class="border">
+            <!-- <thead class="border">
                 <th colspan="8"><h3>DESEMPEÑO DE GRUPO</i></h3></th>
-            </thead>
+            </thead> -->
             <tbody class="border">
                 <tr>
                     <th>ALUMNOS</th>
@@ -138,19 +150,19 @@ $this->params['breadcrumbs'][] = $this->title;
                 $resultados = Performance::find()->where(['grupo_id_grupo' => $id_grupo])->all();
 
                     foreach($resultados as $resultado){
-                        echo '<th>CANTIDAD</th>';
+                        //echo '<th>CANTIDAD</th>';
 
-                        echo '<td><input type="number" class="form-group form-group-sm col-8" placeholder="0" value="'.$resultado["excelente"].'" disabled></td>';
+                        //echo '<td><input type="number" class="form-group form-group-sm col-8" placeholder="0" value="'.$resultado["excelente"].'" disabled></td>';
 
-                        echo '<td><input type="number" class="form-group form-group-sm col-8" placeholder="0" value="'.$resultado["bueno"].'" disabled></td>';
+                        //echo '<td><input type="number" class="form-group form-group-sm col-8" placeholder="0" value="'.$resultado["bueno"].'" disabled></td>';
 
-                        echo '<td><input type="number" class="form-group form-group-sm col-8" placeholder="0" value="'.$resultado["riesgo"].'" disabled></td>';
+                        //echo '<td><input type="number" class="form-group form-group-sm col-8" placeholder="0" value="'.$resultado["riesgo"].'" disabled></td>';
                     }
 
                     $suma = $resultado["excelente"] + $resultado["bueno"] + $resultado["riesgo"];
-                    echo '<td><input type="number" class="form-group form-group-sm col-8" placeholder="0" value="'.$suma.'" disabled></td>';
+                    /*echo '<td><input type="number" class="form-group form-group-sm col-8" placeholder="0" value="'.$suma.'" disabled></td>';*/
 
-                        echo '<td colspan="2">'.Html::a('PDF', ['site/report'], ['class' => 'btn btn-info', 'target' => '_blank']).'</td>';
+                    
 
 
                 ?>
@@ -160,13 +172,15 @@ $this->params['breadcrumbs'][] = $this->title;
                         <th>PORCENTAJE</th>
                         <?php
                             $excelente = ($resultado["excelente"] / $suma) * 100;
-                            echo '<td><input type="number" class="form-group form-group-sm col-8" placeholder="0" value="'.$excelente.'" disabled></td>';
+                            echo '<td><input type="number" class="form-group form-group-sm col-10" placeholder="0" value="'.$excelente.'" disabled></td>';
                             $bueno = ($resultado["bueno"] / $suma) * 100;
-                            echo '<td><input type="number" class="form-group form-group-sm col-8" placeholder="0" value="'.$bueno.'" disabled></td>';
+                            echo '<td><input type="number" class="form-group form-group-sm col-10" placeholder="0" value="'.$bueno.'" disabled></td>';
                             $riesgo = ($resultado["riesgo"] / $suma) * 100;
-                            echo '<td><input type="number" class="form-group form-group-sm col-8" placeholder="0" value="'.$riesgo.'" disabled></td>';
+                            echo '<td><input type="number" class="form-group form-group-sm col-10" placeholder="0" value="'.$riesgo.'" disabled></td>';
                             $total = $excelente + $bueno + $riesgo;
-                            echo '<td><input type="number" class="form-group form-group-sm col-8" placeholder="0" value="'.$total.'" disabled></td>';
+                            echo '<td><input type="number" class="form-group form-group-sm col-10" placeholder="0" value="'.$total.'" disabled></td>';
+
+                            echo '<td colspan="2">'.Html::a('PDF', ['site/report'], ['class' => 'btn btn-info', 'target' => '_blank']).'</td>';
                         ?>
                     </tr>
             </tbody>
