@@ -2,18 +2,16 @@
 
 namespace backend\controllers;
 
-use app\models\Diagnostico;
-use app\models\Motivo;
-use app\models\search\DiagnosticoSearch;
-use app\models\search\PerformanceSearch;
+use app\models\Grupo;
+use app\models\search\GrupoSearch;
 use yii\web\Controller;
 use yii\web\NotFoundHttpException;
 use yii\filters\VerbFilter;
 
 /**
- * DiagnosticoController implements the CRUD actions for Diagnostico model.
+ * GrupoController implements the CRUD actions for Grupo model.
  */
-class DiagnosticoController extends Controller
+class GrupoController extends Controller
 {
     /**
      * @inheritDoc
@@ -34,54 +32,46 @@ class DiagnosticoController extends Controller
     }
 
     /**
-     * Lists all Diagnostico models.
+     * Lists all Grupo models.
      *
      * @return string
      */
     public function actionIndex()
     {
-        $searchModel = new DiagnosticoSearch();
+        $searchModel = new GrupoSearch();
         $dataProvider = $searchModel->search($this->request->queryParams);
 
-        $searchPerformance = new PerformanceSearch();
-        $dataPerformance = $searchPerformance->search($this->request->queryParams);
-
-        $model = new Motivo();
-
         return $this->render('index', [
-            'model' => $model,
             'searchModel' => $searchModel,
             'dataProvider' => $dataProvider,
-            'searchPerformance' => $searchPerformance,
-            'dataPerformance' => $dataPerformance,
         ]);
     }
 
     /**
-     * Displays a single Diagnostico model.
-     * @param int $id_diagnostico Id Diagnostico
+     * Displays a single Grupo model.
+     * @param int $id_grupo Id Grupo
      * @return string
      * @throws NotFoundHttpException if the model cannot be found
      */
-    public function actionView($id_diagnostico)
+    public function actionView($id_grupo)
     {
         return $this->render('view', [
-            'model' => $this->findModel($id_diagnostico),
+            'model' => $this->findModel($id_grupo),
         ]);
     }
 
     /**
-     * Creates a new Diagnostico model.
+     * Creates a new Grupo model.
      * If creation is successful, the browser will be redirected to the 'view' page.
      * @return string|\yii\web\Response
      */
     public function actionCreate()
     {
-        $model = new Diagnostico();
+        $model = new Grupo();
 
         if ($this->request->isPost) {
             if ($model->load($this->request->post()) && $model->save()) {
-                return $this->redirect(['view', 'id_diagnostico' => $model->id_diagnostico]);
+                return $this->redirect(['view', 'id_grupo' => $model->id_grupo]);
             }
         } else {
             $model->loadDefaultValues();
@@ -93,18 +83,18 @@ class DiagnosticoController extends Controller
     }
 
     /**
-     * Updates an existing Diagnostico model.
+     * Updates an existing Grupo model.
      * If update is successful, the browser will be redirected to the 'view' page.
-     * @param int $id_diagnostico Id Diagnostico
+     * @param int $id_grupo Id Grupo
      * @return string|\yii\web\Response
      * @throws NotFoundHttpException if the model cannot be found
      */
-    public function actionUpdate($id_diagnostico)
+    public function actionUpdate($id_grupo)
     {
-        $model = $this->findModel($id_diagnostico);
+        $model = $this->findModel($id_grupo);
 
         if ($this->request->isPost && $model->load($this->request->post()) && $model->save()) {
-            return $this->redirect(['view', 'id_diagnostico' => $model->id_diagnostico]);
+            return $this->redirect(['view', 'id_grupo' => $model->id_grupo]);
         }
 
         return $this->render('update', [
@@ -113,33 +103,32 @@ class DiagnosticoController extends Controller
     }
 
     /**
-     * Deletes an existing Diagnostico model.
+     * Deletes an existing Grupo model.
      * If deletion is successful, the browser will be redirected to the 'index' page.
-     * @param int $id_diagnostico Id Diagnostico
+     * @param int $id_grupo Id Grupo
      * @return \yii\web\Response
      * @throws NotFoundHttpException if the model cannot be found
      */
-    public function actionDelete($id_diagnostico)
+    public function actionDelete($id_grupo)
     {
-        $this->findModel($id_diagnostico)->delete();
+        $this->findModel($id_grupo)->delete();
 
         return $this->redirect(['index']);
     }
 
     /**
-     * Finds the Diagnostico model based on its primary key value.
+     * Finds the Grupo model based on its primary key value.
      * If the model is not found, a 404 HTTP exception will be thrown.
-     * @param int $id_diagnostico Id Diagnostico
-     * @return Diagnostico the loaded model
+     * @param int $id_grupo Id Grupo
+     * @return Grupo the loaded model
      * @throws NotFoundHttpException if the model cannot be found
      */
-    protected function findModel($id_diagnostico)
+    protected function findModel($id_grupo)
     {
-        if (($model = Diagnostico::findOne(['id_diagnostico' => $id_diagnostico])) !== null) {
+        if (($model = Grupo::findOne(['id_grupo' => $id_grupo])) !== null) {
             return $model;
         }
 
         throw new NotFoundHttpException('The requested page does not exist.');
     }
-
 }
