@@ -8,6 +8,7 @@ use yii\filters\VerbFilter;
 use yii\filters\AccessControl;
 use yii\web\Controller;
 use yii\web\Response;
+use kartik\mpdf\Pdf;
 
 /**
  * Site controller
@@ -28,7 +29,7 @@ class SiteController extends Controller
                         'allow' => true,
                     ],
                     [
-                        'actions' => ['logout', 'index'],
+                        'actions' => ['logout', 'index', 'report', 'pdf'],
                         'allow' => true,
                         'roles' => ['@'],
                     ],
@@ -64,7 +65,27 @@ class SiteController extends Controller
     {
         return $this->render('index');
     }
+    public function actionReport()
+    {
+        $pdf = Yii::$app->pdf;
 
+        $modelo = "Hola, es un testeo de reporte";
+
+        $content = $this->renderPartial('_reportView');
+        $pdf->content = $content;
+        return $pdf->render();
+    }
+
+    public function actionPdf()
+    {
+        $pdf = Yii::$app->pdf;
+
+        $modelo = "Hola, es un testeo de reporte";
+
+        $content = $this->renderPartial('_reportFinal');
+        $pdf->content = $content;
+        return $pdf->render();
+    }
     /**
      * Login action.
      *

@@ -3,6 +3,8 @@
 use yii\helpers\Html;
 use yii\widgets\DetailView;
 
+
+/** @var app\models\SemanaReal $model */
 /** @var yii\web\View $this */
 /** @var app\models\Semana $model */
 ?>
@@ -52,4 +54,14 @@ use yii\widgets\DetailView;
             </tr> -->
     </table>
 
+
+
+    <?php
+    $id_pat = Yii::$app->request->get('id_pat');
+    
+    ?>
+
+    <div class="col text-center pb-3">
+        <?= Html::a('Ver semana', ['/semana/pat', 'id_semana'=> $model->id_semana, 'id_pat'=>$id_pat], ['class' => 'btn btn-info']) ?>
+    </div>
 </div>

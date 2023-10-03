@@ -4,12 +4,12 @@ namespace app\models\search;
 
 use yii\base\Model;
 use yii\data\ActiveDataProvider;
-use app\models\Semana;
+use app\models\Tutor;
 
 /**
- * SearchSemana represents the model behind the search form of `app\models\Semana`.
+ * TutorSearch represents the model behind the search form of `app\models\Tutor`.
  */
-class SearchSemana extends Semana
+class TutorSearch extends Tutor
 {
     /**
      * {@inheritdoc}
@@ -17,8 +17,8 @@ class SearchSemana extends Semana
     public function rules()
     {
         return [
-            [['id_semana', 'semana', 'pat_id_pat'], 'integer'],
-            [['tipo_tutoria', 'tematica', 'objetivos', 'justificacion', 'estrategias_tutor', 'acciones', 'estrategias_tutorado'], 'safe'],
+            [['id_tutor'], 'integer'],
+            [['nombre'], 'safe'],
         ];
     }
 
@@ -40,10 +40,7 @@ class SearchSemana extends Semana
      */
     public function search($params)
     {
-
-        $query = Semana::find();
-
-
+        $query = Tutor::find();
 
         // add conditions that should always apply here
 
@@ -61,18 +58,10 @@ class SearchSemana extends Semana
 
         // grid filtering conditions
         $query->andFilterWhere([
-            'id_semana' => $this->id_semana,
-            'semana' => $this->semana,
-            'pat_id_pat' => $this->pat_id_pat,
+            'id_tutor' => $this->id_tutor,
         ]);
 
-        $query->andFilterWhere(['like', 'tipo_tutoria', $this->tipo_tutoria])
-            ->andFilterWhere(['like', 'tematica', $this->tematica])
-            ->andFilterWhere(['like', 'objetivos', $this->objetivos])
-            ->andFilterWhere(['like', 'justificacion', $this->justificacion])
-            ->andFilterWhere(['like', 'estrategias_tutor', $this->estrategias_tutor])
-            ->andFilterWhere(['like', 'acciones', $this->acciones])
-            ->andFilterWhere(['like', 'estrategias_tutorado', $this->estrategias_tutorado]);
+        $query->andFilterWhere(['like', 'nombre', $this->nombre]);
 
         return $dataProvider;
     }

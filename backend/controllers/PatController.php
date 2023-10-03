@@ -4,12 +4,15 @@ namespace backend\controllers;
 
 use app\models\Pat;
 use app\models\search\SearchPat;
+use app\models\search\SearchSemestre;
 use app\models\search\SearchSemana;
 use yii\web\Controller;
 use yii\web\NotFoundHttpException;
 use yii\filters\VerbFilter;
 
 use app\models\Semana;
+use app\models\Semestre;
+use yii\data\ActiveDataProvider;
 
 
 
@@ -61,8 +64,8 @@ class PatController extends Controller
     public function actionView($id_pat)
     {
 
-        $searchModel = new SearchSemana();
-        $dataProvider = $searchModel->search($this->request->queryParams);
+        /* $searchModel = new SearchSemana();
+        $dataProvider = $searchModel->search($this->request->queryParams); */
 
         // Encontrar el modelo Pat en función del ID proporcionado
         $model = $this->findModel($id_pat);
@@ -71,7 +74,7 @@ class PatController extends Controller
         $searchModel = new SearchSemana();
     
         // Realizar la búsqueda de las semanas relacionadas con este Pat
-                $dataProvider = $searchModel->search(['SearchSemana' => ['pat_id_pat' => $id_pat]]);
+        $dataProvider = $searchModel->search(['SearchSemana' => ['pat_id_pat' => $id_pat]]);
 
         return $this->render('view', [
             'model' => $this->findModel($id_pat),
@@ -87,12 +90,7 @@ class PatController extends Controller
      * @return string
      * @throws NotFoundHttpException if the model cannot be found
      */
-    public function actionViewSemana($id_semana)
-    {
-        return $this->render('view', [
-            'model' => $this->findModel($id_semana),
-        ]);
-    }
+
 
     /**
      * Creates a new Pat model.
@@ -129,10 +127,13 @@ class PatController extends Controller
         $model = $this->findModel($id_pat);
     
         // Cargar el modelo de búsqueda de semanas relacionadas
-        $searchModel = new SearchSemana();
+        $searchModel = new SearchSemana();        
     
         // Realizar la búsqueda de las semanas relacionadas con este Pat
         $dataProvider = $searchModel->search(['SearchSemana' => ['pat_id_pat' => $id_pat]]);
+
+        //Paginacion,  falta por mejorar
+        $dataProvider->pagination->pageSize = 10; 
     
         if ($this->request->isPost && $model->load($this->request->post()) && $model->save()) {
             return $this->redirect(['view', 'id_pat' => $model->id_pat]);

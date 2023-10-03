@@ -1,4 +1,6 @@
 <?php
+use kartik\mpdf\Pdf;
+
 return [
     'aliases' => [
         '@bower' => '@vendor/bower-asset',
@@ -17,8 +19,17 @@ return [
                 ],
             ],
         ],
+        // setup Krajee Pdf component
+        'pdf' => [
+            'class' => Pdf::classname(),
+            'format' => Pdf::FORMAT_A4,
+            'orientation' => Pdf::ORIENT_PORTRAIT,
+            'destination' => Pdf::DEST_BROWSER,
+            // refer settings section for all configuration options
+        ],
     ],
     'modules' => [
         'gridview' => ['class' => 'kartik\grid\Module']
-        ], 
+    ],
+
 ];

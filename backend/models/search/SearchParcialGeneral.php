@@ -4,12 +4,12 @@ namespace app\models\search;
 
 use yii\base\Model;
 use yii\data\ActiveDataProvider;
-use app\models\Semana;
+use app\models\ParcialGeneral;
 
 /**
- * SearchSemana represents the model behind the search form of `app\models\Semana`.
+ * SearchParcialGeneral represents the model behind the search form of `app\models\ParcialGeneral`.
  */
-class SearchSemana extends Semana
+class SearchParcialGeneral extends ParcialGeneral
 {
     /**
      * {@inheritdoc}
@@ -17,8 +17,8 @@ class SearchSemana extends Semana
     public function rules()
     {
         return [
-            [['id_semana', 'semana', 'pat_id_pat'], 'integer'],
-            [['tipo_tutoria', 'tematica', 'objetivos', 'justificacion', 'estrategias_tutor', 'acciones', 'estrategias_tutorado'], 'safe'],
+            [['id_parcial_general', 'total_horas_ind', 'total_horas_grup', 'tutor_id_tutor', 'semana_real_idsemana_real'], 'integer'],
+            [['nombre', 'fecha_entrega'], 'safe'],
         ];
     }
 
@@ -40,10 +40,7 @@ class SearchSemana extends Semana
      */
     public function search($params)
     {
-
-        $query = Semana::find();
-
-
+        $query = ParcialGeneral::find();
 
         // add conditions that should always apply here
 
@@ -61,18 +58,15 @@ class SearchSemana extends Semana
 
         // grid filtering conditions
         $query->andFilterWhere([
-            'id_semana' => $this->id_semana,
-            'semana' => $this->semana,
-            'pat_id_pat' => $this->pat_id_pat,
+            'id_parcial_general' => $this->id_parcial_general,
+            'total_horas_ind' => $this->total_horas_ind,
+            'total_horas_grup' => $this->total_horas_grup,
+            'fecha_entrega' => $this->fecha_entrega,
+            'tutor_id_tutor' => $this->tutor_id_tutor,
+            'semana_real_idsemana_real' => $this->semana_real_idsemana_real,
         ]);
 
-        $query->andFilterWhere(['like', 'tipo_tutoria', $this->tipo_tutoria])
-            ->andFilterWhere(['like', 'tematica', $this->tematica])
-            ->andFilterWhere(['like', 'objetivos', $this->objetivos])
-            ->andFilterWhere(['like', 'justificacion', $this->justificacion])
-            ->andFilterWhere(['like', 'estrategias_tutor', $this->estrategias_tutor])
-            ->andFilterWhere(['like', 'acciones', $this->acciones])
-            ->andFilterWhere(['like', 'estrategias_tutorado', $this->estrategias_tutorado]);
+        $query->andFilterWhere(['like', 'nombre', $this->nombre]);
 
         return $dataProvider;
     }
