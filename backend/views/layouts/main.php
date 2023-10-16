@@ -59,9 +59,9 @@ AppAsset::register($this);
                 'items' => [
                     //['label' => 'Reporte', 'url' => ['site/report']],
                     ['label' => 'PAT', 'url' => ['pat/index']],
-                    //['label' => 'Grupo', 'url' => ['grupo/index']],
-                    ['label' => 'Diagnostico', 'url' => ['diagnostico/index']],
-                    //['label' => 'Motivo', 'url' => ['motivo/index']],
+                    ['label' => 'Criterios', 'url' => ['criterios/index']],
+                    //['label' => 'Diagnostico', 'url' => ['diagnostico/index']],
+                    ['label' => 'Grupo', 'url' => ['grupo/index']],
                     //['label' => 'Parcial general', 'url' => ['parcial-general/index']],
                     //['label' => 'Semana real', 'url' => ['semana-real/index']],
                     //['label' => 'Tutor', 'url' => ['tutor/index']],

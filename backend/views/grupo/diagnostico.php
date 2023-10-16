@@ -15,8 +15,9 @@ use yii\grid\GridView;
 /** @var yii\data\ActiveDataProvider $dataProvider */
 /** @var app\models\search\PerformanceSearch $searchModel */
 
-$this->title = $model->id_grupo;
+$this->title = "Diarnostico ".$model->id_grupo;
 $this->params['breadcrumbs'][] = ['label' => 'Grupos', 'url' => ['index']];
+$this->params['breadcrumbs'][] = ['label' => "Grupo ".$model->id_grupo, 'url' => ['update', 'id_grupo' => $model->id_grupo]];
 $this->params['breadcrumbs'][] = $this->title;
 \yii\web\YiiAsset::register($this);
 ?>
@@ -150,7 +151,7 @@ if (empty($models)) {
             </tr>
             <tr>
             <?php 
-            $id_grupo = 1;
+            $id_grupo = Yii::$app->request->get('id_grupo');
             $resultado=0;
             $db = Yii::$app->db;
             $resultados = Performance::find()->where(['grupo_id_grupo' => $id_grupo])->all();
