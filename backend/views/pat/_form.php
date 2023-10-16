@@ -226,17 +226,17 @@ if(isset($model->id_pat)){
                                     ])
                                     ->one();
 
-                                        echo '<td><input type="number" class="form-group form-group-sm col-8"  placeholder="0" value="'.$query["suma_grupal"].'" disabled></td>';
+                                        echo '<td><input type="text" class="form-group form-group-sm col-8"  placeholder="0" value="'.$query["suma_grupal"].'" disabled></td>';
 
-                                        echo '<td><input type="number" class="form-group form-group-sm col-8" placeholder="0" value="'.$query["suma_no_grupal"].'" disabled></td>';
+                                        echo '<td><input type="text" class="form-group form-group-sm col-8" placeholder="0" value="'.$query["suma_no_grupal"].'" disabled></td>';
     
-                                        echo '<td><input type="number" class="form-group form-group-sm col-8" placeholder="0" value="'.$query["suma_tutorados"].'" disabled></td>';
+                                        echo '<td><input type="text" class="form-group form-group-sm col-8" placeholder="0" value="'.$query["suma_tutorados"].'" disabled></td>';
     
-                                        echo '<td><input type="number" class="form-group form-group-sm col-8" placeholder="0" value="'.$query["suma_mujeres"].'" disabled></td>';
+                                        echo '<td><input type="text" class="form-group form-group-sm col-8" placeholder="0" value="'.$query["suma_mujeres"].'" disabled></td>';
     
-                                        echo '<td><input type="number" class="form-group form-group-sm col-8" placeholder="0" value="'.$query["suma_hombres"].'" disabled></td>';
+                                        echo '<td><input type="text" class="form-group form-group-sm col-8" placeholder="0" value="'.$query["suma_hombres"].'" disabled></td>';
 
-                                        echo '<td><input type="number" class="form-group form-group-sm col-8" placeholder="0" value="'.$query["suma_faltas"].'" disabled></td>';
+                                        echo '<td><input type="text" class="form-group form-group-sm col-8" placeholder="0" value="'.$query["suma_faltas"].'" disabled></td>';
 
                                         $nombresParcial = "Primera";
                                         $inicio = 1;
@@ -280,17 +280,17 @@ if(isset($model->id_pat)){
                                     ])
                                     ->one();
 
-                                    echo '<td><input type="number" class="form-group form-group-sm col-8" placeholder="0" value="'.$query["suma_grupal"].'" disabled></td>';
+                                    echo '<td><input type="text" class="form-group form-group-sm col-8" placeholder="0" value="'.$query["suma_grupal"].'" disabled></td>';
 
-                                    echo '<td><input type="number" class="form-group form-group-sm col-8" placeholder="0" value="'.$query["suma_no_grupal"].'" disabled></td>';
+                                    echo '<td><input type="text" class="form-group form-group-sm col-8" placeholder="0" value="'.$query["suma_no_grupal"].'" disabled></td>';
 
-                                    echo '<td><input type="number" class="form-group form-group-sm col-8" placeholder="0" value="'.$query["suma_tutorados"].'" disabled></td>';
+                                    echo '<td><input type="text" class="form-group form-group-sm col-8" placeholder="0" value="'.$query["suma_tutorados"].'" disabled></td>';
 
-                                    echo '<td><input type="number" class="form-group form-group-sm col-8" placeholder="0" value="'.$query["suma_mujeres"].'" disabled></td>';
+                                    echo '<td><input type="text" class="form-group form-group-sm col-8" placeholder="0" value="'.$query["suma_mujeres"].'" disabled></td>';
 
-                                    echo '<td><input type="number" class="form-group form-group-sm col-8" placeholder="0" value="'.$query["suma_hombres"].'" disabled></td>';
+                                    echo '<td><input type="text" class="form-group form-group-sm col-8" placeholder="0" value="'.$query["suma_hombres"].'" disabled></td>';
 
-                                    echo '<td><input type="number" class="form-group form-group-sm col-6" placeholder="0" value="'.$query["suma_faltas"].'" disabled></td>';
+                                    echo '<td><input type="text" class="form-group form-group-sm col-6" placeholder="0" value="'.$query["suma_faltas"].'" disabled></td>';
 
 
                                     $nombresParcial = "Segunda";
@@ -335,17 +335,17 @@ if(isset($model->id_pat)){
                                     ->one();
 
 
-                                    echo '<td><input type="number" class="form-group form-group-sm col-8" placeholder="0" value="'.$query["suma_grupal"].'" disabled></td>';
+                                    echo '<td><input type="text" class="form-group form-group-sm col-8" placeholder="0" value="'.$query["suma_grupal"].'" disabled></td>';
 
-                                    echo '<td><input type="number" class="form-group form-group-sm col-8" placeholder="0" value="'.$query["suma_no_grupal"].'" disabled></td>';
+                                    echo '<td><input type="text" class="form-group form-group-sm col-8" placeholder="0" value="'.$query["suma_no_grupal"].'" disabled></td>';
 
-                                    echo '<td><input type="number" class="form-group form-group-sm col-8" placeholder="0" value="'.$query["suma_tutorados"].'" disabled></td>';
+                                    echo '<td><input type="text" class="form-group form-group-sm col-8" placeholder="0" value="'.$query["suma_tutorados"].'" disabled></td>';
 
-                                    echo '<td><input type="number" class="form-group form-group-sm col-8" placeholder="0" value="'.$query["suma_mujeres"].'" disabled></td>';
+                                    echo '<td><input type="text" class="form-group form-group-sm col-8" placeholder="0" value="'.$query["suma_mujeres"].'" disabled></td>';
 
-                                    echo '<td><input type="number" class="form-group form-group-sm col-8" placeholder="0" value="'.$query["suma_hombres"].'" disabled></td>';
+                                    echo '<td><input type="text" class="form-group form-group-sm col-8" placeholder="0" value="'.$query["suma_hombres"].'" disabled></td>';
 
-                                    echo '<td><input type="number" class="form-group form-group-sm col-6" placeholder="0" value="'.$query["suma_faltas"].'" disabled></td>';
+                                    echo '<td><input type="text" class="form-group form-group-sm col-6" placeholder="0" value="'.$query["suma_faltas"].'" disabled></td>';
 
                                     $nombresParcial = "Tercera";
                                     $inicio = 12;
@@ -379,17 +379,17 @@ if(isset($model->id_pat)){
                                     ->one();
                                     '<tr>';
 
-                                    echo '<td><input type="number" class="form-group form-group-sm col-8" placeholder="0" value="'.$query["suma_grupal"].'" disabled></td>';
+                                    echo '<td><input type="text" class="form-group form-group-sm col-8" placeholder="0" value="'.$query["suma_grupal"].'" disabled></td>';
 
-                                    echo '<td><input type="number" class="form-group form-group-sm col-8" placeholder="0" value="'.$query["suma_no_grupal"].'" disabled></td>';
+                                    echo '<td><input type="text" class="form-group form-group-sm col-8" placeholder="0" value="'.$query["suma_no_grupal"].'" disabled></td>';
 
-                                    echo '<td><input type="number" class="form-group form-group-sm col-8" placeholder="0" value="'.$query["suma_tutorados"].'" disabled></td>';
+                                    echo '<td><input type="text" class="form-group form-group-sm col-8" placeholder="0" value="'.$query["suma_tutorados"].'" disabled></td>';
 
-                                    echo '<td><input type="number" class="form-group form-group-sm col-9" placeholder="0" value="'.$query["suma_mujeres"].'" disabled></td>';
+                                    echo '<td><input type="text" class="form-group form-group-sm col-9" placeholder="0" value="'.$query["suma_mujeres"].'" disabled></td>';
 
-                                    echo '<td><input type="number" class="form-group form-group-sm col-9" placeholder="0" value="'.$query["suma_hombres"].'" disabled></td>';
+                                    echo '<td><input type="text" class="form-group form-group-sm col-9" placeholder="0" value="'.$query["suma_hombres"].'" disabled></td>';
 
-                                    echo '<td><input type="number" class="form-group form-group-sm col-9" placeholder="0" value="'.$query["suma_faltas"].'" disabled></td>';
+                                    echo '<td><input type="text" class="form-group form-group-sm col-9" placeholder="0" value="'.$query["suma_faltas"].'" disabled></td>';
                                     '</tr>';
 
  /*                                    $nombresParcial = "Segunda";

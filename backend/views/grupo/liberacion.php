@@ -25,7 +25,7 @@ $this->params['breadcrumbs'][] = 'Liberacion';
 <div class="table-responsive">
 
     <table>
-        <thead class="border">
+        <thead class="border" style="background-color: #f1f7ed;">
             <tr>
                 <th><h6>Matricula</h6></th>
                 <th><h6>Alumno</h6></th>

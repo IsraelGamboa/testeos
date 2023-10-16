@@ -180,17 +180,17 @@ if (empty($models)) {
                     <?php
                         $excelente = ($resultado["excelente"] / $suma) * 100;
                         $result_exce = number_format($excelente, 2 , '.', '');
-                        echo '<td><input type="number" class="form-group form-group-sm col-10" placeholder="0" value="'.$result_exce.'" disabled></td>';
+                        echo '<td><input type="text" class="form-group form-group-sm col-10" placeholder="0" value="'.$result_exce.'" disabled></td>';
                         $bueno = ($resultado["bueno"] / $suma) * 100;
                         $result_bueno = number_format($bueno, 2 , '.', '');
                         number_format($bueno, 2 , ',', '.');
-                        echo '<td><input type="number" class="form-group form-group-sm col-10" placeholder="0" value="'.$result_bueno.'" disabled></td>';
+                        echo '<td><input type="text" class="form-group form-group-sm col-10" placeholder="0" value="'.$result_bueno.'" disabled></td>';
                         $riesgo = ($resultado["riesgo"] / $suma) * 100;
                         $result_riesgo = number_format($riesgo, 2 , '.', '');
-                        echo '<td><input type="number" class="form-group form-group-sm col-10" placeholder="0" value="'.$result_riesgo.'" disabled></td>';
+                        echo '<td><input type="text" class="form-group form-group-sm col-10" placeholder="0" value="'.$result_riesgo.'" disabled></td>';
                         $total = $excelente + $bueno + $riesgo;
                         $result_total = number_format($total, 2 , '.', '');
-                        echo '<td><input type="number" class="form-group form-group-sm col-10" placeholder="0" value="'.$result_total.'" disabled></td>';
+                        echo '<td><input type="text" class="form-group form-group-sm col-10" placeholder="0" value="'.$result_total.'" disabled></td>';
 
                         echo '<td colspan="2">'.Html::a('PDF', ['site/report'], ['class' => 'btn btn-info', 'target' => '_blank']).'</td>';
                     ?>

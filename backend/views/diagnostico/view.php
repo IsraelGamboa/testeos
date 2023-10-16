@@ -37,9 +37,6 @@ $this->params['breadcrumbs'][] = $this->title;
             'motivo_id_motivo',
 
             'grupo_id_grupo',
-            'excelente',
-            'bueno',
-            'riesgo',
         ],
     ]) ?>
 

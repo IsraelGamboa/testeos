@@ -36,7 +36,7 @@ class Diagnostico extends \yii\db\ActiveRecord
     public function rules()
     {
         return [
-            [['matricula', 'nombre', 'asignatura', 'otro', 'especifique', 'motivo_id_motivo', 'grupo_id_grupo'], 'required'],
+            [['matricula', 'nombre', 'asignatura', 'motivo_id_motivo', 'grupo_id_grupo'], 'required'],
             [['matricula', 'motivo_id_motivo', 'grupo_id_grupo'], 'integer'],
             [['nombre', 'asignatura', 'otro', 'especifique'], 'string', 'max' => 150],
             [['grupo_id_grupo'], 'exist', 'skipOnError' => true, 'targetClass' => Grupo::class, 'targetAttribute' => ['grupo_id_grupo' => 'id_grupo']],
