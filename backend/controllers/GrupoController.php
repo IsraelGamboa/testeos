@@ -2,6 +2,9 @@
 
 namespace backend\controllers;
 
+use app\models\Liberacion;
+use app\models\search\LiberacionSearch;
+
 use app\models\Motivo;
 use app\models\Grupo;
 use app\models\search\GrupoSearch;
@@ -84,12 +87,15 @@ class GrupoController extends Controller
         $searchTutorado = new TutoradoSearch();
         $dataTutorado = $searchTutorado->search(['TutoradoSearch' => ['grupo_id_grupo' => $id_grupo]]);
 
+        $liberacion = new Liberacion();
+
         return $this->render('liberacion', [
             'model' => $this->findModel($id_grupo),
             'searchModel' => $searchModel,
             'dataProvider' => $dataProvider,
             'searchTutorado' => $searchTutorado,
             'dataTutorado' => $dataTutorado,
+            'liberacion' => $liberacion,
         ]);
     }
 
