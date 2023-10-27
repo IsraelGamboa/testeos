@@ -69,21 +69,18 @@ class LiberacionController extends Controller
      * @return string|\yii\web\Response
      */
 
-
      public function actionCreate()
      {
-         $model = new Liberacion();
-     
          if (Yii::$app->request->isPost) {
              $post = Yii::$app->request->post();
      
-             // Datos del Formulario
-             $data = $post['Liberacion'];
+             // Datos del formulario
+             $data = $post['datos']; // Asegúrate de que 'datos' sea el nombre correcto del arreglo asociativo
      
              // Iterar a través de los datos del formulario
-             foreach ($data as $index => $formData) {
+             foreach ($data['idevaluacion'] as $index => $idevaluacion) {
                  // Buscar el modelo existente por el ID
-                 $id = $formData['idevaluacion']; // Asegúrate de tener un campo 'id' en tus datos
+                 $id = $idevaluacion; // Asegúrate de que 'idevaluacion' sea el nombre correcto del campo
                  $existingModel = Liberacion::findOne($id);
      
                  // Si no existe, crea un nuevo modelo
@@ -95,7 +92,18 @@ class LiberacionController extends Controller
                  }
      
                  // Asignar los valores del formulario al modelo
-                 $model->attributes = $formData;
+                 $model->attributes = [
+                     'idevaluacion' => $idevaluacion,
+                     'op1' => $data['op1'][$index],
+                     'op2' => $data['op2'][$index],
+                     'op3' => $data['op3'][$index],
+                     'op4' => $data['op4'][$index],
+                     'op5' => $data['op5'][$index],
+                     'op6' => $data['op6'][$index],
+                     'op7' => $data['op7'][$index],
+
+                     'tutorado_idtutorado' => $data['tutorado_idtutorado'][$index],
+                 ];
      
                  // Validar y guardar el modelo
                  if ($model->validate() && $model->save()) {
@@ -111,15 +119,12 @@ class LiberacionController extends Controller
      
          // Renderizar la vista del formulario
          return $this->render('create', [
-             'model' => $model,
+             'model' => new Liberacion(),
          ]);
      }
      
-
-    
-    
-    
-
+     
+     
     /**
      * Updates an existing Liberacion model.
      * If update is successful, the browser will be redirected to the 'view' page.

@@ -130,40 +130,82 @@ $this->params['breadcrumbs'][] = 'Liberacion';
                     echo '<td class="t-body">'.$modelo['matricula'].'</td>';
                     echo '<td class="t-body">'.$modelo['nombre'].'</td>';
 
-                    echo $form->field($liberacion, '[$index]idevaluacion')->hiddenInput()->label(false);
+                    echo $form->field($liberacion, 'idevaluacion')->hiddenInput(['name' => 'datos[idevaluacion][]'])->label(false);
 
                     echo '<td>';
-                    echo $form->field($liberacion, '[$index]op1', ['template' => '{input}', 'options' => ['class' => '',]])->dropDownList([0 => '0', 1 => '1', 2 => '2', 3 => '3', 4 => '4'], ['selected' => $liberacion->op1]);
+                    echo $form->field($liberacion, 'op1', [
+                        'template' => '{input}',
+                        'options' => ['class' => ''],
+                        'inputOptions' => [
+                            'name' => 'datos[op1][]',
+                        ],
+                    ])->dropDownList([0 => '0', 1 => '1', 2 => '2', 3 => '3', 4 => '4'], ['selected' => $liberacion->op1]);
+                    echo '</td>';
+                    
 
+                    echo '<td>';
+                    echo $form->field($liberacion, 'op2', [
+                        'template' => '{input}',
+                        'options' => ['class' => ''],
+                        'inputOptions' => [
+                            'name' => 'datos[op2][]',
+                        ],
+                    ])->dropDownList([0 => '0', 1 => '1', 2 => '2', 3 => '3', 4 => '4'], ['selected' => $liberacion->op2]);
                     echo '</td>';
 
                     echo '<td>';
-                    echo $form->field($liberacion, '[$index]op2', ['template' => '{input}', 'options' => ['class' => '',],])->dropDownList([0 => '0', 1 => '1', 2 => '2', 3 => '3', 4 => '4'], ['selected' => $liberacion->op2]);
+                    echo $form->field($liberacion, 'op3', [
+                        'template' => '{input}',
+                        'options' => ['class' => ''],
+                        'inputOptions' => [
+                            'name' => 'datos[op3][]',
+                        ],
+                    ])->dropDownList([0 => '0', 1 => '1', 2 => '2', 3 => '3', 4 => '4'], ['selected' => $liberacion->op3]);
                     echo '</td>';
 
                     echo '<td>';
-                    echo $form->field($liberacion, '[$index]op3', ['template' => '{input}', 'options' => ['class' => '',],])->dropDownList([0 => '0', 1 => '1', 2 => '2', 3 => '3', 4 => '4'], ['selected' => $liberacion->op3]);
+                    echo $form->field($liberacion, 'op4', [
+                        'template' => '{input}',
+                        'options' => ['class' => ''],
+                        'inputOptions' => [
+                            'name' => 'datos[op4][]',
+                        ],
+                    ])->dropDownList([0 => '0', 1 => '1', 2 => '2', 3 => '3', 4 => '4'], ['selected' => $liberacion->op4]);
                     echo '</td>';
 
                     echo '<td>';
-                    echo $form->field($liberacion, '[$index]op4', ['template' => '{input}', 'options' => ['class' => '',],])->dropDownList([0 => '0', 1 => '1', 2 => '2', 3 => '3', 4 => '4'], ['selected' => $liberacion->op4]);
+                    echo $form->field($liberacion, 'op5', [
+                        'template' => '{input}',
+                        'options' => ['class' => ''],
+                        'inputOptions' => [
+                            'name' => 'datos[op5][]',
+                        ],
+                    ])->dropDownList([0 => '0', 1 => '1', 2 => '2', 3 => '3', 4 => '4'], ['selected' => $liberacion->op5]);
                     echo '</td>';
 
                     echo '<td>';
-                    echo $form->field($liberacion, '[$index]op5', ['template' => '{input}', 'options' => ['class' => '',],])->dropDownList([0 => '0', 1 => '1', 2 => '2', 3 => '3', 4 => '4'], ['selected' => $liberacion->op5]);
+                    echo $form->field($liberacion, 'op6', [
+                        'template' => '{input}',
+                        'options' => ['class' => ''],
+                        'inputOptions' => [
+                            'name' => 'datos[op6][]',
+                        ],
+                    ])->dropDownList([0 => '0', 1 => '1', 2 => '2', 3 => '3', 4 => '4'], ['selected' => $liberacion->op6]);
                     echo '</td>';
 
                     echo '<td>';
-                    echo $form->field($liberacion, '[$index]op6', ['template' => '{input}', 'options' => ['class' => '',],])->dropDownList([0 => '0', 1 => '1', 2 => '2', 3 => '3', 4 => '4'], ['selected' => $liberacion->op6]);
-                    echo '</td>';
-
-                    echo '<td>';
-                    echo $form->field($liberacion, '[$index]op7', ['template' => '{input}', 'options' => ['class' => '',],])->dropDownList([0 => '0', 1 => '1', 2 => '2', 3 => '3', 4 => '4'], ['selected' => $liberacion->op7]);
+                    echo $form->field($liberacion, 'op7', [
+                        'template' => '{input}',
+                        'options' => ['class' => ''],
+                        'inputOptions' => [
+                            'name' => 'datos[op7][]',
+                        ],
+                    ])->dropDownList([0 => '0', 1 => '1', 2 => '2', 3 => '3', 4 => '4'], ['selected' => $liberacion->op7]);
                     echo '</td>';
 
 
                     //clase: d-none para ocultar el imput
-                    echo $form->field($liberacion, '[$index]tutorado_idtutorado')->hiddenInput(['value' => $modelo['idtutorado']])->label(false);
+                    echo $form->field($liberacion, 'tutorado_idtutorado')->hiddenInput(['name' => 'datos[tutorado_idtutorado][]', 'value' => $modelo['idtutorado']])->label(false);
 
 
                     $numeros = [$liberacion->op1, $liberacion->op2, $liberacion->op3, $liberacion->op4, $liberacion->op5, $liberacion->op6, $liberacion->op7];
@@ -180,22 +222,41 @@ $this->params['breadcrumbs'][] = 'Liberacion';
 
 
 
-                    echo '<td class="t-body"><input type="text" class="form-control" placeholder="?" value="'.$media.'" disabled></td>';
-                    if($media<1){
-                        echo '<td class="t-body"><input type="text" class="form-control" placeholder="INSUFICIENTE" value="" disabled></td>';
-                    }elseif($media<1.5){
-                        echo '<td class="t-body"><input type="text" class="form-control" placeholder="SUFICIENTE" value="" disabled></td>';
-                    }elseif($media<2.5){
-                        echo '<td class="t-body"><input type="text" class="form-control" placeholder="BUENO" value="" disabled></td>';
-                    }elseif($media<3.5){
-                        echo '<td class="t-body"><input type="text" class="form-control" placeholder="NOTABLE" value="" disabled></td>';
-                    }elseif($media == 4){
-                        echo '<td class="t-body"><input type="text" class="form-control" placeholder="EXCELENTE" value="" disabled></td>';
-                    }else{
-                        echo '<td class="t-body"><input type="text" class="form-control" placeholder="?" value="" disabled></td>';
+                    echo '<td class="t-body">';
+                    echo '<input type="text" class="form-control" placeholder="N/A" value="'.$media.'" disabled>';
+                    echo '</td>';
+                    if ($media < 1) {
+                        echo '<td>';
+                        echo '<input type="text" class="form-control" placeholder="INSUFICIENTE" value="" disabled>';
+                        echo '</td>';
+                    } else if ($media < 1.5) {
+                        echo '<td>';
+                        echo '<input type="text" class="form-control" placeholder="SUFICIENTE" value="" disabled>';
+                        echo '</td>';
+                    } else if ($media < 2.5) {
+                        echo '<td>';
+                        echo '<input type="text" class="form-control" placeholder="BUENO" value="" disabled>';
+                        echo '</td>';
+                    } else if ($media < 3.5) {
+                        echo '<td>';
+                        echo '<input type="text" class="form-control" placeholder="NOTABLE" value="" disabled>';
+                        echo '</td>';
+                    } else if ($media <= 4) {
+                        echo '<td>';
+                        echo '<input type="text" class="form-control" placeholder="EXCELENTE" value="" disabled>';
+                        echo '</td>';
+                    } else {
+                        echo '<td>';
+                        echo '<input type="text" class="form-control" placeholder="N/A" value="" disabled>';
+                        echo '</td>';
                     }
+
                     
-                    echo '<td class="t-body"><input type="text" class="form-control" placeholder="?" value="" disabled></td>';
+                    if ($media < 1.5){
+                        echo '<td class="t-body"><input type="text" class="form-control" placeholder="N/A" value="" disabled></td>'; 
+                    } else {
+                        echo '<td class="t-body"><input type="text" class="form-control" placeholder="SI" value="" disabled></td>';
+                    }
 
                     echo '</tr>';
                 }
@@ -206,7 +267,7 @@ $this->params['breadcrumbs'][] = 'Liberacion';
     </table>
 </div>
 
-    <div class="form-group">
+    <div class="form-group py-3">
         <?= Html::submitButton('Save', ['class' => 'btn btn-success']) ?>
     </div>
 
