@@ -4,12 +4,12 @@ namespace app\models\search;
 
 use yii\base\Model;
 use yii\data\ActiveDataProvider;
-use app\models\Grupo;
+use app\models\Liberacion;
 
 /**
- * GrupoSearch represents the model behind the search form of `app\models\Grupo`.
+ * LiberacionSearch represents the model behind the search form of `app\models\Liberacion`.
  */
-class GrupoSearch extends Grupo
+class LiberacionSearch extends Liberacion
 {
     /**
      * {@inheritdoc}
@@ -17,8 +17,8 @@ class GrupoSearch extends Grupo
     public function rules()
     {
         return [
-            [['id_grupo'], 'integer'],
-            [['nombre'], 'safe'],
+            [['idevaluacion', 'tutorado_idtutorado'], 'integer'],
+            [['op1', 'op2', 'op3', 'op4', 'op5', 'op6', 'op7'], 'safe'],
         ];
     }
 
@@ -38,15 +38,9 @@ class GrupoSearch extends Grupo
      *
      * @return ActiveDataProvider
      */
-    public function search($params, $grupo_id_grupo = null)
+    public function search($params)
     {
-
-      if($grupo_id_grupo){
-            $query = Grupo::find()->where(['grupo_id_grupo' => $grupo_id_grupo]);
-        }else{
-            $query = Grupo::find();
-        }
-
+        $query = Liberacion::find();
 
         // add conditions that should always apply here
 
@@ -64,10 +58,17 @@ class GrupoSearch extends Grupo
 
         // grid filtering conditions
         $query->andFilterWhere([
-            'id_grupo' => $this->id_grupo,
+            'idevaluacion' => $this->idevaluacion,
+            'tutorado_idtutorado' => $this->tutorado_idtutorado,
         ]);
 
-        $query->andFilterWhere(['like', 'nombre', $this->nombre]);
+        $query->andFilterWhere(['like', 'op1', $this->op1])
+            ->andFilterWhere(['like', 'op2', $this->op2])
+            ->andFilterWhere(['like', 'op3', $this->op3])
+            ->andFilterWhere(['like', 'op4', $this->op4])
+            ->andFilterWhere(['like', 'op5', $this->op5])
+            ->andFilterWhere(['like', 'op6', $this->op6])
+            ->andFilterWhere(['like', 'op7', $this->op7]);
 
         return $dataProvider;
     }

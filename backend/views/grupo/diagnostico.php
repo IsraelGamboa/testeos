@@ -15,8 +15,9 @@ use yii\grid\GridView;
 /** @var yii\data\ActiveDataProvider $dataProvider */
 /** @var app\models\search\PerformanceSearch $searchModel */
 
-$this->title = $model->id_grupo;
+$this->title = "Diarnostico ".$model->id_grupo;
 $this->params['breadcrumbs'][] = ['label' => 'Grupos', 'url' => ['index']];
+$this->params['breadcrumbs'][] = ['label' => "Grupo ".$model->id_grupo, 'url' => ['update', 'id_grupo' => $model->id_grupo]];
 $this->params['breadcrumbs'][] = $this->title;
 \yii\web\YiiAsset::register($this);
 ?>
@@ -150,7 +151,7 @@ if (empty($models)) {
             </tr>
             <tr>
             <?php 
-            $id_grupo = 1;
+            $id_grupo = Yii::$app->request->get('id_grupo');
             $resultado=0;
             $db = Yii::$app->db;
             $resultados = Performance::find()->where(['grupo_id_grupo' => $id_grupo])->all();
@@ -179,17 +180,17 @@ if (empty($models)) {
                     <?php
                         $excelente = ($resultado["excelente"] / $suma) * 100;
                         $result_exce = number_format($excelente, 2 , '.', '');
-                        echo '<td><input type="number" class="form-group form-group-sm col-10" placeholder="0" value="'.$result_exce.'" disabled></td>';
+                        echo '<td><input type="text" class="form-group form-group-sm col-10" placeholder="0" value="'.$result_exce.'" disabled></td>';
                         $bueno = ($resultado["bueno"] / $suma) * 100;
                         $result_bueno = number_format($bueno, 2 , '.', '');
                         number_format($bueno, 2 , ',', '.');
-                        echo '<td><input type="number" class="form-group form-group-sm col-10" placeholder="0" value="'.$result_bueno.'" disabled></td>';
+                        echo '<td><input type="text" class="form-group form-group-sm col-10" placeholder="0" value="'.$result_bueno.'" disabled></td>';
                         $riesgo = ($resultado["riesgo"] / $suma) * 100;
                         $result_riesgo = number_format($riesgo, 2 , '.', '');
-                        echo '<td><input type="number" class="form-group form-group-sm col-10" placeholder="0" value="'.$result_riesgo.'" disabled></td>';
+                        echo '<td><input type="text" class="form-group form-group-sm col-10" placeholder="0" value="'.$result_riesgo.'" disabled></td>';
                         $total = $excelente + $bueno + $riesgo;
                         $result_total = number_format($total, 2 , '.', '');
-                        echo '<td><input type="number" class="form-group form-group-sm col-10" placeholder="0" value="'.$result_total.'" disabled></td>';
+                        echo '<td><input type="text" class="form-group form-group-sm col-10" placeholder="0" value="'.$result_total.'" disabled></td>';
 
                         echo '<td colspan="2">'.Html::a('PDF', ['site/report'], ['class' => 'btn btn-info', 'target' => '_blank']).'</td>';
                     ?>

@@ -2,11 +2,23 @@
 
 namespace backend\controllers;
 
+use app\models\Liberacion;
+use app\models\search\LiberacionSearch;
+
+use app\models\Motivo;
 use app\models\Grupo;
 use app\models\search\GrupoSearch;
+use app\models\Tutorado;
+use app\models\search\TutoradoSearch;
+use app\models\Diagnostico;
+use app\models\search\DiagnosticoSearch;
+use app\models\search\PerformanceSearch;
+use app\models\search\CriteriosSearch;
 use yii\web\Controller;
 use yii\web\NotFoundHttpException;
 use yii\filters\VerbFilter;
+
+use YII;
 
 /**
  * GrupoController implements the CRUD actions for Grupo model.
@@ -46,6 +58,46 @@ class GrupoController extends Controller
             'dataProvider' => $dataProvider,
         ]);
     }
+    public function actionDiagnostico()
+    {
+        $id_grupo = Yii::$app->request->get('id_grupo');
+
+        $searchModel = new DiagnosticoSearch();
+        $dataProvider = $searchModel->search(['DiagnosticoSearch' => ['grupo_id_grupo' => $id_grupo]]);
+        $searchPerformance = new PerformanceSearch();
+        $dataPerformance = $searchPerformance->search(['PerformanceSearch' => ['grupo_id_grupo' => $id_grupo]]);
+
+
+        return $this->render('diagnostico', [
+            'model' => $this->findModel($id_grupo),
+            'searchModel' => $searchModel,
+            'dataProvider' => $dataProvider,
+            'searchPerformance' => $searchPerformance,
+            'dataPerformance' => $dataPerformance,
+        ]);
+    }
+
+    public function actionLiberacion()
+    {
+        $id_grupo = Yii::$app->request->get('id_grupo');
+
+        $searchModel = new CriteriosSearch();
+        $dataProvider = $searchModel->search($this->request->queryParams);
+
+        $searchTutorado = new TutoradoSearch();
+        $dataTutorado = $searchTutorado->search(['TutoradoSearch' => ['grupo_id_grupo' => $id_grupo]]);
+
+        $liberacion = new Liberacion();
+
+        return $this->render('liberacion', [
+            'model' => $this->findModel($id_grupo),
+            'searchModel' => $searchModel,
+            'dataProvider' => $dataProvider,
+            'searchTutorado' => $searchTutorado,
+            'dataTutorado' => $dataTutorado,
+            'liberacion' => $liberacion,
+        ]);
+    }
 
     /**
      * Displays a single Grupo model.
@@ -55,8 +107,19 @@ class GrupoController extends Controller
      */
     public function actionView($id_grupo)
     {
+
+        $searchModel = new DiagnosticoSearch();
+        $dataProvider = $searchModel->search(['DiagnosticoSearch' => ['grupo_id_grupo' => $id_grupo]]);
+        $searchPerformance = new PerformanceSearch();
+        $dataPerformance = $searchPerformance->search(['PerformanceSearch' => ['grupo_id_grupo' => $id_grupo]]);
+
+
         return $this->render('view', [
             'model' => $this->findModel($id_grupo),
+            'searchModel' => $searchModel,
+            'dataProvider' => $dataProvider,
+            'searchPerformance' => $searchPerformance,
+            'dataPerformance' => $dataPerformance,
         ]);
     }
 
@@ -92,13 +155,17 @@ class GrupoController extends Controller
     public function actionUpdate($id_grupo)
     {
         $model = $this->findModel($id_grupo);
+        $searchModel = new TutoradoSearch();
+        $dataProvider = $searchModel->search(['TutoradoSearch' => ['grupo_id_grupo' => $id_grupo]]);
 
         if ($this->request->isPost && $model->load($this->request->post()) && $model->save()) {
             return $this->redirect(['view', 'id_grupo' => $model->id_grupo]);
         }
 
-        return $this->render('update', [
+        return $this->render('_form', [
             'model' => $model,
+            'searchModel' => $searchModel,
+            'dataProvider' => $dataProvider,
         ]);
     }
 
