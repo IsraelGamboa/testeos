@@ -9,6 +9,7 @@ use app\models\search\PerformanceSearch;
 use yii\web\Controller;
 use yii\web\NotFoundHttpException;
 use yii\filters\VerbFilter;
+use Yii;
 
 /**
  * DiagnosticoController implements the CRUD actions for Diagnostico model.
@@ -79,9 +80,14 @@ class DiagnosticoController extends Controller
     {
         $model = new Diagnostico();
 
+        $id_grupo = Yii::$app->request->get('id_grupo');
+    
+        $model->grupo_id_grupo = $id_grupo;
+
         if ($this->request->isPost) {
             if ($model->load($this->request->post()) && $model->save()) {
-                return $this->redirect(['view', 'id_diagnostico' => $model->id_diagnostico]);
+                Yii::$app->session->setFlash('success', '¡Registro exitoso!');
+                return $this->redirect(['/grupo/diagnostico', 'id_grupo' => $id_grupo]);
             }
         } else {
             $model->loadDefaultValues();
@@ -103,8 +109,13 @@ class DiagnosticoController extends Controller
     {
         $model = $this->findModel($id_diagnostico);
 
+        $id_grupo = Yii::$app->request->get('id_grupo');
+    
+        $model->grupo_id_grupo = $id_grupo;
+
         if ($this->request->isPost && $model->load($this->request->post()) && $model->save()) {
-            return $this->redirect(['view', 'id_diagnostico' => $model->id_diagnostico]);
+            Yii::$app->session->setFlash('success', '¡Cambios realizados con éxito!');
+            return $this->redirect(['/grupo/diagnostico', 'id_grupo' => $id_grupo]);
         }
 
         return $this->render('update', [
@@ -121,9 +132,13 @@ class DiagnosticoController extends Controller
      */
     public function actionDelete($id_diagnostico)
     {
+
+        $id_grupo = Yii::$app->request->get('id_grupo');
+
         $this->findModel($id_diagnostico)->delete();
 
-        return $this->redirect(['index']);
+        Yii::$app->session->setFlash('success', '¡Registro eliminado con exito!');
+        return $this->redirect(['/grupo/diagnostico', 'id_grupo'=>$id_grupo]);
     }
 
     /**

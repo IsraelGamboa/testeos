@@ -62,18 +62,18 @@ $this->params['breadcrumbs'][] = $this->title;
             [
                 'class' => ActionColumn::className(),
                 'urlCreator' => function ($action, $model, $key, $index) {
-                    $id_pat = Yii::$app->request->get('id_pat');
+                    $id_grupo = Yii::$app->request->get('id_grupo');
                     if ($action === 'view') {
                         // Redireccionar a la acción 'view' en un controlador diferente
-                        return Url::to(['view', 'id_diagnostico' => $model->id_diagnostico]);
+                        return Url::to(['/diagnostico/view', 'id_diagnostico' => $model->id_diagnostico, 'id_grupo'=>$id_grupo]);
                     } elseif ($action === 'update') {
 
                         // Redireccionar a la acción 'update' en un controlador diferente
-                        return Url::to(['update', 'id_diagnostico' => $model->id_diagnostico]);
+                        return Url::to(['/diagnostico/update', 'id_diagnostico' => $model->id_diagnostico, 'id_grupo'=>$id_grupo]);
                     } elseif ($action === 'delete') {
                         // Redireccionar a la acción 'delete' en un controlador diferente
 
-                        return Url::to(['delete', 'id_diagnostico' => $model->id_diagnostico]);
+                        return Url::to(['/diagnostico/delete', 'id_diagnostico' => $model->id_diagnostico, 'id_grupo'=>$id_grupo]);
                     }
                     // Otras acciones y redirecciones personalizadas según sea necesario
                     return '';
@@ -83,7 +83,7 @@ $this->params['breadcrumbs'][] = $this->title;
     ]); ?>
 
     <p>
-        <?= Html::a('Añadir alumno', ['create'], ['class' => 'btn btn-warning']) ?>
+        <?= Html::a('Añadir alumno', ['diagnostico/create', 'id_grupo'=>$model->id_grupo], ['class' => 'btn btn-warning']) ?>
     </p>
     <h1 class="text-center">Desempeño de grupo</h1>
     <?= GridView::widget([
@@ -99,19 +99,20 @@ $this->params['breadcrumbs'][] = $this->title;
             //'grupo_id_grupo',
             [
                 'class' => ActionColumn::className(),
-                'urlCreator' => function ($action, $model, $key, $index) {
+                'urlCreator' => function ($action, $dataPerformance, $key, $index) {
+                    $id_grupo = Yii::$app->request->get('id_grupo');
 
                     if ($action === 'view') {
                         // Redireccionar a la acción 'view' en un controlador diferente
-                        return Url::to(['/performance/view', 'iddesempeño' => $model->iddesempeño]);
+                        return Url::to(['/performance/view', 'iddesempeño' => $dataPerformance->iddesempeño, 'id_grupo'=>$id_grupo]);
                     } elseif ($action === 'update') {
 
                         // Redireccionar a la acción 'update' en un controlador diferente
-                        return Url::to(['/performance/update', 'iddesempeño' => $model->iddesempeño]);
+                        return Url::to(['/performance/update', 'iddesempeño' => $dataPerformance->iddesempeño, 'id_grupo'=>$id_grupo]);
                     } elseif ($action === 'delete') {
                         // Redireccionar a la acción 'delete' en un controlador diferente
 
-                        return Url::to(['/performance/delete', 'iddesempeño' => $model->iddesempeño]);
+                        return Url::to(['/performance/delete', 'iddesempeño' => $dataPerformance->iddesempeño, 'id_grupo'=>$id_grupo]);
                     }
                     // Otras acciones y redirecciones personalizadas según sea necesario
                     return '';
@@ -127,7 +128,7 @@ $models = $dataPerformance->models;
 if (empty($models)) {
     ?> 
     <P>
-        <?= Html::a('Desempeño de grupo', ['performance/create'], ['class' => 'btn btn-info']) ?>
+        <?= Html::a('Desempeño de grupo', ['performance/create', 'id_grupo'=>$model->id_grupo], ['class' => 'btn btn-info']) ?>
     </P>
 
 <?php

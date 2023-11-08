@@ -21,15 +21,15 @@ $this->params['breadcrumbs'][] = 'Liberacion';
 ?>
 <style>
 .t-head{
-    font-size: 8px;
+    font-size: 10px;
     text-align: center;
+    width: 200px;
 }
 .t-body{
     font-size: 12px;
     text-align: center;
 }
 .thead{
-    width: 200px;
     height: 200px;
 }
 .panel-head{
@@ -46,10 +46,8 @@ $this->params['breadcrumbs'][] = 'Liberacion';
 
 </style>
 
-<div class="container">
 
-
-<!-- GridView de test -->
+<!-- Panel de informacion -->
 <div class="col panel-head">
     <div class="row">
         <div class="col-12 text-center">
@@ -74,23 +72,23 @@ $this->params['breadcrumbs'][] = 'Liberacion';
 
 
 
-
+<!-- Tabla de evaluacion -->
 <div class="table-responsive">
-<?php $form = ActiveForm::begin(['action' => ['liberacion/create'], 'method' => 'post']); ?>
+<?php $form = ActiveForm::begin(['action' => ['liberacion/create', 'id_grupo'=>$model->id_grupo], 'method' => 'post']); ?>
     <table>
         <thead class="border thead" style="background-color: #f1f7ed;">
             <tr>
-                <th class="t-head">Matricula</th>
-                <th class="t-head">Alumno</th>
+                <th class="t-head border">Matricula</th>
+                <th class="t-head border">Alumno</th>
                 <?php
                     $models = $dataProvider->models;   
                     foreach($models as $modelo){
-                        echo '<th class="t-head">'.$modelo['nombre'].'</th>';
+                        echo '<th class="t-head border">'.$modelo['nombre'].'</th>';
                     }
                 ?>
-                <th class="t-head">VALOR NUMERICO DE LA ACTIVIDAD COMPLEMENTARIA</th>
-                <th class="t-head">NIVEL DE DESEMPEÑO ALCANZADO DE LA ACTIVIDAD COMPLEMENTARIA</th>
-                <th class="t-head">AUTORIZO SU LIBERACION COMO TUTOR(A)</th>
+                <th class="t-head border">VALOR NUMERICO DE LA ACTIVIDAD COMPLEMENTARIA</th>
+                <th class="t-head border">NIVEL DE DESEMPEÑO ALCANZADO DE LA ACTIVIDAD COMPLEMENTARIA</th>
+                <th class="t-head border">AUTORIZO SU LIBERACION COMO TUTOR(A)</th>
             </tr>
         </thead>
         <tbody class="border">
@@ -126,13 +124,14 @@ $this->params['breadcrumbs'][] = 'Liberacion';
                         $liberacion->save();
                     }
 
-                    echo '<tr>';
-                    echo '<td class="t-body">'.$modelo['matricula'].'</td>';
-                    echo '<td class="t-body">'.$modelo['nombre'].'</td>';
+                    echo '<tr class="border">';
+                    echo '<td class="t-body"><b>'.$modelo['matricula'].'</b></td>';
+                    echo '<td class="t-body"><b>'.$modelo['nombre'].'</b></td>';
+
 
                     echo $form->field($liberacion, 'idevaluacion')->hiddenInput(['name' => 'datos[idevaluacion][]'])->label(false);
 
-                    echo '<td>';
+                    echo '<td class="t-body">';
                     echo $form->field($liberacion, 'op1', [
                         'template' => '{input}',
                         'options' => ['class' => ''],
@@ -143,7 +142,7 @@ $this->params['breadcrumbs'][] = 'Liberacion';
                     echo '</td>';
                     
 
-                    echo '<td>';
+                    echo '<td class="t-body">';
                     echo $form->field($liberacion, 'op2', [
                         'template' => '{input}',
                         'options' => ['class' => ''],
@@ -153,7 +152,7 @@ $this->params['breadcrumbs'][] = 'Liberacion';
                     ])->dropDownList([0 => '0', 1 => '1', 2 => '2', 3 => '3', 4 => '4'], ['selected' => $liberacion->op2]);
                     echo '</td>';
 
-                    echo '<td>';
+                    echo '<td class="t-body">';
                     echo $form->field($liberacion, 'op3', [
                         'template' => '{input}',
                         'options' => ['class' => ''],
@@ -163,7 +162,7 @@ $this->params['breadcrumbs'][] = 'Liberacion';
                     ])->dropDownList([0 => '0', 1 => '1', 2 => '2', 3 => '3', 4 => '4'], ['selected' => $liberacion->op3]);
                     echo '</td>';
 
-                    echo '<td>';
+                    echo '<td class="t-body">';
                     echo $form->field($liberacion, 'op4', [
                         'template' => '{input}',
                         'options' => ['class' => ''],
@@ -173,7 +172,7 @@ $this->params['breadcrumbs'][] = 'Liberacion';
                     ])->dropDownList([0 => '0', 1 => '1', 2 => '2', 3 => '3', 4 => '4'], ['selected' => $liberacion->op4]);
                     echo '</td>';
 
-                    echo '<td>';
+                    echo '<td class="t-body">';
                     echo $form->field($liberacion, 'op5', [
                         'template' => '{input}',
                         'options' => ['class' => ''],
@@ -183,7 +182,7 @@ $this->params['breadcrumbs'][] = 'Liberacion';
                     ])->dropDownList([0 => '0', 1 => '1', 2 => '2', 3 => '3', 4 => '4'], ['selected' => $liberacion->op5]);
                     echo '</td>';
 
-                    echo '<td>';
+                    echo '<td class="t-body">';
                     echo $form->field($liberacion, 'op6', [
                         'template' => '{input}',
                         'options' => ['class' => ''],
@@ -193,7 +192,7 @@ $this->params['breadcrumbs'][] = 'Liberacion';
                     ])->dropDownList([0 => '0', 1 => '1', 2 => '2', 3 => '3', 4 => '4'], ['selected' => $liberacion->op6]);
                     echo '</td>';
 
-                    echo '<td>';
+                    echo '<td class="t-body">';
                     echo $form->field($liberacion, 'op7', [
                         'template' => '{input}',
                         'options' => ['class' => ''],
@@ -216,46 +215,53 @@ $this->params['breadcrumbs'][] = 'Liberacion';
                     // Calcular la cantidad de números en el array
                     $cantidad = count($numeros);
 
+                    // Calcular la media
                     $resultado = $suma/$cantidad;
 
                     $media = number_format($resultado, 2 , '.', '');
 
 
+                    if ($media != 0){
+                        echo '<td class="t-body">';
+                        echo '<span><b>'.$media.'</b></span>';
+                        echo '</td>';
+                    } else{
+                        echo '<td class="t-body">';
+                        echo '<span><b>N/A</b></span>';
+                        echo '</td>';
+                    }
 
-                    echo '<td class="t-body">';
-                    echo '<input type="text" class="form-control" placeholder="N/A" value="'.$media.'" disabled>';
-                    echo '</td>';
                     if ($media < 1) {
-                        echo '<td>';
-                        echo '<input type="text" class="form-control" placeholder="INSUFICIENTE" value="" disabled>';
+                        echo '<td class="t-body">';
+                        echo '<span><b>INSUFICIENTE</b></span>';
                         echo '</td>';
                     } else if ($media < 1.5) {
-                        echo '<td>';
-                        echo '<input type="text" class="form-control" placeholder="SUFICIENTE" value="" disabled>';
+                        echo '<td class="t-body">';
+                        echo '<span><b>SUFICIENTE</b></span>';
                         echo '</td>';
                     } else if ($media < 2.5) {
-                        echo '<td>';
-                        echo '<input type="text" class="form-control" placeholder="BUENO" value="" disabled>';
+                        echo '<td class="t-body">';
+                        echo '<span><b>BUENO</b></span>';
                         echo '</td>';
                     } else if ($media < 3.5) {
-                        echo '<td>';
-                        echo '<input type="text" class="form-control" placeholder="NOTABLE" value="" disabled>';
+                        echo '<td class="t-body">';
+                        echo '<span><b>NOTABLE</b></span>';
                         echo '</td>';
                     } else if ($media <= 4) {
-                        echo '<td>';
-                        echo '<input type="text" class="form-control" placeholder="EXCELENTE" value="" disabled>';
+                        echo '<td class="t-body">';
+                        echo '<span><b>EXCELENTE</b></span>';
                         echo '</td>';
                     } else {
-                        echo '<td>';
-                        echo '<input type="text" class="form-control" placeholder="N/A" value="" disabled>';
+                        echo '<td class="t-body">';
+                        echo '<span><b>N/A</b></span>';
                         echo '</td>';
                     }
 
                     
                     if ($media < 1.5){
-                        echo '<td class="t-body"><input type="text" class="form-control" placeholder="N/A" value="" disabled></td>'; 
+                        echo '<td class="t-body"><span><b>N/A</b></span></td>'; 
                     } else {
-                        echo '<td class="t-body"><input type="text" class="form-control" placeholder="SI" value="" disabled></td>';
+                        echo '<td class="t-body"><span><b>SI</b></span></td>';
                     }
 
                     echo '</tr>';
@@ -267,11 +273,9 @@ $this->params['breadcrumbs'][] = 'Liberacion';
     </table>
 </div>
 
-    <div class="form-group py-3">
-        <?= Html::submitButton('Save', ['class' => 'btn btn-success']) ?>
+    <div class="form-group py-3 text-center">
+        <?= Html::submitButton('Guardar', ['class' => 'btn btn-success w-50']) ?>
     </div>
 
     <?php ActiveForm::end(); ?>
 
-
-</div>

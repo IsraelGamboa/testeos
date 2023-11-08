@@ -106,7 +106,7 @@ class SemanaController extends Controller
     
         if ($this->request->isPost) {
             if ($model->load($this->request->post()) && $model->save()) {
-                // Redirige a la vista 'view' del modelo 'Pat' con el ID de pat pasado como parámetro
+                Yii::$app->session->setFlash('success', '¡Registro éxitoso!');
                 return $this->redirect(['/pat/update', 'id_pat' => $id_pat]);
             }
         } else {
@@ -155,10 +155,10 @@ class SemanaController extends Controller
     {
         $id_pat = Yii::$app->request->get('id_pat');
 
-    
         // Encuentra y elimina la semana
         $this->findModel($id_semana)->delete();
     
+        Yii::$app->session->setFlash('success', '¡Registro eliminado con éxito!');
         return $this->redirect(['/pat/update', 'id_pat' => $id_pat]);
     }
     
