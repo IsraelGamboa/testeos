@@ -32,27 +32,10 @@ if(isset($id_pat)){
 
 \yii\web\YiiAsset::register($this);
 ?>
-<style>
-.a {
-    white-space: pre-line;
-    text-align: justify;
-}
-.b{
-    text-align: center;
-    border: solid;
-}
-.p{
-    align-items: flex;
-}
 
-
-.table-semana, th, td{
-    border: solid;
-}
-</style>
 
 <div class="semana bg-white my-3 mx-2">
-    <table class="table-semana table">
+    <table class="table-detail-semana w-100">
 
             <tr style='height: 50px; text-align: center; background-color: #c5e0b3;'>
                 <th rowspan="2" class="p">Programada</th>

@@ -32,6 +32,21 @@ $this->params['breadcrumbs'][] = 'Liberacion';
     width: 200px;
     height: 200px;
 }
+
+td:last-child, th:last-child {
+    width: 15%;
+}
+
+td:first-child, th:first-child {
+    width: 15%;
+}
+
+select {
+    width: -webkit-fill-available;
+}
+.criterios-w {
+    width: 7%;
+}
 .panel-head{
     background: #fef2cb;
     padding: 40px;
@@ -80,12 +95,11 @@ $this->params['breadcrumbs'][] = 'Liberacion';
     <table>
         <thead class="border thead" style="background-color: #f1f7ed;">
             <tr>
-                <th class="t-head">Matricula</th>
                 <th class="t-head">Alumno</th>
                 <?php
                     $models = $dataProvider->models;   
                     foreach($models as $modelo){
-                        echo '<th class="t-head">'.$modelo['nombre'].'</th>';
+                        echo '<th class="criterios-w t-head">'.$modelo['nombre'].'</th>';
                     }
                 ?>
                 <th class="t-head">VALOR NUMERICO DE LA ACTIVIDAD COMPLEMENTARIA</th>
@@ -127,7 +141,7 @@ $this->params['breadcrumbs'][] = 'Liberacion';
                     }
 
                     echo '<tr>';
-                    echo '<td class="t-body">'.$modelo['matricula'].'</td>';
+                    
                     echo '<td class="t-body">'.$modelo['nombre'].'</td>';
 
                     echo $form->field($liberacion, 'idevaluacion')->hiddenInput(['name' => 'datos[idevaluacion][]'])->label(false);

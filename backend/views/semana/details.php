@@ -10,7 +10,7 @@ use yii\widgets\DetailView;
 ?>
 
 <div class="table-responsive">
-    <table border="1" cellspacing="15" class="table-detail-semana">
+    <table border="1" cellspacing="15" class="table-detail-semana w-100">
             <caption>Detalles de la semana</caption>
             <tr style='height: 50px; text-align: center; '>
                 <th rowspan="2" class="bg-white">PROGRAMADA</th>
