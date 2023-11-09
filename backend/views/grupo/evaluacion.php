@@ -107,22 +107,31 @@ $this->params['breadcrumbs'][] = 'Liberacion';
                         foreach($models as $indexc=>$criterio){
                             echo '<input type="hidden" name="criterio'.$indexc.'" value="'.$criterio->id_criterios.'" >';
                             echo '<td class="t-body">';
-                            if($tutorado->evaluacions > 0){
-                                echo '<select class="form-select" name="al'.$indext.'cal'.$indexc.'" type="number">';
-                              foreach($tutorado->evaluacions as $criterio2){
-                                if(intval($criterio2->criterios_id_criterios) == intval($criterio->id_criterios)){
-                                    
-                                    echo (intval($criterio2->calificacion) == 0) ? '<option selected value = "0">0</option>' : '<option value = "0">0</option>';
-                                    echo (intval($criterio2->calificacion) == 1) ? '<option selected value = "1">1</option>' : '<option value = "1">1</option>';
-                                    echo (intval($criterio2->calificacion) == 2) ? '<option selected value = "2">2</option>' : '<option value = "2">2</option>';
-                                    echo (intval($criterio2->calificacion) == 3) ? '<option selected value = "3">3</option>' : '<option value = "3">3</option>';
-                                    echo (intval($criterio2->calificacion) == 4) ? '<option selected value = "4">4</option>' : '<option value = "4">4</option>';
-                                   
+                            if(count($tutorado->evaluacions) > 0){
+                                
+                                foreach($tutorado->evaluacions as $criterio2){
+                                    if(intval($criterio2->criterios_id_criterios) == intval($criterio->id_criterios)){
+                                        echo '<input type="hidden" name="Cal'.$indext.'Id'.$indexc.'" value="'.$criterio2->idevaluacion.'" >';
+                                    }
                                 }
-                              }
-                              echo '</select>';
+
+                                echo '<select class="form-control form-select" name="al'.$indext.'cal'.$indexc.'" type="number">';
+                                foreach($tutorado->evaluacions as $criterio2){
+                                    if(intval($criterio2->criterios_id_criterios) == intval($criterio->id_criterios)){
+                                        //Create hidden inputs con el id de la calificacion
+                                        echo (intval($criterio2->calificacion) == 0) ? '<option selected value = "0">0</option>' : '<option value = "0">0</option>';
+                                        echo (intval($criterio2->calificacion) == 1) ? '<option selected value = "1">1</option>' : '<option value = "1">1</option>';
+                                        echo (intval($criterio2->calificacion) == 2) ? '<option selected value = "2">2</option>' : '<option value = "2">2</option>';
+                                        echo (intval($criterio2->calificacion) == 3) ? '<option selected value = "3">3</option>' : '<option value = "3">3</option>';
+                                        echo (intval($criterio2->calificacion) == 4) ? '<option selected value = "4">4</option>' : '<option value = "4">4</option>';
+                                        
+                                    }
+                                    //si se crea un nuevo criterio no se pinta select - como no entra al if, pero si le pongo el else los elementos restantes van a pintar eso por que no entran al if
+                                    //hacer for each donde se cargue el objeto de calificacion actual y trabajar con ese nomas y luego pasar al sieguente
+                                }
+                                echo '</select>';
                             }else{
-                                echo '<select class="form-select" name="al'.$indext.'cal'.$indexc.'" type="number">
+                                echo '<select class="form-control form-select" name="al'.$indext.'cal'.$indexc.'" type="number">
                                 <option selected value="0">0</option>
                                 <option value="1">1</option>
                                 <option value="2">2</option>

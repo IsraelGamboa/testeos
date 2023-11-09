@@ -7,6 +7,7 @@ use app\models\search\EvaluacionSearch;
 use yii\web\Controller;
 use yii\web\NotFoundHttpException;
 use yii\filters\VerbFilter;
+use Yii;
 
 /**
  * EvaluacionController implements the CRUD actions for Evaluacion model.
@@ -83,6 +84,7 @@ class EvaluacionController extends Controller
     }
     public function actionRegistro()
     {
+        $id_grupo = Yii::$app->request->get('id_grupo');
         if(isset($_POST)){
             $totalCriterios=$_POST["totalCriterios"];
             $totalTutorados=$_POST["totalTutorados"];
@@ -98,13 +100,27 @@ class EvaluacionController extends Controller
                 $model->calificacion = $calificacion;
                 $model->tutorado_idtutorado = $idTutorado;
                 $model->criterios_id_criterios = $idCriterio;
-                $model->save();
+
+                //verificar si existe para actualizar y no insertar de nuevo - verificar como trabaja actionupdate - solo hace faklta insertar el id de la calificacion
+                $id_calificacion = (isset($_POST['Cal'.$i.'Id'.$j])) ? intval($_POST['Cal'.$i.'Id'.$j]) : 0;
+                if ($id_calificacion != 0) {
+
+                    $model = $this->findModel($id_calificacion);
+                    $model->calificacion = intval($calificacion);
+                    //$model->isNewRecord = false;
+
+                    $model->save();
+                    //asignar valor al modelo y guardar - o llmar a find model 
+                }else{
+                    $model->save();
+                }
                 
-                echo var_dump ($model);
             }
         }
-        die();
+        
         }
+
+        return $this->redirect(['grupo/evaluacion', 'id_grupo' => 1]);
     }
 
     /**
