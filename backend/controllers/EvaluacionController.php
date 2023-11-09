@@ -2,17 +2,16 @@
 
 namespace backend\controllers;
 
-use app\models\Performance;
-use app\models\search\PerformanceSearch;
+use app\models\Evaluacion;
+use app\models\search\EvaluacionSearch;
 use yii\web\Controller;
 use yii\web\NotFoundHttpException;
 use yii\filters\VerbFilter;
-use Yii;
 
 /**
- * PerformanceController implements the CRUD actions for Performance model.
+ * EvaluacionController implements the CRUD actions for Evaluacion model.
  */
-class PerformanceController extends Controller
+class EvaluacionController extends Controller
 {
     /**
      * @inheritDoc
@@ -33,13 +32,13 @@ class PerformanceController extends Controller
     }
 
     /**
-     * Lists all Performance models.
+     * Lists all Evaluacion models.
      *
      * @return string
      */
     public function actionIndex()
     {
-        $searchModel = new PerformanceSearch();
+        $searchModel = new EvaluacionSearch();
         $dataProvider = $searchModel->search($this->request->queryParams);
 
         return $this->render('index', [
@@ -49,35 +48,30 @@ class PerformanceController extends Controller
     }
 
     /**
-     * Displays a single Performance model.
-     * @param int $iddesempeño Iddesempeño
+     * Displays a single Evaluacion model.
+     * @param int $idevaluacion Idevaluacion
      * @return string
      * @throws NotFoundHttpException if the model cannot be found
      */
-    public function actionView($iddesempeño)
+    public function actionView($idevaluacion)
     {
         return $this->render('view', [
-            'model' => $this->findModel($iddesempeño),
+            'model' => $this->findModel($idevaluacion),
         ]);
     }
 
     /**
-     * Creates a new Performance model.
+     * Creates a new Evaluacion model.
      * If creation is successful, the browser will be redirected to the 'view' page.
      * @return string|\yii\web\Response
      */
     public function actionCreate()
     {
-        $model = new Performance();
-
-        $id_grupo = Yii::$app->request->get('id_grupo');
-    
-        $model->grupo_id_grupo = $id_grupo;
+        $model = new Evaluacion();
 
         if ($this->request->isPost) {
             if ($model->load($this->request->post()) && $model->save()) {
-                Yii::$app->session->setFlash('success', '¡Registro exitoso!');
-                return $this->redirect(['/grupo/diagnostico', 'id_grupo' => $id_grupo]);
+                return $this->redirect(['view', 'idevaluacion' => $model->idevaluacion]);
             }
         } else {
             $model->loadDefaultValues();
@@ -87,25 +81,45 @@ class PerformanceController extends Controller
             'model' => $model,
         ]);
     }
+    public function actionRegistro()
+    {
+        if(isset($_POST)){
+            $totalCriterios=$_POST["totalCriterios"];
+            $totalTutorados=$_POST["totalTutorados"];
+
+        for($i = 0; $i < $totalTutorados; $i++ ){
+            for($j = 0; $j< $totalCriterios; $j++){
+                $calificacion = $_POST['al'.$i.'cal'.$j];
+                $idTutorado = $_POST['tutorado'.$i];
+                $idCriterio = $_POST['criterio'.$j];
+
+                $model = new Evaluacion();
+
+                $model->calificacion = $calificacion;
+                $model->tutorado_idtutorado = $idTutorado;
+                $model->criterios_id_criterios = $idCriterio;
+                $model->save();
+                
+                echo var_dump ($model);
+            }
+        }
+        die();
+        }
+    }
 
     /**
-     * Updates an existing Performance model.
+     * Updates an existing Evaluacion model.
      * If update is successful, the browser will be redirected to the 'view' page.
-     * @param int $iddesempeño Iddesempeño
+     * @param int $idevaluacion Idevaluacion
      * @return string|\yii\web\Response
      * @throws NotFoundHttpException if the model cannot be found
      */
-    public function actionUpdate($iddesempeño)
+    public function actionUpdate($idevaluacion)
     {
-        $model = $this->findModel($iddesempeño);
-
-        $id_grupo = Yii::$app->request->get('id_grupo');
-    
-        $model->grupo_id_grupo = $id_grupo;
+        $model = $this->findModel($idevaluacion);
 
         if ($this->request->isPost && $model->load($this->request->post()) && $model->save()) {
-            Yii::$app->session->setFlash('success', '¡Cambios realizados con exito!');
-            return $this->redirect(['/grupo/diagnostico', 'id_grupo' => $id_grupo]);
+            return $this->redirect(['view', 'idevaluacion' => $model->idevaluacion]);
         }
 
         return $this->render('update', [
@@ -114,33 +128,29 @@ class PerformanceController extends Controller
     }
 
     /**
-     * Deletes an existing Performance model.
+     * Deletes an existing Evaluacion model.
      * If deletion is successful, the browser will be redirected to the 'index' page.
-     * @param int $iddesempeño Iddesempeño
+     * @param int $idevaluacion Idevaluacion
      * @return \yii\web\Response
      * @throws NotFoundHttpException if the model cannot be found
      */
-    public function actionDelete($iddesempeño)
+    public function actionDelete($idevaluacion)
     {
-        $id_grupo = Yii::$app->request->get('id_grupo');
+        $this->findModel($idevaluacion)->delete();
 
-        $this->findModel($iddesempeño)->delete();
-
-        Yii::$app->session->setFlash('success', '¡Registro eliminado con exito!');
-
-        return $this->redirect(['/grupo/diagnostico', 'id_grupo'=>$id_grupo]);
+        return $this->redirect(['index']);
     }
 
     /**
-     * Finds the Performance model based on its primary key value.
+     * Finds the Evaluacion model based on its primary key value.
      * If the model is not found, a 404 HTTP exception will be thrown.
-     * @param int $iddesempeño Iddesempeño
-     * @return Performance the loaded model
+     * @param int $idevaluacion Idevaluacion
+     * @return Evaluacion the loaded model
      * @throws NotFoundHttpException if the model cannot be found
      */
-    protected function findModel($iddesempeño)
+    protected function findModel($idevaluacion)
     {
-        if (($model = Performance::findOne(['iddesempeño' => $iddesempeño])) !== null) {
+        if (($model = Evaluacion::findOne(['idevaluacion' => $idevaluacion])) !== null) {
             return $model;
         }
 

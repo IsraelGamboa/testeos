@@ -71,16 +71,22 @@ class LiberacionController extends Controller
 
      public function actionCreate()
      {
+        $id_grupo = Yii::$app->request->get('id_grupo');
+        
+        echo $id_grupo;
+
+
+
          if (Yii::$app->request->isPost) {
              $post = Yii::$app->request->post();
      
              // Datos del formulario
-             $data = $post['datos']; // Asegúrate de que 'datos' sea el nombre correcto del arreglo asociativo
+             $data = $post['datos']; 
      
              // Iterar a través de los datos del formulario
              foreach ($data['idevaluacion'] as $index => $idevaluacion) {
                  // Buscar el modelo existente por el ID
-                 $id = $idevaluacion; // Asegúrate de que 'idevaluacion' sea el nombre correcto del campo
+                 $id = $idevaluacion; 
                  $existingModel = Liberacion::findOne($id);
      
                  // Si no existe, crea un nuevo modelo
@@ -114,7 +120,7 @@ class LiberacionController extends Controller
              }
      
              // Redireccionar a la vista de la tabla u otra acción
-             return $this->redirect(['index']);
+             return $this->redirect(['grupo/liberacion', 'id_grupo' => $id_grupo]);
          }
      
          // Renderizar la vista del formulario

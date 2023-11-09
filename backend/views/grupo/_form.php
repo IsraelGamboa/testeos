@@ -46,7 +46,8 @@ if(isset($model->id_grupo)){
             'columns' => [
                 ['class' => 'yii\grid\SerialColumn'],
     
-                'idtutorado',
+                //'idtutorado',
+                'matricula',
                 'nombre',
                 'grupo_id_grupo',
                 [
@@ -79,6 +80,10 @@ if(isset($model->id_grupo)){
         echo Html::a('Diagnostico', ['grupo/diagnostico', 'id_grupo'=>$id_grupo], ['class' => 'btn btn-warning']);
         echo ' ';
         echo Html::a('Liberacion', ['grupo/liberacion', 'id_grupo'=>$id_grupo], ['class' => 'btn btn-info']);
+        echo ' ';
+        echo Html::a('Canalizacion', ['grupo/canalizacion', 'id_grupo'=>$id_grupo], ['class' => 'btn btn-danger']);
+        echo ' ';
+        echo Html::a('Evaluacion', ['grupo/evaluacion', 'id_grupo'=>$id_grupo], ['class' => 'btn btn-danger']);
 
 
     }else{

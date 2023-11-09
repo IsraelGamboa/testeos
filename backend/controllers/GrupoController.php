@@ -99,6 +99,34 @@ class GrupoController extends Controller
         ]);
     }
 
+    public function actionEvaluacion()
+    {
+        $id_grupo = Yii::$app->request->get('id_grupo');
+
+        $searchModel = new CriteriosSearch();
+        $dataProvider = $searchModel->search($this->request->queryParams);
+
+        $searchTutorado = new TutoradoSearch();
+        $dataTutorado = $searchTutorado->search(['TutoradoSearch' => ['grupo_id_grupo' => $id_grupo]]);
+
+        $liberacion = new Liberacion();
+
+        return $this->render('evaluacion', [
+            'model' => $this->findModel($id_grupo),
+            'searchModel' => $searchModel,
+            'dataProvider' => $dataProvider,
+            'searchTutorado' => $searchTutorado,
+            'dataTutorado' => $dataTutorado,
+            'liberacion' => $liberacion,
+        ]);
+    }
+
+
+    public function actionCanalizacion()
+    {
+        echo "hola";
+    }
+
     /**
      * Displays a single Grupo model.
      * @param int $id_grupo Id Grupo

@@ -4,12 +4,12 @@ namespace app\models\search;
 
 use yii\base\Model;
 use yii\data\ActiveDataProvider;
-use app\models\Tutorado;
+use app\models\Evaluacion;
 
 /**
- * TutoradoSearch represents the model behind the search form of `app\models\Tutorado`.
+ * EvaluacionSearch represents the model behind the search form of `app\models\Evaluacion`.
  */
-class TutoradoSearch extends Tutorado
+class EvaluacionSearch extends Evaluacion
 {
     /**
      * {@inheritdoc}
@@ -17,8 +17,7 @@ class TutoradoSearch extends Tutorado
     public function rules()
     {
         return [
-            [['idtutorado', 'grupo_id_grupo'], 'integer'],
-            [['nombre'], 'safe'],
+            [['idevaluacion', 'calificacion', 'tutorado_idtutorado', 'criterios_id_criterios'], 'integer'],
         ];
     }
 
@@ -40,9 +39,7 @@ class TutoradoSearch extends Tutorado
      */
     public function search($params)
     {
-
-        $query = Tutorado::find();
-
+        $query = Evaluacion::find();
 
         // add conditions that should always apply here
 
@@ -60,12 +57,11 @@ class TutoradoSearch extends Tutorado
 
         // grid filtering conditions
         $query->andFilterWhere([
-            'idtutorado' => $this->idtutorado,
-            'grupo_id_grupo' => $this->grupo_id_grupo,
+            'idevaluacion' => $this->idevaluacion,
+            'calificacion' => $this->calificacion,
+            'tutorado_idtutorado' => $this->tutorado_idtutorado,
+            'criterios_id_criterios' => $this->criterios_id_criterios,
         ]);
-
-        $query->andFilterWhere(['like', 'nombre', $this->nombre,
-        'like', 'matricula', $this->matricula]);
 
         return $dataProvider;
     }
