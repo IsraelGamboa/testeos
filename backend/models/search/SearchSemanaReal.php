@@ -17,7 +17,7 @@ class SearchSemanaReal extends SemanaReal
     public function rules()
     {
         return [
-            [['idsemana_real', 'orden_semana', 'sesion_grupal', 'sesion_no_grupal', 'tutorados_atendidos', 'faltas', 'total_grupo', 'hombres', 'mujeres', 'total_tutorados', 'semana_id_semana', 'tutor_id_tutor', 'pat_id_pat'], 'integer'],
+            [['idsemana_real', 'orden_semana', 'tipo_sesion', 'sesion', 'tutorados_atendidos', 'faltas_tutorados', 'total_grupo', 'hombres', 'mujeres', 'total_tutorados', 'semana_id_semana', 'tutor_id_tutor', 'pat_id_pat'], 'integer'],
             [['evidencias', 'observaciones'], 'safe'],
         ];
     }
@@ -66,10 +66,10 @@ class SearchSemanaReal extends SemanaReal
         $query->andFilterWhere([
             'idsemana_real' => $this->idsemana_real,
             'orden_semana' => $this->orden_semana,
-            'sesion_grupal' => $this->sesion_grupal,
-            'sesion_no_grupal' => $this->sesion_no_grupal,
+            'tipo_sesion' => $this->tipo_sesion,
+            'sesion' => $this->sesion,
             'tutorados_atendidos' => $this->tutorados_atendidos,
-            'faltas' => $this->faltas,
+            'faltas_tutorados' => $this->faltas_tutorados,
             'total_grupo' => $this->total_grupo,
             'hombres' => $this->hombres,
             'mujeres' => $this->mujeres,

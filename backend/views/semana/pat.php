@@ -33,34 +33,34 @@ if(isset($id_pat)){
 \yii\web\YiiAsset::register($this);
 ?>
 
+<table class="table-detail-semana w-100">
 
-<div class="semana bg-white my-3 mx-2">
-    <table class="table-detail-semana w-100">
+<tr style='height: 50px; text-align: center; background-color: #c5e0b3;'>
+    <th rowspan="2" class="p">Programada</th>
+    <th>Tipo de tutoria</th>
+    <th>Tematica</th>
+    <th>Objetivos</th>
+    <th>Justificacion</th>
+    <th>Estrategias del tutor</th>
+    <th>Acciones</th>
+    <th>Estrategias del tutorado</th>
+</tr>
 
-            <tr style='height: 50px; text-align: center; background-color: #c5e0b3;'>
-                <th rowspan="2" class="p">Programada</th>
-                <th>Tipo de tutoria</th>
-                <th>Tematica</th>
-                <th>Objetivos</th>
-                <th>Justificacion</th>
-                <th>Estrategias del tutor</th>
-                <th>Acciones</th>
-                <th>Estrategias del tutorado</th>
-            </tr>
+<?php
+    echo "<tr style='height: 200px;'>";
+        echo '<td><p class="a">' . $model->tipo_tutoria . '</p></td>';
+        echo '<td><p class="a">' . $model->tematica. '</p></td>';
+        echo '<td><p class="a">' . $model->objetivos . '</p></td>';
+        echo '<td><p class="a">' . $model->justificacion . '</p></td>';
+        echo '<td><p class="a">' . $model->estrategias_tutor . '</p></td>';
+        echo '<td><p class="a">' . $model->acciones . '</p></td>';
+        echo '<td><p class="a">' . $model->estrategias_tutorado . '</p></td>';
+    echo "<tr>";
 
-            <?php
-                echo "<tr style='height: 200px;'>";
-                    echo '<td><p class="a">' . $model->tipo_tutoria . '</p></td>';
-                    echo '<td><p class="a">' . $model->tematica. '</p></td>';
-                    echo '<td><p class="a">' . $model->objetivos . '</p></td>';
-                    echo '<td><p class="a">' . $model->justificacion . '</p></td>';
-                    echo '<td><p class="a">' . $model->estrategias_tutor . '</p></td>';
-                    echo '<td><p class="a">' . $model->acciones . '</p></td>';
-                    echo '<td><p class="a">' . $model->estrategias_tutorado . '</p></td>';
-                echo "<tr>";
+?>
+</table>
+<div class="table-responsive semana bg-white my-3 mx-2">
 
-            ?>
-    </table>
 
     <?= GridView::widget([
         'dataProvider' => $dataProvider,
@@ -70,10 +70,10 @@ if(isset($id_pat)){
 
             //'idsemana_real',
             'orden_semana',
-            'sesion_grupal',
-            'sesion_no_grupal',
+            'tipo_sesion',
+            'sesion',
             'tutorados_atendidos',
-            'faltas',
+            'faltas_tutorados',
             //'total_grupo',
             'hombres',
             'mujeres',

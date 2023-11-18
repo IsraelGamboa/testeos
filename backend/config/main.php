@@ -47,5 +47,8 @@ return [
         ],
         */
     ],
+    'aliases' => [
+        '@evidenciasPath' => 'C:/wamp64/www/Tutorias/testeos/backend/',
+    ],
     'params' => $params,
 ];

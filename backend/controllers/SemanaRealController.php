@@ -8,6 +8,7 @@ use yii\web\Controller;
 use yii\web\NotFoundHttpException;
 use yii\filters\VerbFilter;
 use Yii;
+use yii\web\UploadedFile;
 
 
 
@@ -68,31 +69,48 @@ class SemanaRealController extends Controller
      * If creation is successful, the browser will be redirected to the 'view' page.
      * @return string|\yii\web\Response
      */
+
+    // ...
+    
     public function actionCreate()
     {
         $model = new SemanaReal();
         $id_semana = Yii::$app->request->get('id_semana');
         $id_pat = Yii::$app->request->get('id_pat');
-        //$id_tutor = Yii::$app->request->get('id_tutor');
     
         $model->semana_id_semana = $id_semana;
-        //$model->tutor_id_tutor = $id_tutor;
         $model->pat_id_pat = $id_pat;
-
-        if ($this->request->isPost) {
-            if ($model->load($this->request->post()) && $model->save()) {
-                return $this->redirect(['/semana/pat', 'id_semana' => $id_semana, 'id_pat'=>$id_pat]);
-                /* return $this->redirect(['view', 'idsemana_real' => $model->idsemana_real]); */
+    
+        if (Yii::$app->request->isPost) {
+            $model->load(Yii::$app->request->post());
+            $evidencias = UploadedFile::getInstances($model, 'evidencias');
+    
+            if ($model->validate()) {
+                $rutaEvidencias = []; // Almacena las rutas de las imagenes
+    
+                foreach ($evidencias as $evidencia) {
+                    // Asigna nombre unico para evitar duplicaciones de la misma
+                    $imageName = 'evidencia_' . time() . '_' . Yii::$app->security->generateRandomString(10) . '.' .$evidencia->extension;
+    
+                    // Guarda la imagen en el servidor
+                    $ruta = '../img/evidencias/' . $imageName;
+                    $evidencia->saveAs($ruta);
+    
+                    // Guarda la ruta en el array
+                    $rutaEvidencias[] = $ruta;
+                }
+    
+                // Guarda las rutas en la BD
+                $model->evidencias = implode(',', $rutaEvidencias);
+    
+                if ($model->save()) {
+                    return $this->redirect(['semana/pat', 'id_semana' => $model->semana_id_semana, 'id_pat' => $model->pat_id_pat]);
+                }
             }
-        } else {
-            $model->loadDefaultValues();
         }
-
-        return $this->render('create', [
-            'model' => $model,
-        ]);
+    
+        return $this->render('create', ['model' => $model]);
     }
-
     /**
      * Updates an existing SemanaReal model.
      * If update is successful, the browser will be redirected to the 'view' page.
@@ -103,25 +121,64 @@ class SemanaRealController extends Controller
     public function actionUpdate($idsemana_real)
     {
         $model = $this->findModel($idsemana_real);
-
+    
         $id_semana = Yii::$app->request->get('id_semana');
         $id_pat = Yii::$app->request->get('id_pat');
-        //$id_tutor = Yii::$app->request->get('id_tutor');
-    
+        
         $model->semana_id_semana = $id_semana;
-        //$model->tutor_id_tutor = $id_tutor;
         $model->pat_id_pat = $id_pat;
-
-        //Redireccionar a la vista PAT de semanas programadas
-
-        if ($this->request->isPost && $model->load($this->request->post()) && $model->save()) {
-            return $this->redirect(['/semana/pat', 'id_semana' => $id_semana, 'id_pat'=>$id_pat]);
+    
+        // Guarda las imágenes existentes en una variable antes de cargar el modelo
+        $existingImages = explode(',', $model->evidencias);
+    
+        if ($model->load(Yii::$app->request->post())) {
+            // Procesa la carga de nuevas imágenes solo si se seleccionan
+            $newImages = UploadedFile::getInstances($model, 'evidencias');
+    
+            if (!empty($newImages)) {
+                // Procesa las nuevas imágenes y guarda las rutas en la base de datos
+                $rutaEvidencias = [];
+    
+                foreach ($newImages as $newImage) {
+                    $imageName = 'evidencia_' . time() . '_' . Yii::$app->security->generateRandomString(10) . '.' . $newImage->extension;
+                    $ruta = '../img/evidencias/' . $imageName;
+                    $newImage->saveAs($ruta);
+                    $rutaEvidencias[] = $ruta;
+                }
+    
+                // Combina las rutas existentes y las nuevas
+                $model->evidencias = implode(',', array_merge($existingImages, $rutaEvidencias));
+            }
+    
+            // Guarda el modelo con las imágenes actualizadas
+            if ($model->save()) {
+                return $this->redirect(['semana/pat', 'id_semana' => $model->semana_id_semana, 'id_pat' => $model->pat_id_pat]);
+            }
         }
-
+    
         return $this->render('update', [
             'model' => $model,
         ]);
     }
+
+
+    public function actionDeleteImage($idsemana_real, $img_name)
+    {
+        
+        $model = $this->findModel($idsemana_real);
+
+        $ruta = $model->evidencias;
+
+        $ruta = str_replace(',../img/evidencias/'. $img_name, '', $ruta);
+
+
+        $model->evidencias = $ruta;
+
+
+        echo json_encode($model->save());
+
+    }
+    
 
     /**
      * Deletes an existing SemanaReal model.

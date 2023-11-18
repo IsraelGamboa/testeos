@@ -38,10 +38,11 @@ if(isset($id_pat) && isset($id_semana)){
         'model' => $model,
         'attributes' => [
             'idsemana_real',
-            'sesion_grupal',
-            'sesion_no_grupal',
+            'orden_semana',
+            'tipo_sesion',
+            'sesion',
             'tutorados_atendidos',
-            'faltas',
+            'faltas_tutorados',
             'total_grupo',
             'hombres',
             'mujeres',
@@ -51,5 +52,21 @@ if(isset($id_pat) && isset($id_semana)){
             'semana_id_semana',
         ],
     ]) ?>
+
+    <!-- Test para mostrar las evidencias -->
+    <?php
+    $datas = explode(',', $model->evidencias);
+
+    foreach ($datas as $data) {
+        echo '<div data-aos="fade-up" class="myDiv col-lg-4 col-md-6 mb-4" style="background-color: #def7ff;">
+                <div class="package-item bg-white mb-2 mt-2">
+                    <div class="img-container">
+                        <img class="img-fluid img-card" src="' . $data . '" alt="">
+                    </div>
+                </div>
+            </div>';
+    }
+    ?>
+
 
 </div>

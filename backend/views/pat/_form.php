@@ -210,12 +210,14 @@ if(isset($model->id_pat)){
                                     $query = (new Query())
                                     
                                     ->select([
-                                        'SUM(semana_real.sesion_grupal) AS suma_grupal',
-                                        'SUM(semana_real.sesion_no_grupal) AS suma_no_grupal',
+                                        'SUM(CASE WHEN semana_real.tipo_sesion = 1 THEN 1 ELSE 0 END) AS suma_grupal',
+                                        'SUM(CASE WHEN semana_real.tipo_sesion = 0 THEN 1 ELSE 0 END) AS suma_individual',
+                                        'SUM(CASE WHEN semana_real.sesion = 1 THEN 1 ELSE 0 END) AS si_sesion',
+                                        'SUM(CASE WHEN semana_real.sesion = 0 THEN 1 ELSE 0 END) AS no_sesion',
                                         'SUM(semana_real.tutorados_atendidos) AS suma_tutorados',
                                         'SUM(semana_real.mujeres) AS suma_mujeres',
                                         'SUM(semana_real.hombres) AS suma_hombres',
-                                        'SUM(semana_real.faltas) AS suma_faltas',
+                                        'SUM(semana_real.faltas_tutorados) AS suma_faltas',
                                     ])
                                     ->from('semana')
                                     ->innerJoin('semana_real', 'semana.id_semana = semana_real.semana_id_semana')
@@ -227,23 +229,24 @@ if(isset($model->id_pat)){
                                     ])
                                     ->one();
 
-                                        echo '<td><input type="text" class="form-group form-group-sm col-8"  placeholder="0" value="'.$query["suma_grupal"].'" disabled></td>';
+                                    echo '<td><input type="text" class="form-group form-group-sm col-8"  placeholder="0" value="'.$query["suma_grupal"].'" disabled></td>';
 
-                                        echo '<td><input type="text" class="form-group form-group-sm col-8" placeholder="0" value="'.$query["suma_no_grupal"].'" disabled></td>';
-    
-                                        echo '<td><input type="text" class="form-group form-group-sm col-8" placeholder="0" value="'.$query["suma_tutorados"].'" disabled></td>';
-    
-                                        echo '<td><input type="text" class="form-group form-group-sm col-8" placeholder="0" value="'.$query["suma_mujeres"].'" disabled></td>';
-    
-                                        echo '<td><input type="text" class="form-group form-group-sm col-8" placeholder="0" value="'.$query["suma_hombres"].'" disabled></td>';
+                                    echo '<td><input type="text" class="form-group form-group-sm col-8" placeholder="0" value="'.$query["suma_individual"].'" disabled></td>';
 
-                                        echo '<td><input type="text" class="form-group form-group-sm col-8" placeholder="0" value="'.$query["suma_faltas"].'" disabled></td>';
+                                    echo '<td><input type="text" class="form-group form-group-sm col-8" placeholder="0" value="'.$query["no_sesion"].'" disabled></td>';
 
-                                        $nombresParcial = "Primera";
-                                        $inicio = 1;
-                                        $final = 6;
-                                        echo '<td>'.Html::a('PDF', ['site/report', 'id_pat'=>$id_pat, 'id_tutor'=>$id_tutor, 'parcial'=>$nombresParcial, 'inicio'=>$inicio, 'final'=>$final], ['class' => 'btn btn-info', 'target' => '_blank']).'</td>';
+                                    //echo '<td><input type="text" class="form-group form-group-sm col-8" placeholder="0" value="'.$query["suma_tutorados"].'" disabled></td>';
 
+                                    echo '<td><input type="text" class="form-group form-group-sm col-8" placeholder="0" value="'.$query["suma_mujeres"].'" disabled></td>';
+
+                                    echo '<td><input type="text" class="form-group form-group-sm col-8" placeholder="0" value="'.$query["suma_hombres"].'" disabled></td>';
+
+                                    echo '<td><input type="text" class="form-group form-group-sm col-8" placeholder="0" value="'.$query["suma_faltas"].'" disabled></td>';
+
+                                    $nombresParcial = "Primera";
+                                    $inicio = 1;
+                                    $final = 6;
+                                    echo '<td>'.Html::a('PDF', ['site/report', 'id_pat'=>$id_pat, 'id_tutor'=>$id_tutor, 'parcial'=>$nombresParcial, 'inicio'=>$inicio, 'final'=>$final], ['class' => 'btn btn-info', 'target' => '_blank']).'</td>';
 
                                 ?>
 
@@ -262,42 +265,6 @@ if(isset($model->id_pat)){
                                 </tr>
                                 <tr>
                                     <?php
-                                    $query = (new Query())
-                                    ->select([
-                                        'SUM(semana_real.sesion_grupal) AS suma_grupal',
-                                        'SUM(semana_real.sesion_no_grupal) AS suma_no_grupal',
-                                        'SUM(semana_real.tutorados_atendidos) AS suma_tutorados',
-                                        'SUM(semana_real.mujeres) AS suma_mujeres',
-                                        'SUM(semana_real.hombres) AS suma_hombres',
-                                        'SUM(semana_real.faltas) AS suma_faltas',
-                                    ])
-                                    ->from('semana')
-                                    ->innerJoin('semana_real', 'semana.id_semana = semana_real.semana_id_semana')
-                                    ->where([
-                                        'and',
-                                        ['between', 'semana_real.orden_semana', 7, 11],
-                                        ['semana_real.pat_id_pat' => $id_pat],
-                                        ['semana_real.tutor_id_tutor' => $id_tutor],
-                                    ])
-                                    ->one();
-
-                                    echo '<td><input type="text" class="form-group form-group-sm col-8" placeholder="0" value="'.$query["suma_grupal"].'" disabled></td>';
-
-                                    echo '<td><input type="text" class="form-group form-group-sm col-8" placeholder="0" value="'.$query["suma_no_grupal"].'" disabled></td>';
-
-                                    echo '<td><input type="text" class="form-group form-group-sm col-8" placeholder="0" value="'.$query["suma_tutorados"].'" disabled></td>';
-
-                                    echo '<td><input type="text" class="form-group form-group-sm col-8" placeholder="0" value="'.$query["suma_mujeres"].'" disabled></td>';
-
-                                    echo '<td><input type="text" class="form-group form-group-sm col-8" placeholder="0" value="'.$query["suma_hombres"].'" disabled></td>';
-
-                                    echo '<td><input type="text" class="form-group form-group-sm col-6" placeholder="0" value="'.$query["suma_faltas"].'" disabled></td>';
-
-
-                                    $nombresParcial = "Segunda";
-                                    $inicio = 7;
-                                    $final = 11;
-                                    echo '<td>'.Html::a('PDF', ['site/report', 'id_pat'=>$id_pat, 'id_tutor'=>$id_tutor, 'parcial'=>$nombresParcial, 'inicio'=>$inicio, 'final'=>$final], ['class' => 'btn btn-info', 'target' => '_blank']).'</td>';
 
                                     ?>
 
@@ -316,42 +283,6 @@ if(isset($model->id_pat)){
                                 </tr>
                                 <tr>
                                 <?php
-                                    $query = (new Query())
-                                    ->select([
-                                        'SUM(semana_real.sesion_grupal) AS suma_grupal',
-                                        'SUM(semana_real.sesion_no_grupal) AS suma_no_grupal',
-                                        'SUM(semana_real.tutorados_atendidos) AS suma_tutorados',
-                                        'SUM(semana_real.mujeres) AS suma_mujeres',
-                                        'SUM(semana_real.hombres) AS suma_hombres',
-                                        'SUM(semana_real.faltas) AS suma_faltas',
-                                    ])
-                                    ->from('semana')
-                                    ->innerJoin('semana_real', 'semana.id_semana = semana_real.semana_id_semana')
-                                    ->where([
-                                        'and',
-                                        ['between', 'semana_real.orden_semana', 12, 17],
-                                        ['semana_real.pat_id_pat' => $id_pat],
-                                        ['semana_real.tutor_id_tutor' => $id_tutor],
-                                    ])
-                                    ->one();
-
-
-                                    echo '<td><input type="text" class="form-group form-group-sm col-8" placeholder="0" value="'.$query["suma_grupal"].'" disabled></td>';
-
-                                    echo '<td><input type="text" class="form-group form-group-sm col-8" placeholder="0" value="'.$query["suma_no_grupal"].'" disabled></td>';
-
-                                    echo '<td><input type="text" class="form-group form-group-sm col-8" placeholder="0" value="'.$query["suma_tutorados"].'" disabled></td>';
-
-                                    echo '<td><input type="text" class="form-group form-group-sm col-8" placeholder="0" value="'.$query["suma_mujeres"].'" disabled></td>';
-
-                                    echo '<td><input type="text" class="form-group form-group-sm col-8" placeholder="0" value="'.$query["suma_hombres"].'" disabled></td>';
-
-                                    echo '<td><input type="text" class="form-group form-group-sm col-6" placeholder="0" value="'.$query["suma_faltas"].'" disabled></td>';
-
-                                    $nombresParcial = "Tercera";
-                                    $inicio = 12;
-                                    $final = 17;
-                                    echo '<td>'.Html::a('PDF', ['site/report', 'id_pat'=>$id_pat, 'id_tutor'=>$id_tutor, 'parcial'=>$nombresParcial, 'inicio'=>$inicio, 'final'=>$final], ['class'=> 'btn btn-info', 'target' => '_blank']).'</td>';
 
                                     ?>
                                 </tr>
@@ -360,44 +291,7 @@ if(isset($model->id_pat)){
                                 <tr>
                                     <th>Total</th>
                                     <?php
-                                    $query = (new Query())
-                                    ->select([
-                                        'SUM(semana_real.sesion_grupal) AS suma_grupal',
-                                        'SUM(semana_real.sesion_no_grupal) AS suma_no_grupal',
-                                        'SUM(semana_real.tutorados_atendidos) AS suma_tutorados',
-                                        'SUM(semana_real.mujeres) AS suma_mujeres',
-                                        'SUM(semana_real.hombres) AS suma_hombres',
-                                        'SUM(semana_real.faltas) AS suma_faltas',
-                                    ])
-                                    ->from('semana')
-                                    ->innerJoin('semana_real', 'semana.id_semana = semana_real.semana_id_semana')
-                                    ->where([
-                                        'and',
-                                        ['between', 'semana_real.orden_semana', 1, 17],
-                                        ['semana_real.pat_id_pat' => $id_pat],
-                                        ['semana_real.tutor_id_tutor' => $id_tutor],
-                                    ])
-                                    ->one();
-                                    '<tr>';
 
-                                    echo '<td><input type="text" class="form-group form-group-sm col-8" placeholder="0" value="'.$query["suma_grupal"].'" disabled></td>';
-
-                                    echo '<td><input type="text" class="form-group form-group-sm col-8" placeholder="0" value="'.$query["suma_no_grupal"].'" disabled></td>';
-
-                                    echo '<td><input type="text" class="form-group form-group-sm col-8" placeholder="0" value="'.$query["suma_tutorados"].'" disabled></td>';
-
-                                    echo '<td><input type="text" class="form-group form-group-sm col-9" placeholder="0" value="'.$query["suma_mujeres"].'" disabled></td>';
-
-                                    echo '<td><input type="text" class="form-group form-group-sm col-9" placeholder="0" value="'.$query["suma_hombres"].'" disabled></td>';
-
-                                    echo '<td><input type="text" class="form-group form-group-sm col-9" placeholder="0" value="'.$query["suma_faltas"].'" disabled></td>';
-                                    '</tr>';
-
- /*                                    $nombresParcial = "Segunda";
-                                    $inicio = 1;
-                                    $final = 17;
-                                    echo '<td>'.Html::a('PDF', ['site/pdf', 'id_pat'=>$id_pat, 'id_tutor'=>$id_tutor, 'parcial'=>$nombresParcial, 'inicio'=>$inicio, 'final'=>$final], ['class' => 'btn btn-info']).'</td>';
- */
                                     ?>
                                 </tr>
                             </tbody>
@@ -406,9 +300,6 @@ if(isset($model->id_pat)){
 
 
 
-    <div class="text-center ">
-        <?= Html::a('Generar reporte final', ['site/pdf', 'id_pat'=>$id_pat, 'id_tutor'=>$id_tutor, 'parcial'=>$nombresParcial, 'inicio'=>1, 'final'=>17], ['class' => 'btn btn-info', 'target' => '_blank']) ?>
-    </div>
         <?php } ?>
 </div>
 
