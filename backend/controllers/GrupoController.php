@@ -5,6 +5,9 @@ namespace backend\controllers;
 use app\models\Liberacion;
 use app\models\search\LiberacionSearch;
 
+use app\models\Canalizacion;
+use app\models\search\CanalizacionSearch;
+
 use app\models\Motivo;
 use app\models\Grupo;
 use app\models\search\GrupoSearch;
@@ -77,6 +80,20 @@ class GrupoController extends Controller
         ]);
     }
 
+    public function actionCanalizacion()
+    {
+        $id_grupo = Yii::$app->request->get('id_grupo');
+
+        $searchModel = new CanalizacionSearch();
+        $dataProvider = $searchModel->search(['CanalizacionSearch' => ['grupo_id_grupo' => $id_grupo]]);
+
+        return $this->render('canalizacion', [
+            'model' => $this->findModel($id_grupo),
+            'searchModel' => $searchModel,
+            'dataProvider' => $dataProvider,
+        ]);
+    }
+
     public function actionLiberacion()
     {
         $id_grupo = Yii::$app->request->get('id_grupo');
@@ -121,11 +138,6 @@ class GrupoController extends Controller
         ]);
     }
 
-
-    public function actionCanalizacion()
-    {
-        echo "hola";
-    }
 
     /**
      * Displays a single Grupo model.

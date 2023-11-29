@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "9abff96b3b324817cf3f6ac69314d672",
+    "content-hash": "5f802d8f9fc5d70cefa8bb9ecd479814",
     "packages": [
         {
             "name": "bower-asset/inputmask",
@@ -1436,12 +1436,12 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/yiisoft/yii2-framework.git",
-                "reference": "94e83d3cebaa0b3c0825ea70bb3fc6a4e1ceb658"
+                "reference": "ba9fe410d46bed3d85ee696d5ca05944e4011296"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/yiisoft/yii2-framework/zipball/94e83d3cebaa0b3c0825ea70bb3fc6a4e1ceb658",
-                "reference": "94e83d3cebaa0b3c0825ea70bb3fc6a4e1ceb658",
+                "url": "https://api.github.com/repos/yiisoft/yii2-framework/zipball/ba9fe410d46bed3d85ee696d5ca05944e4011296",
+                "reference": "ba9fe410d46bed3d85ee696d5ca05944e4011296",
                 "shasum": ""
             },
             "require": {
@@ -1551,7 +1551,7 @@
                     "type": "tidelift"
                 }
             ],
-            "time": "2023-11-13T20:26:41+00:00"
+            "time": "2023-11-23T15:09:35+00:00"
         },
         {
             "name": "yiisoft/yii2-bootstrap4",
@@ -1736,12 +1736,12 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/yiisoft/yii2-swiftmailer.git",
-                "reference": "2472a3886b50d398c67dad9cd463d69a30174a82"
+                "reference": "c2f4b1e9b6fb6728a31b0dbea912c45e8a1b665f"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/yiisoft/yii2-swiftmailer/zipball/2472a3886b50d398c67dad9cd463d69a30174a82",
-                "reference": "2472a3886b50d398c67dad9cd463d69a30174a82",
+                "url": "https://api.github.com/repos/yiisoft/yii2-swiftmailer/zipball/c2f4b1e9b6fb6728a31b0dbea912c45e8a1b665f",
+                "reference": "c2f4b1e9b6fb6728a31b0dbea912c45e8a1b665f",
                 "shasum": ""
             },
             "require": {
@@ -1795,7 +1795,7 @@
             ],
             "support": {
                 "forum": "http://www.yiiframework.com/forum/",
-                "irc": "irc://irc.freenode.net/yii",
+                "irc": "ircs://irc.libera.chat:6697/yii",
                 "issues": "https://github.com/yiisoft/yii2-swiftmailer/issues",
                 "source": "https://github.com/yiisoft/yii2-swiftmailer",
                 "wiki": "http://www.yiiframework.com/wiki/"
@@ -1814,7 +1814,7 @@
                     "type": "tidelift"
                 }
             ],
-            "time": "2021-12-30T08:48:58+00:00"
+            "time": "2023-11-28T16:19:22+00:00"
         }
     ],
     "packages-dev": [
@@ -3058,6 +3058,69 @@
                 "source": "https://github.com/kartik-v/yii2-editable/tree/v1.8.0"
             },
             "time": "2022-04-29T12:51:01+00:00"
+        },
+        {
+            "name": "kartik-v/yii2-editors",
+            "version": "dev-master",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/kartik-v/yii2-editors.git",
+                "reference": "529cff31afda936ac5c98d7f9c53bb01c4452419"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/kartik-v/yii2-editors/zipball/529cff31afda936ac5c98d7f9c53bb01c4452419",
+                "reference": "529cff31afda936ac5c98d7f9c53bb01c4452419",
+                "shasum": ""
+            },
+            "require": {
+                "kartik-v/yii2-krajee-base": ">=3.0.0"
+            },
+            "default-branch": true,
+            "type": "yii2-extension",
+            "extra": {
+                "branch-alias": {
+                    "dev-master": "1.0.x-dev"
+                }
+            },
+            "autoload": {
+                "psr-4": {
+                    "kartik\\editors\\": "src"
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "BSD-3-Clause"
+            ],
+            "authors": [
+                {
+                    "name": "Kartik Visweswaran",
+                    "email": "kartikv2@gmail.com",
+                    "homepage": "http://www.krajee.com/"
+                }
+            ],
+            "description": "Editor widgets Yii2 framework. Summernote WYSIWYG editor, Codemirror code editor and PlainText editor for Bootstrap 3.x, 4.x and 5.x.",
+            "homepage": "https://github.com/kartik-v/yii2-editors",
+            "keywords": [
+                "bootstrap",
+                "code",
+                "codemirror",
+                "editor",
+                "extension",
+                "file",
+                "html",
+                "input",
+                "rich",
+                "summernote",
+                "widget",
+                "wysiwyg",
+                "yii2"
+            ],
+            "support": {
+                "issues": "https://github.com/kartik-v/yii2-editors/issues",
+                "source": "https://github.com/kartik-v/yii2-editors/tree/v1.0.1"
+            },
+            "time": "2021-09-03T07:40:00+00:00"
         },
         {
             "name": "kartik-v/yii2-grid",
@@ -4861,12 +4924,12 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/sebastianbergmann/phpunit.git",
-                "reference": "ff26331f8fb0deeba45855585d736e0489b884e3"
+                "reference": "9c1ff0a94aa46127313ac13702f9fdd55320d839"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/sebastianbergmann/phpunit/zipball/ff26331f8fb0deeba45855585d736e0489b884e3",
-                "reference": "ff26331f8fb0deeba45855585d736e0489b884e3",
+                "url": "https://api.github.com/repos/sebastianbergmann/phpunit/zipball/9c1ff0a94aa46127313ac13702f9fdd55320d839",
+                "reference": "9c1ff0a94aa46127313ac13702f9fdd55320d839",
                 "shasum": ""
             },
             "require": {
@@ -4951,7 +5014,7 @@
                     "type": "tidelift"
                 }
             ],
-            "time": "2023-11-12T09:29:06+00:00"
+            "time": "2023-11-28T08:22:23+00:00"
         },
         {
             "name": "psr/container",
@@ -5895,12 +5958,12 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/select2/select2.git",
-                "reference": "4de1d236e602149a5c78d35899b49b3989b94107"
+                "reference": "ed1761a7f6e88c8c5d305e7022fecb264d2271ab"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/select2/select2/zipball/4de1d236e602149a5c78d35899b49b3989b94107",
-                "reference": "4de1d236e602149a5c78d35899b49b3989b94107",
+                "url": "https://api.github.com/repos/select2/select2/zipball/ed1761a7f6e88c8c5d305e7022fecb264d2271ab",
+                "reference": "ed1761a7f6e88c8c5d305e7022fecb264d2271ab",
                 "shasum": ""
             },
             "default-branch": true,
@@ -5940,7 +6003,7 @@
                     "type": "open_collective"
                 }
             ],
-            "time": "2023-03-10T02:35:43+00:00"
+            "time": "2023-11-15T01:07:11+00:00"
         },
         {
             "name": "symfony/browser-kit",
@@ -6008,12 +6071,12 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/symfony/console.git",
-                "reference": "11ac5f154e0e5c4c77af83ad11ead9165280b92a"
+                "reference": "c70df1ffaf23a8d340bded3cfab1b86752ad6ed7"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/symfony/console/zipball/11ac5f154e0e5c4c77af83ad11ead9165280b92a",
-                "reference": "11ac5f154e0e5c4c77af83ad11ead9165280b92a",
+                "url": "https://api.github.com/repos/symfony/console/zipball/c70df1ffaf23a8d340bded3cfab1b86752ad6ed7",
+                "reference": "c70df1ffaf23a8d340bded3cfab1b86752ad6ed7",
                 "shasum": ""
             },
             "require": {
@@ -6099,7 +6162,7 @@
                     "type": "tidelift"
                 }
             ],
-            "time": "2023-10-31T07:58:33+00:00"
+            "time": "2023-11-18T18:23:04+00:00"
         },
         {
             "name": "symfony/css-selector",
@@ -6931,12 +6994,12 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/symfony/string.git",
-                "reference": "2765096c03f39ddf54f6af532166e42aaa05b24b"
+                "reference": "91bf4453d65d8231688a04376c3a40efe0770f04"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/symfony/string/zipball/2765096c03f39ddf54f6af532166e42aaa05b24b",
-                "reference": "2765096c03f39ddf54f6af532166e42aaa05b24b",
+                "url": "https://api.github.com/repos/symfony/string/zipball/91bf4453d65d8231688a04376c3a40efe0770f04",
+                "reference": "91bf4453d65d8231688a04376c3a40efe0770f04",
                 "shasum": ""
             },
             "require": {
@@ -7009,7 +7072,7 @@
                     "type": "tidelift"
                 }
             ],
-            "time": "2023-11-09T08:19:44+00:00"
+            "time": "2023-11-26T13:43:46+00:00"
         },
         {
             "name": "symfony/yaml",
@@ -7088,16 +7151,16 @@
         },
         {
             "name": "theseer/tokenizer",
-            "version": "1.2.1",
+            "version": "1.2.2",
             "source": {
                 "type": "git",
                 "url": "https://github.com/theseer/tokenizer.git",
-                "reference": "34a41e998c2183e22995f158c581e7b5e755ab9e"
+                "reference": "b2ad5003ca10d4ee50a12da31de12a5774ba6b96"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/theseer/tokenizer/zipball/34a41e998c2183e22995f158c581e7b5e755ab9e",
-                "reference": "34a41e998c2183e22995f158c581e7b5e755ab9e",
+                "url": "https://api.github.com/repos/theseer/tokenizer/zipball/b2ad5003ca10d4ee50a12da31de12a5774ba6b96",
+                "reference": "b2ad5003ca10d4ee50a12da31de12a5774ba6b96",
                 "shasum": ""
             },
             "require": {
@@ -7126,7 +7189,7 @@
             "description": "A small library for converting tokenized PHP source code into XML and potentially other formats",
             "support": {
                 "issues": "https://github.com/theseer/tokenizer/issues",
-                "source": "https://github.com/theseer/tokenizer/tree/1.2.1"
+                "source": "https://github.com/theseer/tokenizer/tree/1.2.2"
             },
             "funding": [
                 {
@@ -7134,7 +7197,7 @@
                     "type": "github"
                 }
             ],
-            "time": "2021-07-28T10:34:58+00:00"
+            "time": "2023-11-20T00:12:19+00:00"
         },
         {
             "name": "yiisoft/yii2-debug",
@@ -7405,7 +7468,8 @@
         "kartik-v/yii2-bootstrap4-dropdown": 20,
         "kartik-v/yii2-editable": 20,
         "kartik-v/bootstrap-fileinput": 20,
-        "kartik-v/yii2-widgets": 20
+        "kartik-v/yii2-widgets": 20,
+        "kartik-v/yii2-editors": 20
     },
     "prefer-stable": false,
     "prefer-lowest": false,

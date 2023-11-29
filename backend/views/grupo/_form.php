@@ -77,13 +77,13 @@ if(isset($model->id_grupo)){
 
         echo Html::a('Añadir alumno', ['tutorado/create'], ['class' => 'btn btn-success']);
         echo ' ';
-        echo Html::a('Diagnostico', ['grupo/diagnostico', 'id_grupo'=>$id_grupo], ['class' => 'btn btn-warning']);
+        echo Html::a('Diagnostico', ['grupo/diagnostico', 'id_grupo'=>$id_grupo], ['class' => 'btn btn-success']);
+        /* echo ' ';
+        echo Html::a('Liberacion', ['grupo/liberacion', 'id_grupo'=>$id_grupo], ['class' => 'btn btn-info']); */
         echo ' ';
-        echo Html::a('Liberacion', ['grupo/liberacion', 'id_grupo'=>$id_grupo], ['class' => 'btn btn-info']);
+        echo Html::a('Canalizacion', ['grupo/canalizacion', 'id_grupo'=>$id_grupo], ['class' => 'btn btn-success']);
         echo ' ';
-        echo Html::a('Canalizacion', ['grupo/canalizacion', 'id_grupo'=>$id_grupo], ['class' => 'btn btn-danger']);
-        echo ' ';
-        echo Html::a('Evaluacion', ['grupo/evaluacion', 'id_grupo'=>$id_grupo], ['class' => 'btn btn-danger']);
+        echo Html::a('Evaluacion', ['grupo/evaluacion', 'id_grupo'=>$id_grupo], ['class' => 'btn btn-success']);
 
 
     }else{

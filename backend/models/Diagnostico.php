@@ -81,4 +81,12 @@ class Diagnostico extends \yii\db\ActiveRecord
         return $this->hasOne(Motivo::class, ['id_motivo' => 'motivo_id_motivo']);
     }
 
+    public function getMotivos()
+    {
+        $list = Tutorado::findAll();
+        
+        return ArrayHelper::map($list,'id_motivo','nombre');
+    }
+
+
 }

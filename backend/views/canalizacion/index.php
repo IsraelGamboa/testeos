@@ -12,16 +12,13 @@ use yii\grid\GridView;
 
 $this->title = 'Canalizacions';
 $this->params['breadcrumbs'][] = $this->title;
-
-$id_grupo = Yii::$app->request->get('id_grupo');
-
 ?>
 <div class="canalizacion-index">
 
     <h1><?= Html::encode($this->title) ?></h1>
 
     <p>
-        <?= Html::a('Create Canalizacion', ['/canalizacion/create', 'id_grupo'=>$id_grupo], ['class' => 'btn btn-success']) ?>
+        <?= Html::a('Create Canalizacion', ['create'], ['class' => 'btn btn-success']) ?>
     </p>
 
     <?php // echo $this->render('_search', ['model' => $searchModel]); ?>
@@ -33,7 +30,6 @@ $id_grupo = Yii::$app->request->get('id_grupo');
             ['class' => 'yii\grid\SerialColumn'],
 
             //'idcanalizacion',
-            //Llave de obtencion de nombre por id
             [
                 'attribute'=>'id_tutorado',
                 'content'=> function($model){
@@ -41,14 +37,20 @@ $id_grupo = Yii::$app->request->get('id_grupo');
                 }
             ],
             'asunto:html',
-            //'cuerpo:html',
+            'cuerpo:html',
             'estado',
             //'grupo_id_grupo',
+            //Solo funciona en gridview, para el detailview es distinto
+            [
+                'attribute'=>'grupo_id_grupo',
+                'content'=> function($model){
+                    return $model->grupoIdGrupo->nombre;
+                }
+            ],
             [
                 'class' => ActionColumn::className(),
                 'urlCreator' => function ($action, Canalizacion $model, $key, $index, $column) {
-                    //forma optima de optencion de URL
-                    return Url::toRoute(['/canalizacion/'.$action, 'idcanalizacion' => $model->idcanalizacion]);
+                    return Url::toRoute([$action, 'idcanalizacion' => $model->idcanalizacion]);
                  }
             ],
         ],
