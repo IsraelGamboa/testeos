@@ -38,11 +38,11 @@ class SearchSemanaReal extends SemanaReal
      *
      * @return ActiveDataProvider
      */
-    public function search($params, $semana_id_semana = null)
+    public function search($params, $tutor_id_tutor = null)
     {
 
-        if($semana_id_semana){
-            $query = SemanaReal::find()->where(['semana_id_semana' => $semana_id_semana]);
+        if($tutor_id_tutor){
+            $query = SemanaReal::find()->where(['tutor_id_tutor' => $tutor_id_tutor]);
         }else{
             $query = SemanaReal::find();
         }

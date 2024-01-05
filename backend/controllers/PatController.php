@@ -6,6 +6,7 @@ use app\models\Pat;
 use app\models\search\SearchPat;
 use app\models\search\SearchSemestre;
 use app\models\search\SearchSemana;
+use app\models\search\SearchSemanaReal;
 use yii\web\Controller;
 use yii\web\NotFoundHttpException;
 use yii\filters\VerbFilter;
@@ -68,20 +69,47 @@ class PatController extends Controller
         $dataProvider = $searchModel->search($this->request->queryParams); */
 
         // Encontrar el modelo Pat en función del ID proporcionado
+
+
         $model = $this->findModel($id_pat);
+
+        $id_tutor = 1;
 
         // Cargar el modelo de búsqueda de semanas relacionadas
         $searchModel = new SearchSemana();
+
+        $searchReal = new SearchSemanaReal();
     
         // Realizar la búsqueda de las semanas relacionadas con este Pat
+        $dataReal = $searchReal->search(['SearchSemanaReal' => ['tutor_id_tutor' => $id_tutor]]);
+
+        // Realizar la búsqueda de las semanas reales relacionadas con este Pat
         $dataProvider = $searchModel->search(['SearchSemana' => ['pat_id_pat' => $id_pat]]);
 
-        return $this->render('view', [
+
+
+/*         return $this->render('view', [
             'model' => $this->findModel($id_pat),
             'searchModel' => $searchModel,
             'dataProvider' => $dataProvider,
+            'dataReal' => $dataReal,
+
+        ]); */
+
+
+        $filename =  time() . ".xls";
+        header("Content-Type: application/vnd.ms-excel");
+        header("Content-Disposition: attachment; filename=\"$filename\"");
+        
+        echo $this->renderPartial('view', [
+            'model' => $this->findModel($id_pat),
+            'searchModel' => $searchModel,
+            'dataProvider' => $dataProvider,
+            'dataReal' => $dataReal,
 
         ]);
+
+        exit;
     }
 
         /**
